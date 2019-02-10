@@ -19,7 +19,7 @@ class Footer extends Component {
                     <div className="video-gallery text-center">
                       <a href="#">
                         <div className="iframe-img">
-                          <img src="images/home/iframe1.jpg" alt="" />
+                          <img src="../images/home/iframe1.jpg" alt="" />
                         </div>
                         <div className="overlay-icon">
                           <i className="fa fa-play-circle-o"></i>
@@ -34,7 +34,7 @@ class Footer extends Component {
                     <div className="video-gallery text-center">
                       <a href="#">
                         <div className="iframe-img">
-                          <img src="images/home/iframe2.jpg" alt="" />
+                          <img src="../images/home/iframe2.jpg" alt="" />
                         </div>
                         <div className="overlay-icon">
                           <i className="fa fa-play-circle-o"></i>
@@ -49,7 +49,7 @@ class Footer extends Component {
                     <div className="video-gallery text-center">
                       <a href="#">
                         <div className="iframe-img">
-                          <img src="images/home/iframe3.jpg" alt="" />
+                          <img src="../images/home/iframe3.jpg" alt="" />
                         </div>
                         <div className="overlay-icon">
                           <i className="fa fa-play-circle-o"></i>
@@ -64,7 +64,7 @@ class Footer extends Component {
                     <div className="video-gallery text-center">
                       <a href="#">
                         <div className="iframe-img">
-                          <img src="images/home/iframe4.jpg" alt="" />
+                          <img src="../images/home/iframe4.jpg" alt="" />
                         </div>
                         <div className="overlay-icon">
                           <i className="fa fa-play-circle-o"></i>
@@ -77,7 +77,7 @@ class Footer extends Component {
                 </div>
                 <div className="col-sm-3">
                   <div className="address">
-                    <img src="images/home/map.png" alt="" />
+                    <img src="../images/home/map.png" alt="" />
                     <p>Sudirman, Jakarta Pusat, DKI Jakarta</p>
                   </div>
                 </div>

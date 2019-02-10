@@ -1,79 +1,70 @@
 import React, { Component } from 'react';
+import axios from 'axios'
 
 class Label extends Component {
+  state = {
+    artistproducts: [],
+    category: []
+  }
+  
+  componentDidMount(){
+  var linkartist = 'http://localhost:3210/artistproducts'
+  var linkcategory = 'http://localhost:3210/category'
+
+  axios.get(linkartist)
+  .then((x)=>{
+      this.setState({
+          artistproducts: x.data
+      })
+      console.log(x.data)
+  })
+
+  axios.get(linkcategory)
+  .then((x)=>{
+      this.setState({
+          category: x.data
+      })
+      console.log(x.data)
+  })
+
+  }
+
   render() {
+    var artistproducts = this.state.artistproducts.map((val, i)=>{
+      var artist = val.artist
+      var artistcount = val.artistcount
+
+      return(
+        <li><a href={`/artist/${artist}`}> <span className="pull-right">({artistcount})</span>{artist}</a></li>
+      )
+    })
+
+    var category = this.state.category.map((val, i)=>{
+      var id_category = val.id_category
+      var category_name = val.category_name
+
+      return(
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <h4 className="panel-title"><a href={`/category/${id_category}`}>{category_name}</a></h4>
+          </div>
+        </div>
+      )
+    })
     return (
         <div>
             <div className="col-sm-3">
               <div className="left-sidebar">
                 <h2>Category</h2>
                 <div className="panel-group category-products" id="accordian">{/*category-productsr*/}
-                  <div className="panel panel-default">
-                    <div className="panel-heading">
-                      <h4 className="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-                          <span className="badge pull-right"><i className="fa fa-plus"></i></span>
-                          Single
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="sportswear" className="panel-collapse collapse">
-                      <div className="panel-body">
-                        <ul>
-                          <li><a href="#">Regular Edition</a></li>
-                          <li><a href="#">Limited Edition</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="panel panel-default">
-                    <div className="panel-heading">
-                      <h4 className="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordian" href="#mens">
-                          <span className="badge pull-right"><i className="fa fa-plus"></i></span>
-                          Album
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="mens" className="panel-collapse collapse">
-                      <div className="panel-body">
-                        <ul>
-                          <li><a href="#">Regular Edition</a></li>
-                          <li><a href="#">Limited Edition</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="panel panel-default">
-                    <div className="panel-heading">
-                      <h4 className="panel-title"><a href="#">DVD/Blu-ray</a></h4>
-                    </div>
-                  </div>
-                  <div className="panel panel-default">
-                    <div className="panel-heading">
-                      <h4 className="panel-title"><a href="#">Goods</a></h4>
-                    </div>
-                  </div>
-                  <div className="panel panel-default">
-                    <div className="panel-heading">
-                      <h4 className="panel-title"><a href="#">Photobook</a></h4>
-                    </div>
-                  </div>
-                  
+                  {category}
                 </div>{/*/category-products*/}
               
                 <div className="brands_products">{/*brands_products*/}
                   <h2>Artists</h2>
                   <div className="brands-name">
                     <ul className="nav nav-pills nav-stacked">
-                      <li><a href="#"> <span className="pull-right">(50)</span>AAA</a></li>
-                      <li><a href="#"> <span className="pull-right">(78)</span>Arashi</a></li>
-                      <li><a href="#"> <span className="pull-right">(27)</span>BACK-ON</a></li>
-                      <li><a href="#"> <span className="pull-right">(35)</span>Beverly</a></li>
-                      <li><a href="#"> <span className="pull-right">(9)</span>COLOR CREATION</a></li>
-                      <li><a href="#"> <span className="pull-right">(27)</span>EXILE</a></li>
-                      <li><a href="#"> <span className="pull-right">(40)</span>SPYAIR</a></li>
+                      {artistproducts}  
                     </ul>
                   </div>
                 </div>{/*/brands_products*/}
@@ -89,7 +80,7 @@ class Label extends Component {
                 {/*/price-range*/}
                 
                 <div className="shipping text-center">{/*shipping*/}
-                  <img src="images/home/shipping.jpg" width="270px" height="360px" alt="" />
+                  <img src="../images/home/shipping.jpg" width="270px" height="360px" alt="" />
                 </div>{/*/shipping*/}
               
               </div>

@@ -8,7 +8,8 @@ class Shop extends Component {
       }
       
       componentDidMount(){
-      var link = 'http://localhost:3210/product'
+      var category = this.props.location.pathname.slice(10)
+      var link = `http://localhost:3210/category/${category}`
     
       axios.get(link)
       .then((x)=>{

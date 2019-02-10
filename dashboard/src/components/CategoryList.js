@@ -6,53 +6,33 @@ import Sidebar from './Sidebar';
 
 class Tables extends Component {
     state = {
-        users: []
+        category: []
     }
     componentDidMount(){
-    var link = 'http://localhost:3210/users'
+    var link = 'http://localhost:3210/category'
 
     axios.get(link)
     .then((x)=>{
         this.setState({
-            users: x.data
+            category: x.data
         })
         console.log(x.data)
     })
     .catch()
   }
 
-  deleteData = (e) =>{
-    var link = `http://localhost:3210/users/${e}`
-
-    axios.delete(link)
-    .then((x)=>{
-        console.log(x)
-    })
-    .catch()
-
-    window.location.reload();
-}
-
   render() {
       
-    var users = this.state.users.map((val, i)=>{
-        var id = val.id
-        var username = val.username
-        var first_name = val.first_name
-        var last_name = val.last_name
-        var email = val.email
-        var password = val.password
+    var category = this.state.category.map((val, i)=>{
+        var id_category = val.id_category
+        var category_name = val.category_name
 
         return(
             <tr key={i}>
-                <td class="text-center">{id}</td>
-                <td>{username}</td>
-                <td>{first_name}</td>
-                <td>{last_name}</td>
-                <td>{email}</td>
-                <td>{password}</td>
+                <td class="text-center">{id_category}</td>
+                <td>{category_name}</td>
                 <td class="text-center">
-                    <a class="btn btn-primary" href={`/edit-member/${id}`}>Edit</a>
+                    <a class="btn btn-primary" href={`/edit-category/${id_category}`}>Edit</a>
                     <span>  </span>
                     <button class="btn btn-danger"
                     onClick={()=>{}}>Delete</button>
@@ -70,19 +50,19 @@ class Tables extends Component {
                 {/* Content Header (Page header) */}
                 <section class="content-header">
                     <h1>
-                        Member List
+                        Category List
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li><a href="#">Tables</a></li>
-                        <li class="active">Member List</li>
+                        <li class="active">Category List</li>
                     </ol>
                 </section>
 
                 {/* Main content */}
                 <section class="content">
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col-xs-6">
                             <div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">List Details</h3>                                    
@@ -91,17 +71,13 @@ class Tables extends Component {
                                     <table id="example2" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">Id</th>
-                                                <th class="text-center">Username</th>
-                                                <th class="text-center">First Name</th>
-                                                <th class="text-center">Last Name</th>
-                                                <th class="text-center">Email</th>
-                                                <th class="text-center">Password</th>
-                                                <th class="text-center">Setting</th>
+                                                <th class="text-center">Id Category</th>
+                                                <th class="text-center">Category Name</th>
+                                                <th class="text-center">Settings</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {users}
+                                            {category}
                                         </tbody>
                                     </table>
                                 </div>

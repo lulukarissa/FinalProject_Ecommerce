@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom'
 import ProductList from './components/ProductList'
+import CategoryList from './components/CategoryList'
 import MemberList from './components/MemberList'
 import AddProducts from './components/AddProducts'
 import AddCategory from './components/AddCategory'
@@ -14,6 +15,7 @@ class App extends Component {
         <div>
             <Route exact path='/' component={ProductList} />
             <Route path='/product-list' component={ProductList} />
+            <Route path='/category-list' component={CategoryList} />
             <Route path='/member-list' component={MemberList} />
             <Route path='/add-products' component={AddProducts} />
             <Route path='/add-category' component={AddCategory} />

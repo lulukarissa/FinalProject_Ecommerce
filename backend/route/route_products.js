@@ -27,7 +27,7 @@ db.connect(()=>{
     console.log('Terhubung ke MySQL!')
 })
 
-
+//===============================================ALLPRODUCTS=====================================================
 
 //GET all data
 router.get('/product', (req, res)=>{
@@ -55,41 +55,6 @@ router.get('/product/:id', (req, res)=>{
             res.send(result)
         }
     })
-})
-
-//POST data
-router.post('/product', (req, res)=>{
-    
-    var image = req.files.image.name
-    var data = {
-        product_name: req.body.product_name,
-        artist: req.body.artist,
-        price: req.body.price,
-        quantity: req.body.quantity,
-        category: req.body.category,
-        image: image
-    }
-    if(data !== '' && image !== ''){
-        var storage = req.files.image
-        storage.mv('./storage/' + image, (err) => {
-            if (err) {
-                console.log('Upload gagal!');
-            }
-            else {
-                console.log('Upload berhasil!');
-                var dbstat = 'insert into products set ?'
-                db.query(dbstat, data, (error, result)=>{
-                    if(error){
-                        console.log(error)
-                    }
-                    else{
-                        console.log(result)
-                        res.send(result)
-                    }
-                })
-            }
-        })
-    }
 })
 
 //UPDATE data by id
@@ -142,5 +107,102 @@ router.delete('/product/:id', (req, res)=>{
         }
     })
 })
+
+//===============================================ARTIST=====================================================
+
+//GET data by artist
+router.get('/artist/:artist', (req, res)=>{
+    var dbstat = 'select * from products where artist = ?'
+    db.query(dbstat, req.params.artist, (error, result)=>{
+        if(error){
+            console.log(error)
+        }
+        else{
+            console.log(result)
+            res.send(result)
+        }
+    })
+})
+
+//GET products total by artist
+router.get('/artistproducts/', (req, res)=>{
+    var dbstat = 'select artist, count(product_name) as artistcount from products group by artist'
+    db.query(dbstat, (error, result)=>{
+        if(error){
+            console.log(error)
+        }
+        else{
+            console.log(result)
+            res.send(result)
+        }
+    })
+})
+
+//===============================================CATEGORY=====================================================
+
+//GET category
+router.get('/category', (req, res)=>{
+    var dbstat = 'select * from category'
+    db.query(dbstat, (error, result)=>{
+        if(error){
+            console.log(error)
+        }
+        else{
+            console.log(result)
+            res.send(result)
+        }
+    })
+})
+
+
+//GET products by category
+router.get('/category/:id', (req, res)=>{
+    var dbstat = 'select * from products where category = ?'
+    db.query(dbstat, req.params.id, (error, result)=>{
+        if(error){
+            console.log(error)
+        }
+        else{
+            console.log(result)
+            res.send(result)
+        }
+    })
+})
+
+//POST data
+router.post('/product', (req, res)=>{
+    
+    var image = req.files.image.name
+    var data = {
+        product_name: req.body.product_name,
+        artist: req.body.artist,
+        price: req.body.price,
+        quantity: req.body.quantity,
+        category: req.body.category,
+        image: image
+    }
+    if(data !== '' && image !== ''){
+        var storage = req.files.image
+        storage.mv('./storage/' + image, (err) => {
+            if (err) {
+                console.log('Upload gagal!');
+            }
+            else {
+                console.log('Upload berhasil!');
+                var dbstat = 'insert into products set ?'
+                db.query(dbstat, data, (error, result)=>{
+                    if(error){
+                        console.log(error)
+                    }
+                    else{
+                        console.log(result)
+                        res.send(result)
+                    }
+                })
+            }
+        })
+    }
+})
+
 
 module.exports = router

@@ -53,6 +53,7 @@ class Sidebar extends Component {
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="/product-list"><i class="fa fa-angle-double-right"></i>Product List</a></li>
+                            <li><a href="/category-list"><i class="fa fa-angle-double-right"></i>Category List</a></li>
                             <li><a href="/member-list"><i class="fa fa-angle-double-right"></i>Member List</a></li>
                             <li><a href="/order-list"><i class="fa fa-angle-double-right"></i>Order List</a></li>
                         </ul>

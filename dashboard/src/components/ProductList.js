@@ -76,13 +76,12 @@ class Tables extends Component {
                 {/* Content Header (Page header) */}
                 <section class="content-header">
                     <h1>
-                        Data Tables
-                        <small>advanced tables</small>
+                        Product List
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li><a href="#">Tables</a></li>
-                        <li class="active">Data tables</li>
+                        <li class="active">Product List</li>
                     </ol>
                 </section>
 
@@ -92,7 +91,7 @@ class Tables extends Component {
                         <div class="col-xs-12">
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">Hover Data Table</h3>                                    
+                                    <h3 class="box-title">List Details</h3>                                    
                                 </div>{/* /.box-header */}
                                 <div class="box-body table-responsive">
                                     <table id="example2" class="table table-bordered table-hover">

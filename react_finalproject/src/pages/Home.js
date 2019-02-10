@@ -6,6 +6,7 @@ class Home extends Component {
   state = {
     products: []
   }
+
   componentDidMount(){
   var link = 'http://localhost:3210/product'
 
@@ -39,14 +40,16 @@ class Home extends Component {
                   <p><b>{artist}</b></p>
                   <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
                 </div>
-                <div className="product-overlay">
-                  <div className="overlay-content">
-                    <h2>IDR {price}</h2>
-                    <p>{product_name}</p>
-                    <p><b>{artist}</b></p>
-                    <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
+                <a href={`/product-details/${id_product}`}>
+                  <div className="product-overlay">
+                    <div className="overlay-content">
+                      <h2>IDR {price}</h2>
+                      <p>{product_name}</p>
+                      <p><b>{artist}</b></p>
+                      <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
+                    </div>
                   </div>
-                </div>
+                </a>
             </div>
             <div className="choose">
               <ul className="nav nav-pills nav-justified">
