@@ -16,14 +16,23 @@ import Register from './pages/Register';
 import Contact from './pages/Contact';
 import Error404 from './pages/Error404'
 
-// import Admin from './pagesAdmin/Tables'
 import {Route} from 'react-router-dom';
 
 class App extends Component {
+  state = {
+    username: ''
+  }
+
+  getUsername = (x) => {
+    this.setState({
+      username: x
+    })
+  }
   render() {
+    // alert(this.state.username)
     return (
       <div>
-        <Header/>
+        <Header username={this.state.username}/>
         <div>
             <Route exact path='/' component={Home} />
             <Route path='/home' component={Home} />
@@ -35,7 +44,8 @@ class App extends Component {
             <Route path='/cart' component={Cart} />
             <Route path='/blog' component={Blog} />
             <Route path='/blog-single' component={Blogsingle} />
-            <Route path='/login' component={Login} />
+            {/* <Route path='/login' component={Login} /> */}
+            <Route path='/login' render={(props) => <Login {...props} getUsername={this.getUsername} />}/>
             <Route path='/register' component={Register} />
             <Route path='/contact-us' component={Contact} />
             <Route path='/error' component={Error404} />

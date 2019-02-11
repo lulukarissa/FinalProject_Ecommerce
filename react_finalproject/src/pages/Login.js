@@ -63,9 +63,10 @@ class Login extends Component {
 				  cookies.set('userID', userId, {path: '/contact-us'});
 				  cookies.set('userID', userId, {path: '/home'});
 				  this.setState({
-					statusRedirect: true
+						statusRedirect: true
 				  })
-				  alert('success login')
+					alert('success login');
+					this.props.getUsername(username);
 				})
 				  break;
 			  }else if (i === pjg.length - 1){
@@ -79,6 +80,7 @@ class Login extends Component {
 	if(this.state.statusRedirect === true){
 		return <Redirect to="/home" />
 	}
+	else{
     return (
         <div>
 			<section id="form">{/*form*/}
@@ -93,7 +95,7 @@ class Login extends Component {
 									<p> 
 										Don't have any account yet? Please <a href="/register">sign up</a>.
 									</p>
-									<button type="submit" className="btn btn-default" onClick={() => this.ambil(this.refs)}>Login</button>
+									<button type="button" className="btn btn-default" onClick={() => this.ambil(this.refs)}>Login</button>
 								</form>
 							</div>{/*/login form*/}
 						</div>
@@ -103,6 +105,7 @@ class Login extends Component {
         </div>
     );
   }
+}
 }
 
 export default Login;

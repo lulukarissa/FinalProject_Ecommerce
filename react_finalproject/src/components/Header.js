@@ -43,11 +43,23 @@ class Header extends Component {
                 <div className="col-sm-8">
                   <div className="shop-menu pull-right">
                     <ul className="nav navbar-nav">
-                      <li><a href="#"><i className="fa fa-user"></i> Account</a></li>
                       <li><a href="#"><i className="fa fa-star"></i> Wishlist</a></li>
                       <li><a href="/checkout"><i className="fa fa-crosshairs"></i> Checkout</a></li>
                       <li><a href="/cart"><i className="fa fa-shopping-cart"></i> Cart</a></li>
-                      <li><a href="/login"><i className="fa fa-lock"></i> Register/Login</a></li>
+
+                      
+
+                      {this.props.username
+                        ? <li class="dropdown">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i className="fa fa-user"></i>{this.props.username}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                              <a class="dropdown-item" href="/home">Logout</a>
+                            </div>
+                          </li>
+                        : <li><a href="/login"><i className="fa fa-lock"></i>Login</a></li>
+                      }
                     </ul>
                   </div>
                 </div>
@@ -72,7 +84,7 @@ class Header extends Component {
                       <li><a href="/" className="active">Home</a></li>
                       <li className="dropdown"><a href="#">Shop<i className="fa fa-angle-down"></i></a>
                           <ul role="menu" className="sub-menu">
-                              <li><a href="/shop">Products</a></li>
+                              <li><a href="/products">Products</a></li>
                               <li><a href="/product-details">Product Details</a></li> 
                               <li><a href="/checkout">Checkout</a></li> 
                               <li><a href="/cart">Cart</a></li> 
