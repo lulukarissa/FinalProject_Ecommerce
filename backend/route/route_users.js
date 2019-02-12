@@ -28,38 +28,14 @@ router.get('/users', (req, res)=>{
 })
 
 //GET data by id
-router.get('/users/:id', (req, res)=>{
-    var dbstat = 'select * from users where id = ?'
-    db.query(dbstat, req.params.id, (error, result)=>{
+router.get('/users/:username', (req, res)=>{
+    var dbstat = 'select * from users where username = ?'
+    db.query(dbstat, req.params.username, (error, result)=>{
         if(error) throw error
         console.log(result)
         res.send(result)
     })
 })
-
-// //POST data
-// router.post('/users', (req, res)=>{
-//     var dbstat = 'insert into users set ?'
-//     var data = {
-//         username: req.body.username,
-//         first_name: req.body.first_name,
-//         last_name: req.body.last_name,
-//         email: req.body.email,
-//         password: req.body.password
-//     }
-//     db.query(dbstat, data, (error, result)=>{
-//         if(error) throw error
-//         console.log(result)
-//         res.send({
-//             product_name: req.body.product_name,
-//             price: req.body.price,
-//             quantity: req.body.quantity,
-//             category: req.body.category,
-//             image: req.body.image,
-//             status: 'Data terkirim'
-//         })
-//     })
-// })
 
 //UPDATE data by id
 router.put('/users/:id', (req, res)=>{

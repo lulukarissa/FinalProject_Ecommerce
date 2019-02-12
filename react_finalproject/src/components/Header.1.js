@@ -31,13 +31,14 @@ class Header extends Component {
             </div>
           </div>{/*/header_top*/}
           
-          <div className="header-middle">{/*header-middle*/}
+          <div className="header-bottom">{/*header-middle*/}
             <div className="container">
               <div className="row">
                 <div className="col-sm-4">
                   <div className="logo pull-left">
                     <a href="/"><img src="../images/home/logo.gif" alt="" /></a>
                   </div>
+        
                 </div>
                 <div className="col-sm-8">
                   <div className="main-menu pull-right">
@@ -45,6 +46,9 @@ class Header extends Component {
                       <li><a href="#"><i className="fa fa-star"></i> Wishlist</a></li>
                       <li><a href="/checkout"><i className="fa fa-crosshairs"></i> Checkout</a></li>
                       <li><a href="/cart"><i className="fa fa-shopping-cart"></i> Cart</a></li>
+
+                      
+
                       {this.props.username
                         ? <li className="dropdown"><a href="#"><i className="fa fa-user"></i> {this.props.username}<i className="fa fa-angle-down"></i></a>
                             <ul role="menu" className="sub-menu">

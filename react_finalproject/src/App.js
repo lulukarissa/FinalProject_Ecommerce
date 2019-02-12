@@ -13,6 +13,8 @@ import Blog from './pages/Blog';
 import Blogsingle from './pages/Blogsingle';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import UserProfile from './pages/UserProfile';
+import UserProfileEdit from './pages/UserProfileEdit';
 import Contact from './pages/Contact';
 import Error404 from './pages/Error404'
 
@@ -49,6 +51,8 @@ class App extends Component {
             {/* <Route path='/login' component={Login} /> */}
             <Route path='/login' render={(props) => <Login {...props} getUsername={this.getUsername} />}/>
             <Route path='/register' component={Register} />
+            <Route path='/profile/' render={(props) => <UserProfile {...props} username={this.state.username} />}/>
+            <Route path='/editprofile/' render={(props) => <UserProfileEdit {...props} username={this.state.username} />}/>
             <Route path='/contact-us' component={Contact} />
             <Route path='/error' component={Error404} />
 

@@ -4,7 +4,8 @@ import axios from 'axios'
 
 class Home extends Component {
   state = {
-    products: []
+    products: [],
+    category: []
   }
 
   componentDidMount(){
@@ -18,6 +19,17 @@ class Home extends Component {
       console.log(x.data)
   })
   .catch()
+
+  var linkcategory = 'http://localhost:3210/category'
+
+  axios.get(linkcategory)
+  .then((x)=>{
+      this.setState({
+          category: x.data
+      })
+      console.log(x.data)
+  })
+
   }
   render() {
     var products = this.state.products.map((val, i)=>{
@@ -61,6 +73,19 @@ class Home extends Component {
         </div>  
       )
   })
+
+  var category = this.state.category.map((val, i)=>{
+    var id_category = val.id_category
+    var category_name = val.category_name
+
+    if(i=0){
+      return <li className="active"><a href={`#${category_name}`} data-toggle="tab">{category_name}</a></li>
+    }
+    else{
+      return <li><a href={`#${category_name}`} data-toggle="tab">{category_name}</a></li>
+    }
+  })
+  
     return (
       <div>
         <section id="slider">{/*slider*/}
@@ -138,15 +163,11 @@ class Home extends Component {
                 <div className="category-tab">{/*category-tab*/}
                   <div className="col-sm-12">
                     <ul className="nav nav-tabs">
-                      <li className="active"><a href="#tshirt" data-toggle="tab">Single</a></li>
-                      <li><a href="#blazers" data-toggle="tab">Album</a></li>
-                      <li><a href="#sunglass" data-toggle="tab">DVD/Blu-Ray</a></li>
-                      <li><a href="#kids" data-toggle="tab">Goods</a></li>
-                      <li><a href="#poloshirt" data-toggle="tab">Photobook</a></li>
+                     {category} 
                     </ul>
                   </div>
                   <div className="tab-content">
-                    <div className="tab-pane fade active in" id="tshirt" >
+                    <div className="tab-pane fade active in" id="single" >
                       <div className="col-sm-3">
                         <div className="product-image-wrapper">
                           <div className="single-products">
@@ -205,7 +226,7 @@ class Home extends Component {
                       </div>
                     </div>
                     
-                    <div className="tab-pane fade" id="blazers" >
+                    <div className="tab-pane fade" id="album" >
                       <div className="col-sm-3">
                         <div className="product-image-wrapper">
                           <div className="single-products">
@@ -264,7 +285,7 @@ class Home extends Component {
                       </div>
                     </div>
                     
-                    <div className="tab-pane fade" id="sunglass" >
+                    <div className="tab-pane fade" id="dvdbluray" >
                       <div className="col-sm-3">
                         <div className="product-image-wrapper">
                           <div className="single-products">
@@ -323,7 +344,7 @@ class Home extends Component {
                       </div>
                     </div>
                     
-                    <div className="tab-pane fade" id="kids" >
+                    <div className="tab-pane fade" id="goods" >
                       <div className="col-sm-3">
                         <div className="product-image-wrapper">
                           <div className="single-products">
@@ -382,7 +403,7 @@ class Home extends Component {
                       </div>
                     </div>
                     
-                    <div className="tab-pane fade" id="poloshirt" >
+                    <div className="tab-pane fade" id="photobook" >
                       <div className="col-sm-3">
                         <div className="product-image-wrapper">
                           <div className="single-products">

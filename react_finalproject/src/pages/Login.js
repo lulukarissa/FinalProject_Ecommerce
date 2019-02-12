@@ -69,7 +69,6 @@ class Login extends Component {
 				  })
 					alert('success login');
 					this.props.getUsername(username);
-					localStorage.getItem('username')
 				})
 				  break;
 			  }else if (i === pjg.length - 1){

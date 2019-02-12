@@ -19,10 +19,10 @@ class Register extends Component {
 		var url = 'http://localhost:3210/register'
 		axios.post(url,{
 			username: this.refs.username.value,
-            first_name: this.refs.first_name.value,
-            last_name: this.refs.last_name.value,
-            email: this.refs.email.value,
-            password: this.refs.password.value,
+			first_name: this.refs.first_name.value,
+			last_name: this.refs.last_name.value,
+			email: this.refs.email.value,
+			password: this.refs.password.value,
 		})
 		.then((x)=>{
 			console.log('Success!')
