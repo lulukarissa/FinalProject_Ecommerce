@@ -67,7 +67,7 @@ class Shop extends Component {
         <div>
             <section id="advertisement">
 		        <div className="container">
-			        <img src="images/shop/advertisement.jpg" alt="" />
+			        <img src="../images/shop/advertisement.jpg" alt="" />
 		        </div>
 	        </section>
 

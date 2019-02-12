@@ -55,7 +55,10 @@ class Header extends Component {
                               <i className="fa fa-user"></i>{this.props.username}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                              <a class="dropdown-item" href="/home">Logout</a>
+                              <a class="dropdown-item" href="/home"
+                              onClick={()=>{
+                                localStorage.removeItem('username')
+                                }}>Logout</a>
                             </div>
                           </li>
                         : <li><a href="/login"><i className="fa fa-lock"></i>Login</a></li>
@@ -85,10 +88,8 @@ class Header extends Component {
                       <li className="dropdown"><a href="#">Shop<i className="fa fa-angle-down"></i></a>
                           <ul role="menu" className="sub-menu">
                               <li><a href="/products">Products</a></li>
-                              <li><a href="/product-details">Product Details</a></li> 
                               <li><a href="/checkout">Checkout</a></li> 
-                              <li><a href="/cart">Cart</a></li> 
-                              <li><a href="/login">Login</a></li> 
+                              <li><a href="/cart">Cart</a></li>
                           </ul>
                       </li> 
                       <li className="dropdown"><a href="#">Blog<i className="fa fa-angle-down"></i></a>

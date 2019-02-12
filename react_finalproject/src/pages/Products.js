@@ -66,7 +66,7 @@ class Shop extends Component {
         <div>
             <section id="advertisement">
 		        <div className="container">
-			        <img src="images/shop/advertisement.jpg" alt="" />
+			        <img src="../images/shop/advertisement.jpg" alt="" />
 		        </div>
 	        </section>
 
@@ -78,6 +78,20 @@ class Shop extends Component {
                         <div className="col-sm-9 padding-right">
                             <div className="features_items">{/*features_items*/}
                                 <h2 className="title text-center">Features Items</h2>
+                                
+                                <div className="col-sm-12 mainmenu pull-left">
+                                    <ul className="nav navbar-nav collapse navbar-collapse">
+                                        {/* <li><a>Sort By</a></li> */}
+                                        <li className="dropdown"><a href="#">Sort by<i className="fa fa-angle-down"></i></a>
+                                            <ul role="menu" className="sub-menu">
+                                                <li><a href="#">PRICE: Low to High</a></li>
+                                                <li><a href="#">PRICE: High to Low</a></li>
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <br/>
                                 {products}
                                 <ul className="pagination">
                                     <li className="active"><a href="">1</a></li>

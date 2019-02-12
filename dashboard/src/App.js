@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom'
+import Login from './components/Login'
+import Dashboard from './components/Dashboard'
 import ProductList from './components/ProductList'
 import CategoryList from './components/CategoryList'
 import MemberList from './components/MemberList'
@@ -13,7 +15,8 @@ class App extends Component {
     return (
       <div class="skin-black">
         <div>
-            <Route exact path='/' component={ProductList} />
+            <Route exact path='/' component={Login} />
+            <Route path='/home' component={Dashboard} />
             <Route path='/product-list' component={ProductList} />
             <Route path='/category-list' component={CategoryList} />
             <Route path='/member-list' component={MemberList} />

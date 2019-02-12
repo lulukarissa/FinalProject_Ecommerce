@@ -97,7 +97,7 @@ class Tables extends Component {
                                                 <th class="text-center">Last Name</th>
                                                 <th class="text-center">Email</th>
                                                 <th class="text-center">Password</th>
-                                                <th class="text-center">Setting</th>
+                                                <th class="text-center">Settings</th>
                                             </tr>
                                         </thead>
                                         <tbody>

@@ -32,7 +32,7 @@ class Sidebar extends Component {
                 {/* sidebar menu: : style can be found in sidebar.less */}
                 <ul class="sidebar-menu">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="/home">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>

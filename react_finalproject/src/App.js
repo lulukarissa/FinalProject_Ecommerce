@@ -20,14 +20,16 @@ import {Route} from 'react-router-dom';
 
 class App extends Component {
   state = {
-    username: ''
+    username: localStorage.getItem('username')
   }
+
 
   getUsername = (x) => {
     this.setState({
       username: x
     })
   }
+  
   render() {
     // alert(this.state.username)
     return (
@@ -35,7 +37,7 @@ class App extends Component {
         <Header username={this.state.username}/>
         <div>
             <Route exact path='/' component={Home} />
-            <Route path='/home' component={Home} />
+            <Route path='/home' render={(props) => <Home {...props} username={this.state.username} />}/>
             <Route path='/products' component={Products} />
             <Route path='/artist/' component={Artist} />
             <Route path='/category/' component={Category} />
