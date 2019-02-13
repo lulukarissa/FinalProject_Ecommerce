@@ -8,9 +8,8 @@ class Shop extends Component {
       }
       
       componentDidMount(){
-      var link = 'http://localhost:3210/product'
-    
-      axios.get(link)
+
+      axios.get('http://localhost:3210/product')
       .then((x)=>{
           this.setState({
               products: x.data
@@ -18,7 +17,79 @@ class Shop extends Component {
           console.log(x.data)
       })
       .catch()
-      }
+    }
+
+    alphabeticalasc = (e)=>{
+        e.preventDefault();
+        axios.get('http://localhost:3210/alphabeticalasc')
+        .then((x)=>{
+            this.setState({
+                products: x.data
+            })
+            console.log(x.data)
+        })
+        .catch()
+    }
+
+    alphabeticaldesc = (e)=>{
+        e.preventDefault();
+        axios.get('http://localhost:3210/alphabeticaldesc')
+        .then((x)=>{
+            this.setState({
+                products: x.data
+            })
+            console.log(x.data)
+        })
+        .catch()
+    }
+
+    dateoldest = (e)=>{
+        e.preventDefault();
+        axios.get('http://localhost:3210/dateoldest')
+        .then((x)=>{
+            this.setState({
+                products: x.data
+            })
+            console.log(x.data)
+        })
+        .catch()
+    }
+
+    datenewest = (e)=>{
+        e.preventDefault();
+        axios.get('http://localhost:3210/datenewest')
+        .then((x)=>{
+            this.setState({
+                products: x.data
+            })
+            console.log(x.data)
+        })
+        .catch()
+    }
+
+    pricelow = (e)=>{
+        e.preventDefault();
+        axios.get('http://localhost:3210/pricelow')
+        .then((x)=>{
+            this.setState({
+                products: x.data
+            })
+            console.log(x.data)
+        })
+        .catch()
+    }
+
+    pricehigh = (e)=>{
+        e.preventDefault();
+        axios.get('http://localhost:3210/pricehigh')
+        .then((x)=>{
+            this.setState({
+                products: x.data
+            })
+            console.log(x.data)
+        })
+        .catch()
+    }
 
   render() {
     var products = this.state.products.map((val, i)=>{
@@ -79,16 +150,20 @@ class Shop extends Component {
                             <div className="features_items">{/*features_items*/}
                                 <h2 className="title text-center">Features Items</h2>
                                 
-                                <div className="col-sm-12 mainmenu pull-left">
+                                <div className="col-sm-12 mainmenu pull-right">
                                     <ul className="nav navbar-nav collapse navbar-collapse">
                                         {/* <li><a>Sort By</a></li> */}
-                                        <li className="dropdown"><a href="#">Sort by<i className="fa fa-angle-down"></i></a>
+                                        <li className="dropdown" style={{marginBottom: '15px'}}><a href="#">Sort by<i className="fa fa-angle-down"></i></a>
                                             <ul role="menu" className="sub-menu">
-                                                <li><a href="#">PRICE: Low to High</a></li>
-                                                <li><a href="#">PRICE: High to Low</a></li>
+                                                {/* <li><a href="#">Best Selling</a></li> */}
+                                                <li><a href="#" onClick={this.alphabeticalasc}>Alphabetical: A to Z</a></li>
+                                                <li><a href="#" onClick={this.alphabeticaldesc}>Alphabetical: Z to A</a></li>
+                                                <li><a href="#" onClick={this.dateoldest}>Date: Oldest to Newest</a></li>
+                                                <li><a href="#" onClick={this.datenewest}>Date: Newest to Oldest</a></li>
+                                                <li><a href="#" onClick={this.pricelow}>Price: Low to High</a></li>
+                                                <li><a href="#" onClick={this.pricehigh}>Price: High to Low</a></li>
                                             </ul>
                                         </li>
-
                                     </ul>
                                 </div>
                                 <br/>

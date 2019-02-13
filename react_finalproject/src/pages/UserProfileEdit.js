@@ -10,6 +10,7 @@ class Profile extends Component {
 		telephone: '',
 		address: '',
 
+		kodeunik: '',
 		province: []
 	}
 	
@@ -29,7 +30,19 @@ class Profile extends Component {
 	})
 	.catch()
 
-	axios.get('https://x.rajaapi.com/MeP7c5nesyUuvvEYzvLzuVqSdAV9RJaYM1TXcHE2xwoIyU6kPlJQBj6V50/m/wilayah/provinsi')
+	//get kode unik di https://x.rajaapi.com/poe
+
+	axios.get('https://x.rajaapi.com/poe')
+	.then((x)=>{
+		this.setState({
+			kodeunik: x.data.token
+		})
+		console.log(x.data.token)
+	})
+
+	
+	var kodunik = 'JKALTdcOLNxtsDSEDB2iM5XiBiNI12Qwj9KgmucIlJidcyNtVe'
+	axios.get(`https://x.rajaapi.com/MeP7c5ne${kodunik}/m/wilayah/provinsi`)
 	.then((x)=>{
 		this.setState({
 			province: x.data.data
@@ -59,6 +72,7 @@ class Profile extends Component {
 					<div className="row">
 						<div className="col-sm-6">
 							<div className="login-form">{/*login form*/}
+							<h1>{this.state.kodeunik}</h1>
 								<h2>Edit Profile</h2>
 								<form action="#">
 									<h5>Username:</h5>

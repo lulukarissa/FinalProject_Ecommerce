@@ -21,6 +21,85 @@ class Shop extends Component {
       .catch()
       }
 
+      alphabeticalasc = (e)=>{
+        e.preventDefault();
+        var category = this.props.location.pathname.slice(10)
+        axios.get(`http://localhost:3210/catalphabeticalasc/${category}`)
+        .then((x)=>{
+            this.setState({
+                products: x.data
+            })
+            console.log(x.data)
+        })
+        .catch()
+      }
+
+      alphabeticaldesc = (e)=>{
+          e.preventDefault();
+          var category = this.props.location.pathname.slice(10)
+          axios.get(`http://localhost:3210/catalphabeticaldesc/${category}`)
+          .then((x)=>{
+              this.setState({
+                  products: x.data
+              })
+              console.log(x.data)
+          })
+          .catch()
+      }
+
+      dateoldest = (e)=>{
+          e.preventDefault();
+          var category = this.props.location.pathname.slice(10)
+          axios.get(`http://localhost:3210/catdateoldest/${category}`)
+          .then((x)=>{
+              this.setState({
+                  products: x.data
+              })
+              console.log(x.data)
+          })
+          .catch()
+      }
+
+      datenewest = (e)=>{
+          e.preventDefault();
+          var category = this.props.location.pathname.slice(10)
+          axios.get(`http://localhost:3210/catdatenewest/${category}`)
+          .then((x)=>{
+              this.setState({
+                  products: x.data
+              })
+              console.log(x.data)
+          })
+          .catch()
+      }
+
+      pricelow = (e)=>{
+          e.preventDefault();
+          var category = this.props.location.pathname.slice(10)
+          axios.get(`http://localhost:3210/catpricelow/${category}`)
+          .then((x)=>{
+              this.setState({
+                  products: x.data
+              })
+              console.log(x.data)
+          })
+          .catch()
+      }
+
+      pricehigh = (e)=>{
+          e.preventDefault();
+          var category = this.props.location.pathname.slice(10)
+          axios.get(`http://localhost:3210/catpricehigh/${category}`)
+          .then((x)=>{
+              this.setState({
+                  products: x.data
+              })
+              console.log(x.data)
+          })
+          .catch()
+      }
+
+
   render() {
     var products = this.state.products.map((val, i)=>{
         var id_product = val.id_product
@@ -79,6 +158,24 @@ class Shop extends Component {
                         <div className="col-sm-9 padding-right">
                             <div className="features_items">{/*features_items*/}
                                 <h2 className="title text-center">Features Items</h2>
+                                
+                                <div className="col-sm-12 mainmenu pull-right">
+                                    <ul className="nav navbar-nav collapse navbar-collapse">
+                                        {/* <li><a>Sort By</a></li> */}
+                                        <li className="dropdown" style={{marginBottom: '15px'}}><a href="#">Sort by<i className="fa fa-angle-down"></i></a>
+                                            <ul role="menu" className="sub-menu">
+                                                {/* <li><a href="#">Best Selling</a></li> */}
+                                                <li><a href="#" onClick={this.alphabeticalasc}>Alphabetical: A to Z</a></li>
+                                                <li><a href="#" onClick={this.alphabeticaldesc}>Alphabetical: Z to A</a></li>
+                                                <li><a href="#" onClick={this.dateoldest}>Date: Oldest to Newest</a></li>
+                                                <li><a href="#" onClick={this.datenewest}>Date: Newest to Oldest</a></li>
+                                                <li><a href="#" onClick={this.pricelow}>Price: Low to High</a></li>
+                                                <li><a href="#" onClick={this.pricehigh}>Price: High to Low</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <br/>
                                 {products}
                                 <ul className="pagination">
                                     <li className="active"><a href="">1</a></li>
