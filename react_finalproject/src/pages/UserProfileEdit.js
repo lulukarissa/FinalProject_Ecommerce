@@ -10,61 +10,72 @@ class Profile extends Component {
 		telephone: '',
 		address: '',
 
-		kodeunik: '',
-		province: []
+		token: '',
+		province: [],
+		city: []
 	}
 	
 	componentDidMount(){
 
-	axios.get(`http://localhost:3210/users/${this.props.username}`)
-	.then((x)=>{
+		axios.get(`http://localhost:3210/users/${this.props.username}`)
+		.then((x)=>{
+				this.setState({
+					username: x.data[0].username,
+					email: x.data[0].email,
+					first_name: x.data[0].first_name,
+					last_name: x.data[0].last_name,
+					telephone: x.data[0].telephone,
+					address: x.data[0].address,
+				})
+				// console.log(x.data)
+		})
+		.catch()
+
+		axios.get('https://x.rajaapi.com/poe')
+		.then((x)=>{
 			this.setState({
-				username: x.data[0].username,
-				email: x.data[0].email,
-				first_name: x.data[0].first_name,
-				last_name: x.data[0].last_name,
-				telephone: x.data[0].telephone,
-				address: x.data[0].address,
+				token: x.data.token
 			})
-			console.log(x.data)
-	})
-	.catch()
-
-	//get kode unik di https://x.rajaapi.com/poe
-
-	axios.get('https://x.rajaapi.com/poe')
-	.then((x)=>{
-		this.setState({
-			kodeunik: x.data.token
-		})
-		console.log(x.data.token)
-	})
-
-	
-	var kodunik = 'JKALTdcOLNxtsDSEDB2iM5XiBiNI12Qwj9KgmucIlJidcyNtVe'
-	axios.get(`https://x.rajaapi.com/MeP7c5ne${kodunik}/m/wilayah/provinsi`)
-	.then((x)=>{
-		this.setState({
-			province: x.data.data
-		})
-		// console.log(x.data.data)
-	})
+			
+			axios.get(`https://x.rajaapi.com/MeP7c5ne${this.state.token}/m/wilayah/provinsi`)
+			.then((x)=>{
+				this.setState({
+					province: x.data.data
+				})
+			})
+		})	
 	}
-	
-	// onSelect = (event) => {
-	// 	this.props.onSelect(parseInt(event.target.value));
-	// }
-	
+
+	getCity = (e) =>{
+		var token = 'ABXpjXzGGR77UVKKXpHTIYImRIL2HxGBUuWEKtK1VtwLAwLtef'
+		axios.get(`https://x.rajaapi.com/MeP7c5ne${token}/m/wilayah/kabupaten?idpropinsi=${e}`)
+		.then((x)=>{
+			this.setState({
+				city: x.data.data
+			})
+		})
+	}	
 
   render() {
 		var province = this.state.province.map((val,i)=>{
-			var id = val.id
+			var id = val.id	 
+			var name = val.name
+
+			
+			return(
+				<option onChange={this.getCity(id)}>{name}</option>
+			)
+		})
+
+		var city = this.state.city.map((val,i)=>{
+			var id = val.id	 
 			var name = val.name
 
 			return(
-				<option>{val.name}</option>
+				<option>{name}</option>
 			)
 		})
+
     return (
         <div>
 			<section id="form">{/*form*/}
@@ -72,7 +83,6 @@ class Profile extends Component {
 					<div className="row">
 						<div className="col-sm-6">
 							<div className="login-form">{/*login form*/}
-							<h1>{this.state.kodeunik}</h1>
 								<h2>Edit Profile</h2>
 								<form action="#">
 									<h5>Username:</h5>
@@ -91,7 +101,7 @@ class Profile extends Component {
 									<br/><br/>
 									<select>
 										<option hidden selected>City</option>
-										<option>tes</option>
+										{city}
 									</select>
 									<br/><br/>
 									<select>
