@@ -12,7 +12,9 @@ class Profile extends Component {
 
 		token: '',
 		province: [],
-		city: []
+		city: [],
+		subdistrict: [],
+		district: []
 	}
 	
 	componentDidMount(){
@@ -42,19 +44,38 @@ class Profile extends Component {
 				this.setState({
 					province: x.data.data
 				})
+				console.log(x.data.data)
 			})
 		})	
 	}
 
 	getCity = (e) =>{
-		var token = 'ABXpjXzGGR77UVKKXpHTIYImRIL2HxGBUuWEKtK1VtwLAwLtef'
-		axios.get(`https://x.rajaapi.com/MeP7c5ne${token}/m/wilayah/kabupaten?idpropinsi=${e}`)
+		axios.get(`https://x.rajaapi.com/MeP7c5ne${this.state.token}/m/wilayah/kabupaten?idpropinsi=${e}`)
 		.then((x)=>{
 			this.setState({
 				city: x.data.data
 			})
 		})
 	}	
+
+	getSubDistrict = (e) =>{
+		axios.get(`https://x.rajaapi.com/MeP7c5ne${this.state.token}/m/wilayah/kecamatan?idkabupaten=${e}`)
+		.then((x)=>{
+			this.setState({
+				subdistrict: x.data.data
+			})
+		})
+	}	
+
+	getDistrict = (e) =>{
+		axios.get(`https://x.rajaapi.com/MeP7c5ne${this.state.token}/m/wilayah/kelurahan?idkecamatan=${e}`)
+		.then((x)=>{
+			this.setState({
+				district: x.data.data
+			})
+		})
+	}	
+
 
   render() {
 		var province = this.state.province.map((val,i)=>{
@@ -63,7 +84,7 @@ class Profile extends Component {
 
 			
 			return(
-				<option onChange={this.getCity(id)}>{name}</option>
+				<option key={i} value={id}>{name}</option>
 			)
 		})
 
@@ -72,7 +93,25 @@ class Profile extends Component {
 			var name = val.name
 
 			return(
-				<option>{name}</option>
+				<option key={i} value={id}>{name}</option>
+			)
+		})
+
+		var subdistrict = this.state.subdistrict.map((val,i)=>{
+			var id = val.id	 
+			var name = val.name
+
+			return(
+				<option key={i} value={id}>{name}</option>
+			)
+		})
+
+		var district = this.state.district.map((val,i)=>{
+			var id = val.id	 
+			var name = val.name
+
+			return(
+				<option key={i} value={id}>{name}</option>
 			)
 		})
 
@@ -94,19 +133,24 @@ class Profile extends Component {
 									<h5>Telephone:</h5>
 									<input type="text" ref=""/>
 									<h5>Address:</h5>
-									<select>
+									<select onChange={(e)=>{this.getCity(e.target.value)}}>
 										<option hidden selected>Province</option>
 										{province}
 									</select>
 									<br/><br/>
-									<select>
+									<select onChange={(e)=>{this.getSubDistrict(e.target.value)}}>
 										<option hidden selected>City</option>
 										{city}
 									</select>
 									<br/><br/>
+									<select onChange={(e)=>{this.getDistrict(e.target.value)}}>
+										<option hidden selected>SubDistrict</option>
+										{subdistrict}
+									</select>
+									<br/><br/>
 									<select>
 										<option hidden selected>District</option>
-										<option>tes</option>
+										{district}
 									</select>
 									<br/><br/>
 									<textarea rows="5" ref=""/>
