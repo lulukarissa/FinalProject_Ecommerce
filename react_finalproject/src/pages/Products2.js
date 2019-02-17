@@ -3,14 +3,8 @@ import Label from '../components/Label';
 import axios from 'axios'
 
 class Shop extends Component {
-    constructor(){
-        super();
-        this.state = {
-          products: [],
-          currentPage:1,
-          productsPerPage: 9
-        }
-        this.handleClick = this.handleClick.bind(this);
+    state = {
+        products: []
       }
       
       componentDidMount(){
@@ -97,22 +91,8 @@ class Shop extends Component {
         .catch()
     }
 
-    handleClick(e) {
-        e.preventDefault()
-        this.setState({
-          currentPage: Number(e.target.id)
-        })
-      }
-
   render() {
-    var { products, currentPage, productsPerPage } = this.state;
-
-    var indexOfLastTodo = currentPage * productsPerPage;
-    var indexOfFirstTodo = indexOfLastTodo - productsPerPage;
-    var currentproducts = products.slice(indexOfFirstTodo, indexOfLastTodo);
-
-
-    var productsresult = currentproducts.map((val, i)=>{
+    var products = this.state.products.map((val, i)=>{
         var id_product = val.id_product
         var product_name = val.product_name
         var artist = val.artist
@@ -153,25 +133,6 @@ class Shop extends Component {
           </div>  
         )
     })
-
-    const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(products.length / productsPerPage); i++) {
-        pageNumbers.push(i);
-        }
-
-        const renderPageNumbers = pageNumbers.map((number, i) => {
-            if(i==0){
-                return (
-                    <li className="active"><a href="#" id={number} onClick={this.handleClick} data-toggle="tab">{number}</a></li>
-                )
-            }
-            else{
-                return (
-                    <li><a href="#" id={number} onClick={this.handleClick} data-toggle="tab">{number}</a></li>
-                )
-            }
-           });
-
     return (
         <div>
             <section id="advertisement">
@@ -189,7 +150,7 @@ class Shop extends Component {
                             <div className="features_items">{/*features_items*/}
                                 <h2 className="title text-center">Features Items</h2>
                                 
-                                <div className="col-sm-6 mainmenu">
+                                <div className="col-sm-12 mainmenu pull-right">
                                     <ul className="nav navbar-nav collapse navbar-collapse">
                                         {/* <li><a>Sort By</a></li> */}
                                         <li className="dropdown" style={{marginBottom: '15px'}}><a href="#">Sort by<i className="fa fa-angle-down"></i></a>
@@ -205,17 +166,14 @@ class Shop extends Component {
                                         </li>
                                     </ul>
                                 </div>
-
-                                <div className="col-sm-6" >
-                                    <ul className="pagination" style={{float: 'right'}}>
-                                    {renderPageNumbers}
-                                    <li><a href="">&raquo;</a></li>
-                                    </ul>
-                                </div>
                                 <br/>
-                                
-                                {productsresult}
-                                
+                                {products}
+                                <ul className="pagination">
+                                    <li className="active"><a href="">1</a></li>
+                                    <li><a href="">2</a></li>
+                                    <li><a href="">3</a></li>
+                                    <li><a href="">&raquo;</a></li>
+                                </ul>
                             </div>{/*features_items*/}
                         </div>
                     </div>

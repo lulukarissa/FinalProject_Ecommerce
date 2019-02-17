@@ -41,6 +41,7 @@ class Home extends Component {
       var category = val.category
       var image = val.image
 
+      if(i<6){
       return(
         <div className="col-sm-4">
           <div className="product-image-wrapper">
@@ -71,14 +72,14 @@ class Home extends Component {
             </div>
           </div>
         </div>  
-      )
+      )}
   })
 
   var category = this.state.category.map((val, i)=>{
     var id_category = val.id_category
     var category_name = val.category_name
 
-    if(i=0){
+    if(i==0){
       return <li className="active"><a href={`#${category_name}`} data-toggle="tab">{category_name}</a></li>
     }
     else{
@@ -158,7 +159,13 @@ class Home extends Component {
                 <div className="features_items">{/*features_items*/}
                   <h2 className="title text-center">Features Items</h2>
                   {products}
+
+                  <div className="pagination padding-right" style={{float:'right', marginRight:10}}>
+                      <li><a href="/products">See all products >></a></li>
+                  </div>
                 </div>{/*features_items*/}
+
+                
                 
                 <div className="category-tab">{/*category-tab*/}
                   <div className="col-sm-12">
