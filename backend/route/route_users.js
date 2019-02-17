@@ -38,26 +38,19 @@ router.get('/users/:username', (req, res)=>{
 })
 
 //UPDATE data by id
-router.put('/users/:id', (req, res)=>{
-    var dbstat = 'update users set ? where id = ?'
+router.put('/users/:username', (req, res)=>{
+    var dbstat = 'update users set ? where username = ?'
     var data = {
         username: req.body.username,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
-        email: req.body.email,
-        password: req.body.password
+        telephone: req.body.telephone,
+        address: req.body.address
     }
-    db.query(dbstat, [data, req.params.id], (error, result)=>{
+    db.query(dbstat, [data, req.params.username], (error, result)=>{
         if(error) throw error
         console.log(result)
-        res.send({
-            username: req.body.username,
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            email: req.body.email,
-            password: req.body.password,
-            status: `Data ${req.params.id} has been updated!`
-        })
+        res.send(result)
     })
 })
 

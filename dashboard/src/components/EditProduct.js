@@ -77,7 +77,6 @@ class EditProducts extends Component {
         e.preventDefault()
         var id_edit = this.props.location.pathname.slice(14,16)
         let addproduct = new FormData();
-        // addproduct.append('id_product', this.state.id_product);
         addproduct.append('product_name', this.state.product_name);
         addproduct.append('artist', this.state.artist);
         addproduct.append('price', this.state.price);
@@ -91,9 +90,6 @@ class EditProducts extends Component {
         .then((x)=>{
             console.log(x)
         })
-        // .catch((x)=>{
-        //     console.log(x)
-        // })
     }
 
     
