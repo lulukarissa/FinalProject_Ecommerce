@@ -4,11 +4,13 @@ var route_login = require('./route/route_login')
 var route_loginadmin = require('./route/route_loginadmin')
 var route_products = require('./route/route_products')
 var route_category = require('./route/route_category')
+var route_shipping = require('./route/route_shipping')
 var cors = require('cors')
 
 var server = express();
 server.use(route_products);
 server.use(route_category);
+server.use(route_shipping);
 server.use(route_users);
 server.use(route_login);
 server.use(route_loginadmin);
