@@ -1,77 +1,38 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import Cookies from 'universal-cookie';
-
-const cookies = new Cookies();
 
 class Login extends Component {
 	state = {
-		statusRedirect: false,
-		// redirect: false,
-		// typePass: 'password',
-		// statusPass: '',
-		// statusUsername: '',
-		// mycookie: cookies.get('userID')
+		statusRedirect: false
 	  }
 
-	  postData = ()=>{
-		var url = 'http://localhost:3210/register'
-		axios.post(url,{
-			username: this.refs.username.value,
-            first_name: this.refs.first_name.value,
-            last_name: this.refs.last_name.value,
-            email: this.refs.email.value,
-            password: this.refs.password.value,
-		})
-		.then((x)=>{
-			console.log('Success!')
-			// this.setState({
-			// 	redirect: true
-			// })
-		})
-		.catch((x)=>{
-			console.log('Error!')
-		})
-	}
-	
-	
-	ambil = (e) => {
-		var url1 = 'http://localhost:3210/verif';
-		axios.get(url1).then((x)=>{
-		  // var dt = x.data[1].password
-		  var pjg = x.data
+	login = (e) => {
+		var url = 'http://localhost:3210/users';
+		axios.get(url).then((x)=>{
+		  var userdata = x.data
 	
 		  var username = this.refs.username.value
-		  var password =  this.refs.password.value
+			var password =  this.refs.password.value
+			var first_name = x.data[0].first_name
 		  
 			var i;
-		  for(i = 0; i<pjg.length; i++){
-			  if (username === pjg[i].username && password === pjg[i].password){
+		  for(i = 0; i<userdata.length; i++){
+			  if (username === userdata[i].username && password === userdata[i].password){
 				axios.post('http://localhost:3210/login', {
 				  username: e.username.value,
 				  password: e.password.value
-				}).then((Response) => {
-				  var userId = Response.data;
-				  
-				  cookies.set('userID', userId, {path: '/shop'});
-				  cookies.set('userID', userId, {path: '/product-details'});
-				  cookies.set('userID', userId, {path: '/checkout'});
-				  cookies.set('userID', userId, {path: '/cart'});
-				  cookies.set('userID', userId, {path: '/blog'});
-				  cookies.set('userID', userId, {path: '/blog-single'});
-				  cookies.set('userID', userId, {path: '/contact-us'});
-					cookies.set('userID', userId, {path: '/home'});
-					
+				}).then(() => {
 					localStorage.setItem('username', username)
 				  this.setState({
 						statusRedirect: true
 				  })
-					alert('success login');
-					this.props.getUsername(username);
+					alert(`You have successfully logged in!
+					Welcome back, ${first_name}!`)
+					this.props.getUsername(username)
 				})
 				  break;
-			  }else if (i === pjg.length - 1){
+			  }else if (i === userdata.length - 1){
 				  alert ("Username or Password Incorrect")
 			  }
 		  }
@@ -97,7 +58,7 @@ class Login extends Component {
 									<p> 
 										Don't have any account yet? Please <a href="/register">sign up</a>.
 									</p>
-									<button type="button" className="btn btn-default" onClick={() => this.ambil(this.refs)}>Login</button>
+									<button type="button" className="btn btn-default" onClick={() => this.login(this.refs)}>Login</button>
 								</form>
 							</div>{/*/login form*/}
 						</div>

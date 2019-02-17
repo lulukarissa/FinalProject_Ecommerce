@@ -59,14 +59,4 @@ router.post('/login', (req, res) => {
     })
 })
 
-
-router.get('/verif', (req, res) => {
-    var perintah = 'select * from users';
-    db.query(perintah, (error, hasil) => {
-            if (error) throw error;
-            console.log(hasil);
-            res.send(hasil);
-        })
-})
-
 module.exports = router

@@ -5,7 +5,8 @@ import { Redirect } from 'react-router-dom';
 
 class Register extends Component {
 
-	  postData = ()=>{
+	  postData = (e)=>{
+		e.preventDefault()
 		var url = 'http://localhost:3210/register'
 		axios.post(url,{
 			username: this.refs.username.value,
@@ -14,8 +15,16 @@ class Register extends Component {
 			email: this.refs.email.value,
 			password: this.refs.password.value,
 		})
-		.then((x)=>{
-			console.log('Success!')
+		.then(()=>{
+			var username = this.refs.username.value
+			var first_name = this.refs.first_name.value
+
+			localStorage.setItem('username', username)
+			
+			alert(`You have successfully registered!
+			Thank you for joining us, happy shopping ${first_name}!`)
+			this.props.getUsername(username)
+			window.location.href = '/home'
 		})
 		.catch((x)=>{
 			console.log('Error!')
