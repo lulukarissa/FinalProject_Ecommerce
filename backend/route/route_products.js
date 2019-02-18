@@ -31,7 +31,7 @@ db.connect(()=>{
 
 //GET all data
 router.get('/product', (req, res)=>{
-    var dbstat = 'select * from products'
+    var dbstat = 'select * from products order by id_product desc'
     db.query(dbstat, (error, result)=>{
         if(error){
             console.log(error)

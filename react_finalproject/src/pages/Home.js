@@ -178,7 +178,7 @@ class Home extends Component {
                       <div className="col-sm-3">
                         <div className="product-image-wrapper">
                           <div className="single-products">
-                            <div className="productinfo text-center">
+                            <div className="productinfo1 text-center">
                               <img src="images/home/gallery1.jpg" alt="" />
                               <h2>IDR 435,000</h2>
                               <p>Ambivalent</p>
@@ -192,7 +192,7 @@ class Home extends Component {
                       <div className="col-sm-3">
                         <div className="product-image-wrapper">
                           <div className="single-products">
-                            <div className="productinfo text-center">
+                            <div className="productinfo1 text-center">
                               <img src="images/home/gallery2.jpg" alt="" />
                               <h2>IDR 435,000</h2>
                               <p>Aitai, Aitai, Aitai</p>
@@ -206,7 +206,7 @@ class Home extends Component {
                       <div className="col-sm-3">
                         <div className="product-image-wrapper">
                           <div className="single-products">
-                            <div className="productinfo text-center">
+                            <div className="productinfo1 text-center">
                               <img src="images/home/gallery3.jpg" alt="" />
                               <h2>IDR 335,000</h2>
                               <p>First Bloom</p>
@@ -220,7 +220,7 @@ class Home extends Component {
                       <div className="col-sm-3">
                         <div className="product-image-wrapper">
                           <div className="single-products">
-                            <div className="productinfo text-center">
+                            <div className="productinfo1 text-center">
                               <img src="images/home/gallery4.jpg" alt="" />
                               <h2>IDR 685,000</h2>
                               <p>1st Album</p>

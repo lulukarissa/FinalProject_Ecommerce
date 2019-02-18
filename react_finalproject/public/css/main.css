@@ -882,7 +882,8 @@ h2.title {
 }
 
 .productinfo img{
-  width: 100%;
+  width: 255px;
+  height: 255px
 }
 
 .productinfo{
@@ -2544,4 +2545,29 @@ h2.title {
 .main-menu ul li a:hover, .main-menu ul li a.active,  .shop-menu ul li a.active{
 	background:none;
 	color:#fdb45e;
+}
+
+/* TESS */
+
+.productinfo1 h2{
+	color: #FE980F;
+	font-family: 'Roboto', sans-serif;
+	font-size: 24px;
+	font-weight: 700;
+}
+
+
+.productinfo1 p{
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #696763;
+}
+
+.productinfo1 img{
+  width: 100%;
+}
+
+.productinfo1{
+ position:relative;
 }

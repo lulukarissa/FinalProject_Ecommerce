@@ -79,10 +79,10 @@ class Header extends Component {
                   </div>
                   <div className="mainmenu pull-left">
                     <ul className="nav navbar-nav collapse navbar-collapse">
-                      <li><a href="/" className="active">Home</a></li>
+                      <li><a href="/">Home</a></li>
+                      <li><a href="/products">Products</a></li>
                       <li className="dropdown"><a href="#">Shop<i className="fa fa-angle-down"></i></a>
                           <ul role="menu" className="sub-menu">
-                              <li><a href="/products">Products</a></li>
                               <li><a href="/checkout">Checkout</a></li> 
                               <li><a href="/cart">Cart</a></li>
                           </ul>
