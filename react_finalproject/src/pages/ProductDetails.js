@@ -34,6 +34,7 @@ class Products extends Component {
 					total_price: this.refs.quantity.value * this.state.products.price
 			}).then((x) => {
 					console.log(x);
+					alert('Successfully add to cart!')
 			}).catch(() => {
 					console.log("Error post");
 			})
