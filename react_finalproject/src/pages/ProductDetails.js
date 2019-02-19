@@ -4,7 +4,10 @@ import axios from 'axios'
 
 class Products extends Component {
 	state = {
-        products: ''
+				products: '',
+				username: '',
+				quantity: '',
+				total_price: ''
       }
       
       componentDidMount(){
@@ -21,8 +24,20 @@ class Products extends Component {
           console.log(x.data[0])
       })
       .catch()
-	  }
-	  
+		}
+		
+		addtocart = () =>{
+			axios.post('http://localhost:3210/cart', {
+					username: this.props.username,
+					id_product: this.props.location.pathname.slice(17),
+					quantity: this.refs.quantity.value,
+					total_price: this.refs.quantity.value * this.state.products.price
+			}).then((x) => {
+					console.log(x);
+			}).catch(() => {
+					console.log("Error post");
+			})
+    }
   render() {
     return (
         <div>
@@ -45,13 +60,14 @@ class Products extends Component {
 										<span>
 											<span>IDR {this.state.products.price}</span>
 											<label>Quantity:</label>
-											<input type="text" value={this.state.products.quantity} />
-											<button type="button" className="btn btn-fefault cart">
+											<input type="number" ref="quantity" min="1" max={this.state.products.quantity} placeholder="0"/>
+											<button type="button" className="btn btn-fefault cart" onClick={this.addtocart}>
 												<i className="fa fa-shopping-cart"></i> Add to cart	
 											</button>
 										</span>
 										<p><b>Availability:</b> In Stock</p>
 										<p><b>Condition:</b> New</p>
+										<p><b>Stock:</b> {this.state.products.quantity}</p>
 										<a href=""><img src="../images/product-details/share.png" className="share img-responsive"  alt="" /></a>
 									</div>{/*/product-information*/}
 								</div>

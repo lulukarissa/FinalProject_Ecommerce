@@ -43,7 +43,7 @@ class App extends Component {
             <Route path='/products' component={Products} />
             <Route path='/artist/' component={Artist} />
             <Route path='/category/' component={Category} />
-            <Route path='/product-details/' component={ProductDetails} />
+            <Route path='/product-details/' render={(props) => <ProductDetails {...props} username={this.state.username} />}/>
             <Route path='/checkout' component={Checkout} />
             <Route path='/cart' component={Cart} />
             <Route path='/blog' component={Blog} />

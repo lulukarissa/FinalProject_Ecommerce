@@ -106,7 +106,7 @@ class Home extends Component {
                         <h1><span>GET</span>-Myu</h1>
                         <h2>J-music Online Store</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                        <button type="button" className="btn btn-default get">Get it now</button>
+                        <a href="/product-details/54"><button type="button" className="btn btn-default get">Get it now</button></a>
                       </div>
                       <div className="col-sm-6">
                         <img src="images/home/girl1.jpg" className="girl img-responsive" alt="" />
@@ -117,7 +117,7 @@ class Home extends Component {
                         <h1><span>GET</span>-Myu</h1>
                         <h2>J-music Online Store</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                        <button type="button" className="btn btn-default get">Get it now</button>
+                        <a href="/product-details/55"><button type="button" className="btn btn-default get">Get it now</button></a>
                       </div>
                       <div className="col-sm-6">
                         <img src="images/home/girl2.jpg" className="girl img-responsive" alt="" />
@@ -129,7 +129,7 @@ class Home extends Component {
                         <h1><span>GET</span>-Myu</h1>
                         <h2>J-music Online Store</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                        <button type="button" className="btn btn-default get">Get it now</button>
+                        <a href="/product-details/12"><button type="button" className="btn btn-default get">Get it now</button></a>
                       </div>
                       <div className="col-sm-6">
                         <img src="images/home/girl3.jpg" className="girl img-responsive" alt="" />
