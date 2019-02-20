@@ -27,17 +27,22 @@ class Products extends Component {
 		}
 		
 		addtocart = () =>{
-			axios.post('http://localhost:3210/cart', {
-					username: this.props.username,
-					id_product: this.props.location.pathname.slice(17),
-					quantity: this.refs.quantity.value,
-					total_price: this.refs.quantity.value * this.state.products.price
-			}).then((x) => {
-					console.log(x);
-					alert('Successfully add to cart!')
-			}).catch(() => {
-					console.log("Error post");
-			})
+			if(this.refs.quantity.value > this.state.products.quantity){
+				alert('Sorry, we do not have that number of items in stock. Please check the stock number!')
+			}
+			else{
+				axios.post('http://localhost:3210/cart', {
+						username: this.props.username,
+						id_product: this.props.location.pathname.slice(17),
+						quantity: this.refs.quantity.value,
+						total_price: this.refs.quantity.value * this.state.products.price
+				}).then((x) => {
+						console.log(x);
+						alert('Successfully added to cart!')
+				}).catch(() => {
+						console.log("Error post");
+				})
+			}
     }
   render() {
     return (
@@ -61,7 +66,7 @@ class Products extends Component {
 										<span>
 											<span>IDR {this.state.products.price}</span>
 											<label>Quantity:</label>
-											<input type="number" ref="quantity" min="1" max={this.state.products.quantity} placeholder="0"/>
+											<input type="number" ref="quantity" min="1" max={this.state.products.quantity} defaultValue="1"/>
 											<button type="button" className="btn btn-fefault cart" onClick={this.addtocart}>
 												<i className="fa fa-shopping-cart"></i> Add to cart	
 											</button>

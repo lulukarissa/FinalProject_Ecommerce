@@ -6,7 +6,7 @@ class Cart extends Component {
 		cart: []
 	}
 
-	componentDidMount(){
+	getCart = () => {
 		var url = `http://localhost:3210/cart/${this.props.username}`
 		axios.get(url)
 		.then((x)=>{
@@ -16,25 +16,30 @@ class Cart extends Component {
 		})
 	}
 
+	componentDidMount(){
+		this.getCart();
+	}
+
 	deleteCart = (e) =>{
 		axios.delete(`http://localhost:3210/cartdelete/${e}`)
 		.then((x)=>{
 			console.log(x)
+			this.getCart();
 		})
 		
 		alert('Successfully removed product from cart!')
-		window.location.reload()
+		// window.location.reload()
 	}
 
   render() {
 		var cart = this.state.cart.map((val,i)=>{
-		var image = val.image
-		var product_name = val.product_name
-		var artist = val.artist
-		var price = val.price
-		var quantity = val.quantity
-		var total_price = val.total_price
-		var id_cart = val.id_cart
+			var image = val.image
+			var product_name = val.product_name
+			var artist = val.artist
+			var price = val.price
+			var quantity = val.quantity
+			var total_price = val.total_price
+			var id_cart = val.id_cart
 
 			return(
 				<tr>
@@ -64,6 +69,7 @@ class Cart extends Component {
 				</tr>
 			)
 		})
+
     return (
         <div>
 			<section id="cart_items">
@@ -76,7 +82,7 @@ class Cart extends Component {
 					</div>
 
 					{
-						cart
+						cart.length > 0
 						? <div className="table-responsive cart_info">
 						<table className="table table-condensed">
 							<thead>

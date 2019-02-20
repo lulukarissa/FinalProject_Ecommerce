@@ -27,12 +27,13 @@ router.post('/cart', (req, res) => {
     db.query(dbstat, [id_product, username], (error, result) => {
         if (result.length > 0) {
             var quantityupdate = result[0].quantity + parseInt(req.body.quantity)
+            var total_priceupdate = result[0].total_price + parseInt(req.body.total_price)
 
             var dataupdate = {
                 username: username,
                 id_product: id_product,
                 quantity: quantityupdate,
-                total_price: req.body.total_price
+                total_price: total_priceupdate
             }
             let dbstat = `UPDATE cart SET ? where id_product = ? and username = ?`;
             db.query(dbstat, [dataupdate, id_product, username], (err, result) => {
