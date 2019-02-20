@@ -43,6 +43,20 @@ router.get('/product', (req, res)=>{
     })
 })
 
+//GET all data products join category
+router.get('/productcategory', (req, res)=>{
+    var dbstat = 'select * from products join category on category.id_category = products.category order by id_product desc'
+    db.query(dbstat, (error, result)=>{
+        if(error){
+            console.log(error)
+        }
+        else{
+            console.log(result)
+            res.send(result)
+        }
+    })
+})
+
 //GET data by id
 router.get('/product/:id', (req, res)=>{
     var dbstat = 'select * from products where id_product = ?'

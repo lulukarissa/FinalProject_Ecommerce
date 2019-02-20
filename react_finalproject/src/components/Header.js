@@ -42,7 +42,7 @@ class Header extends Component {
                 <div className="col-sm-8">
                   <div className="main-menu pull-right">
                     <ul className="nav navbar-nav">
-                      <li><a href="#"><i className="fa fa-star"></i> Wishlist</a></li>
+                      <li><a href="/wishlist"><i className="fa fa-star"></i> Wishlist</a></li>
                       <li><a href="/checkout"><i className="fa fa-crosshairs"></i> Checkout</a></li>
                       <li><a href="/cart"><i className="fa fa-shopping-cart"></i> Cart</a></li>
                       {this.props.username

@@ -5,7 +5,8 @@ import axios from 'axios'
 class Home extends Component {
   state = {
     products: [],
-    category: []
+    category: [],
+    procat: []
   }
 
   componentDidMount(){
@@ -30,6 +31,27 @@ class Home extends Component {
       console.log(x.data)
   })
 
+  axios.get('http://localhost:3210/productcategory')
+  .then((x)=>{
+      this.setState({
+          procat: x.data
+      })
+      console.log(x.data)
+  })
+  .catch()
+
+  }
+
+  addtowishlist = (e) =>{
+    axios.post('http://localhost:3210/wishlist', {
+        username: this.props.username,
+        id_product: e
+    }).then((x) => {
+        console.log(x);
+        alert('Successfully added to wishlist!')
+    }).catch(() => {
+        console.log("Error post");
+    })
   }
   render() {
     var products = this.state.products.map((val, i)=>{
@@ -51,7 +73,7 @@ class Home extends Component {
                   <h2>IDR {price}</h2>
                   <p>{product_name}</p>
                   <p><b>{artist}</b></p>
-                  <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
+                  <a href="#" className="btn btn-default add-to-cart" onClick={()=>{this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
                 </div>
                 <a href={`/product-details/${id_product}`}>
                   <div className="product-overlay">
@@ -59,16 +81,10 @@ class Home extends Component {
                       <h2>IDR {price}</h2>
                       <p>{product_name}</p>
                       <p><b>{artist}</b></p>
-                      <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
+                      <a href="#" className="btn btn-default add-to-cart" onClick={()=>{this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
                     </div>
                   </div>
                 </a>
-            </div>
-            <div className="choose">
-              <ul className="nav nav-pills nav-justified">
-                <li><a href="#"><i className="fa fa-plus-square"></i>Add to wishlist</a></li>
-                <li><a href="#"><i className="fa fa-plus-square"></i>Add to compare</a></li>
-              </ul>
             </div>
           </div>
         </div>  
@@ -85,6 +101,37 @@ class Home extends Component {
     else{
       return <li><a href={`#${category_name}`} data-toggle="tab">{category_name}</a></li>
     }
+  })
+
+  var procat = this.state.procat.map((val, i)=>{
+    var id_product = val.id_product
+    var product_name = val.product_name
+    var artist = val.artist
+    var price = val.price
+    var image = val.image
+    var category_name = val.category_name
+
+    if(i<4){
+    return(
+      <div className="tab-pane fade active in" id={category_name} >
+        <div className="col-sm-3">
+          <div className="product-image-wrapper">
+            <div className="single-products">
+              <div className="productinfo1 text-center">
+                <img src={`http://localhost:3210/img/${image}`} alt="" />
+                <h2>IDR {price}</h2>
+                <p>{product_name}</p>
+                <p><b>{artist}</b></p>
+                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+
   })
   
     return (
@@ -174,300 +221,7 @@ class Home extends Component {
                     </ul>
                   </div>
                   <div className="tab-content">
-                    <div className="tab-pane fade active in" id="single" >
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo1 text-center">
-                              <img src="images/home/gallery1.jpg" alt="" />
-                              <h2>IDR 435,000</h2>
-                              <p>Ambivalent</p>
-                              <p><b>Keyakizaka46</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo1 text-center">
-                              <img src="images/home/gallery2.jpg" alt="" />
-                              <h2>IDR 435,000</h2>
-                              <p>Aitai, Aitai, Aitai</p>
-                              <p><b>Kinki Kids</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo1 text-center">
-                              <img src="images/home/gallery3.jpg" alt="" />
-                              <h2>IDR 335,000</h2>
-                              <p>First Bloom</p>
-                              <p><b>Tsubaki Factory</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo1 text-center">
-                              <img src="images/home/gallery4.jpg" alt="" />
-                              <h2>IDR 685,000</h2>
-                              <p>1st Album</p>
-                              <p><b>BABY METAL</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="tab-pane fade" id="album" >
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery4.jpg" alt="" />
-                              <h2>IDR 685,000</h2>
-                              <p>1st Album</p>
-                              <p><b>BABY METAL</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery3.jpg" alt="" />
-                              <h2>IDR 335,000</h2>
-                              <p>First Bloom</p>
-                              <p><b>Tsubaki Factory</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery2.jpg" alt="" />
-                              <h2>IDR 435,000</h2>
-                              <p>Aitai, Aitai, Aitai</p>
-                              <p><b>Kinki Kids</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery1.jpg" alt="" />
-                              <h2>IDR 435,000</h2>
-                              <p>Ambivalent</p>
-                              <p><b>Keyakizaka46</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="tab-pane fade" id="dvdbluray" >
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery3.jpg" alt="" />
-                              <h2>IDR 335,000</h2>
-                              <p>First Bloom</p>
-                              <p><b>Tsubaki Factory</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery4.jpg" alt="" />
-                              <h2>IDR 685,000</h2>
-                              <p>1st Album</p>
-                              <p><b>BABY METAL</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery1.jpg" alt="" />
-                              <h2>IDR 435,000</h2>
-                              <p>Ambivalent</p>
-                              <p><b>Keyakizaka46</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery2.jpg" alt="" />
-                              <h2>IDR 435,000</h2>
-                              <p>Aitai, Aitai, Aitai</p>
-                              <p><b>Kinki Kids</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="tab-pane fade" id="goods" >
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery1.jpg" alt="" />
-                              <h2>IDR 435,000</h2>
-                              <p>Ambivalent</p>
-                              <p><b>Keyakizaka46</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery2.jpg" alt="" />
-                              <h2>IDR 435,000</h2>
-                              <p>Aitai, Aitai, Aitai</p>
-                              <p><b>Kinki Kids</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery3.jpg" alt="" />
-                              <h2>IDR 335,000</h2>
-                              <p>First Bloom</p>
-                              <p><b>Tsubaki Factory</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery4.jpg" alt="" />
-                              <h2>IDR 685,000</h2>
-                              <p>1st Album</p>
-                              <p><b>BABY METAL</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="tab-pane fade" id="photobook" >
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery2.jpg" alt="" />
-                              <h2>IDR 435,000</h2>
-                              <p>Aitai, Aitai, Aitai</p>
-                              <p><b>Kinki Kids</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery4.jpg" alt="" />
-                              <h2>IDR 685,000</h2>
-                              <p>1st Album</p>
-                              <p><b>BABY METAL</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery3.jpg" alt="" />
-                              <h2>IDR 335,000</h2>
-                              <p>First Bloom</p>
-                              <p><b>Tsubaki Factory</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-3">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="images/home/gallery1.jpg" alt="" />
-                              <h2>IDR 435,000</h2>
-                              <p>Ambivalent</p>
-                              <p><b>Keyakizaka46</b></p>
-                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    {procat}
                   </div>
                 </div>{/*/category-tab*/}
                 
@@ -485,7 +239,7 @@ class Home extends Component {
                                 <h2>IDR 335,000</h2>
                                 <p>32nd Single</p>
                                 <p><b>BISH</b></p>
-                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
+                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
                               </div>
                               
                             </div>
@@ -499,7 +253,7 @@ class Home extends Component {
                                 <h2>IDR 435,000</h2>
                                 <p>Stand by you</p>
                                 <p><b>SKE48</b></p>
-                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
+                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
                               </div>
                               
                             </div>
@@ -513,7 +267,7 @@ class Home extends Component {
                                 <h2>IDR 285,000</h2>
                                 <p>Hey, Girls!</p>
                                 <p><b>TOKYO PERFORMANCE DOLL</b></p>
-                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
+                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
                               </div>
                               
                             </div>
@@ -529,7 +283,7 @@ class Home extends Component {
                                 <h2>IDR 335,000</h2>
                                 <p>32nd Single</p>
                                 <p><b>BISH</b></p>
-                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
+                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
                               </div>
                               
                             </div>
@@ -543,7 +297,7 @@ class Home extends Component {
                                 <h2>IDR 435,000</h2>
                                 <p>Stand by you</p>
                                 <p><b>SKE48</b></p>
-                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
+                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
                               </div>
                               
                             </div>
@@ -557,7 +311,7 @@ class Home extends Component {
                                 <h2>IDR 285,000</h2>
                                 <p>Hey, Girls!</p>
                                 <p><b>TOKYO PERFORMANCE DOLL</b></p>
-                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
+                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
                               </div>
                               
                             </div>

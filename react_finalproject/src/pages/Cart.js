@@ -22,7 +22,7 @@ class Cart extends Component {
 			console.log(x)
 		})
 		
-		alert('Successfully remove product from cart!')
+		alert('Successfully removed product from cart!')
 		window.location.reload()
 	}
 
@@ -74,7 +74,10 @@ class Cart extends Component {
 						<li className="active">Shopping Cart</li>
 						</ol>
 					</div>
-					<div className="table-responsive cart_info">
+
+					{
+						cart
+						? <div className="table-responsive cart_info">
 						<table className="table table-condensed">
 							<thead>
 								<tr className="cart_menu">
@@ -91,6 +94,16 @@ class Cart extends Component {
 							</tbody>
 						</table>
 					</div>
+
+					: <div className="col-sm-12">    	
+							<h2 className="title text-center">No cart</h2>
+							<div id="gmap" className="contact-map card-body">
+								<center>
+								<img src="images/home/cart.png" style={{width: '200px',height: 'auto'}}></img>	
+								</center>
+							</div>		    				    				
+						</div>	
+					}
 				</div>
 			</section> {/*/#cart_items*/}
 

@@ -9,6 +9,7 @@ import Category from './pages/ProductsbyCategory'
 import ProductDetails from './pages/ProductDetails';
 import Checkout from './pages/Checkout';
 import Cart from './pages/Cart';
+import Wishlist from './pages/Wishlist';
 import Blog from './pages/Blog';
 import Blogsingle from './pages/Blogsingle';
 import Login from './pages/Login';
@@ -38,7 +39,7 @@ class App extends Component {
       <div>
         <Header username={this.state.username}/>
         <div>
-            <Route exact path='/' component={Home} />
+            <Route exact path='/' render={(props) => <Home {...props} username={this.state.username} />}/>
             <Route path='/home' render={(props) => <Home {...props} username={this.state.username} />}/>
             <Route path='/products' component={Products} />
             <Route path='/artist/' component={Artist} />
@@ -46,6 +47,7 @@ class App extends Component {
             <Route path='/product-details/' render={(props) => <ProductDetails {...props} username={this.state.username} />}/>
             <Route path='/checkout'  render={(props) => <Checkout {...props} username={this.state.username} />}/>
             <Route path='/cart'  render={(props) => <Cart {...props} username={this.state.username} />}/>
+            <Route path='/wishlist'  render={(props) => <Wishlist {...props} username={this.state.username} />}/>
             <Route path='/blog' component={Blog} />
             <Route path='/blog-single' component={Blogsingle} />
             {/* <Route path='/login' component={Login} /> */}

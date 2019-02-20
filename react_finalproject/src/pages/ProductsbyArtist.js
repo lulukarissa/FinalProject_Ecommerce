@@ -139,7 +139,7 @@ class Shop extends Component {
                     <h2>IDR {price}</h2>
                     <p>{product_name}</p>
                     <p><b>{artist}</b></p>
-                    <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
+                    <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
                   </div>
                   <a href={`/product-details/${id_product}`}>
                     <div className="product-overlay">
@@ -147,16 +147,10 @@ class Shop extends Component {
                         <h2>IDR {price}</h2>
                         <p>{product_name}</p>
                         <p><b>{artist}</b></p>
-                        <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</a>
+                        <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
                         </div>
                     </div>
                     </a>
-              </div>
-              <div className="choose">
-                <ul className="nav nav-pills nav-justified">
-                  <li><a href="#"><i className="fa fa-plus-square"></i>Add to wishlist</a></li>
-                  <li><a href="#"><i className="fa fa-plus-square"></i>Add to compare</a></li>
-                </ul>
               </div>
             </div>
           </div>  
