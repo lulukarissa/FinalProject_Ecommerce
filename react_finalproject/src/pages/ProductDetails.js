@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Label from '../components/Label';
-import axios from 'axios'
+import axios from 'axios';
+import swal from '@sweetalert/with-react'
 
 class Products extends Component {
 	state = {
@@ -27,22 +28,35 @@ class Products extends Component {
 		}
 		
 		addtocart = () =>{
-			if(this.refs.quantity.value > this.state.products.quantity){
-				alert('Sorry, we do not have that number of items in stock. Please check the stock number!')
+			if(this.props.username){
+				if(this.refs.quantity.value > this.state.products.quantity){
+					swal('Sorry, we do not have that number of items in stock. Please check the stock number!')
+				}
+				else{
+					axios.post('http://localhost:3210/cart', {
+							username: this.props.username,
+							id_product: this.props.location.pathname.slice(17),
+							quantity: this.refs.quantity.value,
+							total_price: this.refs.quantity.value * this.state.products.price
+					}).then((x) => {
+							console.log(x);
+							swal({
+								title: "Good job!",
+								text: "successfully added to cart!",
+								icon: "success",
+								button: "View cart",
+							}).then((x)=>{
+								window.location.href = '/cart'
+							})
+					}).catch(() => {
+							console.log("Error post");
+					})
+				}
 			}
 			else{
-				axios.post('http://localhost:3210/cart', {
-						username: this.props.username,
-						id_product: this.props.location.pathname.slice(17),
-						quantity: this.refs.quantity.value,
-						total_price: this.refs.quantity.value * this.state.products.price
-				}).then((x) => {
-						console.log(x);
-						alert('Successfully added to cart!')
-				}).catch(() => {
-						console.log("Error post");
-				})
+				swal('Please login first to add to cart!')
 			}
+			
     }
   render() {
     return (

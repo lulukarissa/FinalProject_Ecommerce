@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import swal from '@sweetalert/with-react'
 
 class Cart extends Component {
 	state = {
@@ -21,14 +22,27 @@ class Cart extends Component {
 	}
 
 	deleteCart = (e) =>{
-		axios.delete(`http://localhost:3210/cartdelete/${e}`)
-		.then((x)=>{
-			console.log(x)
-			this.getCart();
+		swal({
+			title: "Are you sure?",
+			text: "You will remove this product from your cart",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
 		})
-		
-		alert('Successfully removed product from cart!')
-		// window.location.reload()
+		.then((willDelete) => {
+			if (willDelete) {
+				axios.delete(`http://localhost:3210/cartdelete/${e}`)
+				.then((x)=>{
+					console.log(x)
+					this.getCart();
+				})
+				swal("Successfully removed product from cart!", {
+					icon: "success",
+				});
+			} else {
+				swal("This product is still on your cart");
+			}
+		})
 	}
 
   render() {
@@ -83,7 +97,8 @@ class Cart extends Component {
 
 					{
 						cart.length > 0
-						? <div className="table-responsive cart_info">
+						? <div>
+						<div className="table-responsive cart_info">
 						<table className="table table-condensed">
 							<thead>
 								<tr className="cart_menu">
@@ -101,6 +116,29 @@ class Cart extends Component {
 						</table>
 					</div>
 
+					<div id="do_action">
+				<div className="container">
+					<div className="row">
+						<div className="col-sm-6">
+						</div>
+						<div className="col-sm-6">
+							{/* <div className="heading">
+							<h3>What would you like to do next?</h3>
+							<p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+						</div> */}
+							<div className="total_area" style={{marginRight: '15px'}}>
+								<ul>
+									<li>Quantity Total<span></span></li>
+									<li>Price Total<span>IDR 450,000</span></li>
+								</ul>
+									<a className="btn btn-default update" href="">Check Out</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+
 					: <div className="col-sm-12">    	
 							<h2 className="title text-center">No cart</h2>
 							<div id="gmap" className="contact-map card-body">
@@ -113,76 +151,7 @@ class Cart extends Component {
 				</div>
 			</section> {/*/#cart_items*/}
 
-			<section id="do_action">
-				<div className="container">
-					<div className="heading">
-						<h3>What would you like to do next?</h3>
-						<p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
-					</div>
-					<div className="row">
-						<div className="col-sm-6">
-							<div className="chose_area">
-								<ul className="user_option">
-									<li>
-										<input type="checkbox"/>
-										<label>Use Coupon Code</label>
-									</li>
-									<li>
-										<input type="checkbox"/>
-										<label>Use Gift Voucher</label>
-									</li>
-									<li>
-										<input type="checkbox"/>
-										<label>Estimate Shipping & Taxes</label>
-									</li>
-								</ul>
-								<ul className="user_info">
-									<li className="single_field">
-										<label>Country:</label>
-										<select>
-											<option>Indonesia</option>
-											<option>Malaysia</option>
-											<option>Singapore</option>
-											<option>Thailand</option>
-											<option>Philippines</option>
-										</select>
-										
-									</li>
-									<li className="single_field">
-										<label>Region / State:</label>
-										<select>
-											<option>Indonesia</option>
-											<option>Malaysia</option>
-											<option>Singapore</option>
-											<option>Thailand</option>
-											<option>Philippines</option>
-										</select>
-									
-									</li>
-									<li className="single_field zip-field">
-										<label>Zip Code:</label>
-										<input type="text"/>
-									</li>
-								</ul>
-								<a className="btn btn-default update" href="">Get Quotes</a>
-								<a className="btn btn-default check_out" href="">Continue</a>
-							</div>
-						</div>
-						<div className="col-sm-6">
-							<div className="total_area">
-								<ul>
-									<li>Cart Sub Total <span>IDR 435,000</span></li>
-									<li>Eco Tax <span>IDR 15,000</span></li>
-									<li>Shipping Cost <span>Free</span></li>
-									<li>Total <span>IDR 450,000</span></li>
-								</ul>
-									<a className="btn btn-default update" href="">Update</a>
-									<a className="btn btn-default check_out" href="">Check Out</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>{/*/#do_action*/}
+			
         </div>
     );
   }

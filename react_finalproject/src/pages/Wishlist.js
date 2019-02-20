@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import swal from '@sweetalert/with-react'
 
 class Cart extends Component {
 	state = {
 		wishlist: []
 	}
 
-	componentDidMount(){
+	getWishlist = () =>{
 		var url = `http://localhost:3210/wishlist/${this.props.username}`
 		axios.get(url)
 		.then((x)=>{
@@ -16,14 +17,34 @@ class Cart extends Component {
 		})
 	}
 
+	componentDidMount(){
+		this.getWishlist()
+	}
+
 	deleteWishlist = (e) =>{
-		axios.delete(`http://localhost:3210/wishlistdelete/${e}`)
-		.then((x)=>{
-			console.log(x)
+
+		swal({
+			title: "Are you sure?",
+			text: "You will remove this product from your wishlist",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+		})
+		.then((willDelete) => {
+			if (willDelete) {
+				axios.delete(`http://localhost:3210/wishlistdelete/${e}`)
+				.then((x)=>{
+					console.log(x)
+					this.getWishlist()
+				})
+				swal("Successfully removed product from wishlist!", {
+					icon: "success",
+				});
+			} else {
+				swal("This product is still on your wishlist");
+			}
 		})
 		
-		alert('Successfully removed product from wishlist!')
-		window.location.reload()
 	}
 
   render() {
@@ -74,7 +95,7 @@ class Cart extends Component {
 						</ol>
 					</div>
 					{
-						wishlist > 0 
+						wishlist.length > 0 
 						? <div className="table-responsive cart_info">
 						<table className="table table-condensed">
 							<thead>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Label from '../components/Label';
-import axios from 'axios'
+import axios from 'axios';
+import swal from '@sweetalert/with-react'
 
 class Home extends Component {
   state = {
@@ -48,7 +49,12 @@ class Home extends Component {
         id_product: e
     }).then((x) => {
         console.log(x);
-        alert('Successfully added to wishlist!')
+        swal({
+          title: "Good job!",
+          text: "successfully added to wishlist!",
+          icon: "success",
+          button: "OK",
+        })
     }).catch(() => {
         console.log("Error post");
     })
