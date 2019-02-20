@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import swal from '@sweetalert/with-react'
 
 
 class Register extends Component {
@@ -20,11 +20,16 @@ class Register extends Component {
 			var first_name = this.refs.first_name.value
 
 			localStorage.setItem('username', username)
-			
-			alert(`You have successfully registered!
-			Thank you for joining us, happy shopping ${first_name}!`)
 			this.props.getUsername(username)
-			window.location.href = '/home'
+
+			swal({
+				title: "You have successfully registered!",
+				text: `Thank you for joining us, happy shopping ${first_name}!`,
+				icon: "success",
+				button: "GO TO HOME",
+			}).then(()=>{
+				window.location.href = '/home'
+			})
 		})
 		.catch((x)=>{
 			console.log('Error!')

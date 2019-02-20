@@ -70,7 +70,7 @@ router.post('/cart', (req, res) => {
 router.get("/cart/:username", (req, res) => {
     var dbstat =
     `SELECT cart.id_cart, users.id, users.username,
-    products.product_name, products.artist, products.image, products.price,
+    products.id_product, products.product_name, products.artist, products.image, products.price,
     cart.quantity, cart.total_price
     FROM cart
     JOIN users ON cart.username = users.username
@@ -80,6 +80,13 @@ router.get("/cart/:username", (req, res) => {
         res.send(result);
     })
 });
+
+router.get('/cartcount/:username', (req,res)=>{
+    var dbstat = 'select sum(quantity) as totalquantity, sum(total_price) as totalprice from cart where username = ?'
+    db.query(dbstat, req.params.username, (err, result) => {
+        res.send(result);
+    })
+})
 
 router.delete('/cartdelete/:id', (req, res)=>{
     var dbstat = 'delete from cart where id_cart = ?'

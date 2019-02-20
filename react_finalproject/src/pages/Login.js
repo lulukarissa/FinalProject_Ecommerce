@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import swal from '@sweetalert/with-react'
 
 class Login extends Component {
-	state = {
-		statusRedirect: false
-	  }
 
 	login = (e) => {
 		var url = 'http://localhost:3210/users';
@@ -24,26 +21,28 @@ class Login extends Component {
 				  password: e.password.value
 				}).then(() => {
 					localStorage.setItem('username', username)
-				  this.setState({
-						statusRedirect: true
-				  })
-					alert(`You have successfully logged in!
-					Welcome back, ${first_name}!`)
 					this.props.getUsername(username)
+
+					swal({
+						title: "You have successfully logged in!",
+						text: `Welcome back, ${first_name}!`,
+						icon: "success",
+						button: "GO TO HOME",
+					}).then(()=>{
+						window.location.href = '/home'
+					})
 				})
 				  break;
 			  }else if (i === userdata.length - 1){
-				  alert ("Username or Password Incorrect")
+					swal({text: "Username or Password Incorrect!",
+					icon: "warning",
+					dangerMode: true})
 			  }
 		  }
 		  })
 		}
 
   render() {
-	if(this.state.statusRedirect === true){
-		return (<Redirect to="/home" />)
-	}
-	else{
     return (
         <div>
 			<section id="form">{/*form*/}
@@ -68,7 +67,6 @@ class Login extends Component {
         </div>
     );
   }
-}
 }
 
 export default Login;

@@ -2,9 +2,22 @@ import React, { Component } from 'react';
 import axios from 'axios'
 
 class Label extends Component {
-  state = {
-    artistproducts: [],
-    category: []
+  constructor(){
+    super()
+
+    this.state = {
+      artistproducts: [],
+      category: [],
+      limit: 6
+    }
+    this.showMore = this.showMore.bind(this)
+  }
+
+  showMore(e){
+    e.preventDefault()
+    this.setState((prev)=>{
+      return {limit: prev.limit + 6}
+    })
   }
   
   componentDidMount(){
@@ -30,7 +43,7 @@ class Label extends Component {
   }
 
   render() {
-    var artistproducts = this.state.artistproducts.map((val, i)=>{
+    var artistproducts = this.state.artistproducts.slice(0, this.state.limit).map((val, i)=>{
       var artist = val.artist
       var artistcount = val.artistcount
 
@@ -64,7 +77,12 @@ class Label extends Component {
                   <h2>Artists</h2>
                   <div className="brands-name">
                     <ul className="nav nav-pills nav-stacked">
-                      {artistproducts}  
+                      {artistproducts}
+                      
+                      {/* Show More */}
+                      {this.state.limit < this.state.artistproducts.length && <li>
+                        <a href="#" onClick={this.showMore} style={{color: 'orange'}}>Show more <i className="fa fa-angle-down"></i> </a></li> }
+                       
                     </ul>
                   </div>
                 </div>{/*/brands_products*/}

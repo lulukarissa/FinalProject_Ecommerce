@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Label from '../components/Label';
 import axios from 'axios'
+import swal from '@sweetalert/with-react'
 
 class Shop extends Component {
     constructor(){
@@ -112,6 +113,23 @@ class Shop extends Component {
         })
       }
 
+      addtowishlist = (e) =>{
+        axios.post('http://localhost:3210/wishlist', {
+            username: this.props.username,
+            id_product: e
+        }).then((x) => {
+            console.log(x);
+            swal({
+                title: "Added to wishlist!",
+                text: "You just successfully added this product to your wishlist",
+                icon: "success",
+                button: "OK",
+            })
+        }).catch(() => {
+            console.log("Error post");
+        })
+    }
+
   render() {
     var { products, currentPage, productsPerPage } = this.state;
 
@@ -138,7 +156,7 @@ class Shop extends Component {
                     <h2>IDR {price}</h2>
                     <p>{product_name}</p>
                     <p><b>{artist}</b></p>
-                    <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
+                    <a href="#" className="btn btn-default add-to-cart" onClick={(e)=>{e.preventDefault(); this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
                   </div>
                   <a href={`/product-details/${id_product}`}>
                     <div className="product-overlay">
@@ -146,7 +164,7 @@ class Shop extends Component {
                         <h2>IDR {price}</h2>
                         <p>{product_name}</p>
                         <p><b>{artist}</b></p>
-                        <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
+                        <a href="#" className="btn btn-default add-to-cart" onClick={(e)=>{e.preventDefault(); this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
                         </div>
                     </div>
                     </a>

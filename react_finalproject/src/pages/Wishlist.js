@@ -69,10 +69,8 @@ class Cart extends Component {
 					<td className="cart_price">
 						<p>IDR {price}</p>
 					</td>
-					<td className="cart_quantity">
-						<div className="cart_quantity_button">
-							<input className="cart_quantity_input" type="text" name="quantity" value={quantity} autocomplete="off" size="2"/>
-						</div>
+					<td className="cart_price text-center">
+							<p>{quantity}</p>
 					</td>
 					{/* <td className="cart_total">
 						<p className="cart_total_price">IDR {total_price}</p>
@@ -103,7 +101,7 @@ class Cart extends Component {
 									<td className="image"><i className="fa fa-star"></i> Item</td>
 									<td className="description"></td>
 									<td className="price">Price</td>
-									<td className="quantity">Stock</td>
+									<td className="quantity text-center">Stock</td>
 									<td className="total text-center">Action</td>
 									<td></td>
 								</tr>
@@ -118,7 +116,7 @@ class Cart extends Component {
 							<h2 className="title text-center">No wishlist</h2>
 							<div id="gmap" className="contact-map card-body">
 								<center>
-								<img src="images/home/wishlist.png" style={{width: '200px',height: 'auto'}}></img>	
+								<img src="images/home/wishlist.png" style={{width: '200px',height: 'auto'}}></img>
 								</center>
 							</div>		    				    				
 						</div>	

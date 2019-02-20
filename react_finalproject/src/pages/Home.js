@@ -50,8 +50,8 @@ class Home extends Component {
     }).then((x) => {
         console.log(x);
         swal({
-          title: "Good job!",
-          text: "successfully added to wishlist!",
+          title: "Added to wishlist!",
+          text: "You just successfully added this product to your wishlist",
           icon: "success",
           button: "OK",
         })
@@ -79,7 +79,7 @@ class Home extends Component {
                   <h2>IDR {price}</h2>
                   <p>{product_name}</p>
                   <p><b>{artist}</b></p>
-                  <a href="#" className="btn btn-default add-to-cart" onClick={()=>{this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
+                  <a href="#" className="btn btn-default add-to-cart" onClick={(e)=>{e.preventDefault(); this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
                 </div>
                 <a href={`/product-details/${id_product}`}>
                   <div className="product-overlay">
@@ -87,7 +87,7 @@ class Home extends Component {
                       <h2>IDR {price}</h2>
                       <p>{product_name}</p>
                       <p><b>{artist}</b></p>
-                      <a href="#" className="btn btn-default add-to-cart" onClick={()=>{this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
+                      <a href="#" className="btn btn-default add-to-cart" onClick={(e)=>{e.preventDefault(); this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
                     </div>
                   </div>
                 </a>
@@ -119,7 +119,7 @@ class Home extends Component {
 
     if(i<4){
     return(
-      <div className="tab-pane fade active in" id={category_name} >
+      <div className="tab-pane fade active in" id={category_name}>
         <div className="col-sm-3">
           <div className="product-image-wrapper">
             <div className="single-products">

@@ -30,7 +30,9 @@ class Products extends Component {
 		addtocart = () =>{
 			if(this.props.username){
 				if(this.refs.quantity.value > this.state.products.quantity){
-					swal('Sorry, we do not have that number of items in stock. Please check the stock number!')
+					swal({text: "Sorry, we do not have that number of items in stock. Please check the stock number!",
+					icon: "warning",
+					dangerMode: true})
 				}
 				else{
 					axios.post('http://localhost:3210/cart', {
@@ -41,10 +43,10 @@ class Products extends Component {
 					}).then((x) => {
 							console.log(x);
 							swal({
-								title: "Good job!",
-								text: "successfully added to cart!",
+								title: "Added to cart!",
+								text: "You just added this product to your cart",
 								icon: "success",
-								button: "View cart",
+								button: "VIEW CART",
 							}).then((x)=>{
 								window.location.href = '/cart'
 							})

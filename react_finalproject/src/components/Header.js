@@ -1,7 +1,32 @@
 import React, { Component } from 'react';
+import axios from 'axios'
+import swal from '@sweetalert/with-react'
 
 class Header extends Component {
+  state = {
+    category: []
+  }
+
+  componentDidMount(){
+    var linkcategory = 'http://localhost:3210/category'
+
+    axios.get(linkcategory)
+    .then((x)=>{
+        this.setState({
+            category: x.data
+        })
+        console.log(x.data)
+    })
+  }
   render() {
+    var category = this.state.category.map((val, i)=>{
+      var id_category = val.id_category
+      var category_name = val.category_name
+
+      return(
+        <li key={i}><a href={`/category/${id_category}`}>{category_name}</a></li> 
+      )
+    })
     return (
       <div>
         <header id="header">{/*header*/}
@@ -50,9 +75,12 @@ class Header extends Component {
                             <ul role="menu" className="sub-menu">
                                 <li><a href={`/profile/${this.props.username}`}>
                                 <i className="fa fa-user"></i>  Profile</a></li>
-                                <li><a href="/home"
-                                onClick={()=>{
+                                <li><a href="#"
+                                onClick={(e)=>{
+                                  e.preventDefault()
                                   localStorage.removeItem('username')
+                                  swal("You just logged out!", "Please login again to shop")
+                                  .then(()=>{window.location.href = '/home'});
                                   }}><i className="fa fa-lock"></i>  Logout</a></li> 
                             </ul>
                           </li> 
@@ -80,7 +108,11 @@ class Header extends Component {
                   <div className="mainmenu pull-left">
                     <ul className="nav navbar-nav collapse navbar-collapse">
                       <li><a href="/">Home</a></li>
-                      <li><a href="/products">Products</a></li>
+                      <li className="dropdown"><a href="/products">Products<i className="fa fa-angle-down"></i></a>
+                          <ul role="menu" className="sub-menu">
+                            {category}
+                          </ul>
+                      </li> 
                       <li className="dropdown"><a href="#">Shop<i className="fa fa-angle-down"></i></a>
                           <ul role="menu" className="sub-menu">
                               <li><a href="/checkout">Checkout</a></li> 

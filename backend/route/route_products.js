@@ -44,9 +44,9 @@ router.get('/product', (req, res)=>{
 })
 
 //GET all data products join category
-router.get('/productcategory', (req, res)=>{
-    var dbstat = 'select * from products join category on category.id_category = products.category order by id_product desc'
-    db.query(dbstat, (error, result)=>{
+router.get('/productcategory/:name', (req, res)=>{
+    var dbstat = 'select * from products join category on category.id_category = products.category where category_name = ? order by products.id_product desc'
+    db.query(dbstat, req.params.name, (error, result)=>{
         if(error){
             console.log(error)
         }
@@ -345,7 +345,7 @@ router.get('/artpricehigh/:id', (req, res)=>{
 
 //GET products total by artist
 router.get('/artistproducts/', (req, res)=>{
-    var dbstat = 'select artist, count(product_name) as artistcount from products group by artist'
+    var dbstat = 'select artist, count(product_name) as artistcount from products group by artist order by artist asc'
     db.query(dbstat, (error, result)=>{
         if(error){
             console.log(error)

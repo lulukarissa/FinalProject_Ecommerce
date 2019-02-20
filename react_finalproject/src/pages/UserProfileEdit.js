@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import swal from '@sweetalert/with-react'
 
 class Profile extends Component {
 	state = {
@@ -55,20 +56,35 @@ class Profile extends Component {
 		var province = this.refs.province.value.split(',')[1]
 		var address = `${street}, ${city}, ${province}`
 
-		var url = `http://localhost:3210/users/${this.props.username}`
-		axios.put(url,{
-				username: username,
-				first_name: first_name,
-				last_name: last_name,
-				telephone: telephone,
-				address: address
-			})
-			.then((x)=>{
-				console.log('Success!')
-			})
-			.catch((x)=>{
-				console.log('Error!')
-			})
+		
+
+			if(username == '' || first_name == '' || last_name == '' || telephone == '' || street == '' || city == '' || province == ''){
+				swal({text: "Please input all data!",
+				icon: "warning",
+				dangerMode: true})
+			}
+			else{
+				var url = `http://localhost:3210/users/${this.props.username}`
+				axios.put(url,{
+					username: username,
+					first_name: first_name,
+					last_name: last_name,
+					telephone: telephone,
+					address: address
+				})
+				.then((x)=>{
+					swal({
+						title: "Successfully edit profile!",
+						icon: "success",
+						button: "GO TO PROFILE",
+					}).then(()=>{
+						window.location.href = `/profile/${this.props.username}`
+					})
+				})
+				.catch((x)=>{
+					console.log('Error!')
+				})	
+			}
 		}
 
 

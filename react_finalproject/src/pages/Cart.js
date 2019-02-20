@@ -4,7 +4,8 @@ import swal from '@sweetalert/with-react'
 
 class Cart extends Component {
 	state = {
-		cart: []
+		cart: [],
+		cartcount: ''
 	}
 
 	getCart = () => {
@@ -15,10 +16,19 @@ class Cart extends Component {
 				cart: x.data
 			})
 		})
+
+		
 	}
 
 	componentDidMount(){
 		this.getCart();
+
+		axios.get(`http://localhost:3210/cartcount/${this.props.username}`)
+			.then((x)=>{
+				this.setState({
+					cartcount: x.data[0]
+				})
+			})
 	}
 
 	deleteCart = (e) =>{
@@ -54,14 +64,15 @@ class Cart extends Component {
 			var quantity = val.quantity
 			var total_price = val.total_price
 			var id_cart = val.id_cart
+			var id_product = val.id_product
 
 			return(
 				<tr>
 					<td className="cart_product">
-						<a href=""><img src={`http://localhost:3210/img/${image}`} style={{width:'150px', height:'150px'}} alt=""/></a>
+						<a href={`/product-details/${id_product}`}><img src={`http://localhost:3210/img/${image}`} style={{width:'150px', height:'150px'}} alt=""/></a>
 					</td>
 					<td className="cart_description">
-						<h4><a href="">{product_name}</a></h4>
+						<h4><a href={`/product-details/${id_product}`}>{product_name}</a></h4>
 						<p>{artist}</p>
 					</td>
 					<td className="cart_price">
@@ -69,16 +80,16 @@ class Cart extends Component {
 					</td>
 					<td className="cart_quantity">
 						<div className="cart_quantity_button">
-							{/* <a className="cart_quantity_up" href=""> + </a> */}
+							<a className="cart_quantity_up" href=""> + </a>
 							<input className="cart_quantity_input" type="text" name="quantity" value={quantity} autocomplete="off" size="2"/>
-							{/* <a className="cart_quantity_down" href=""> - </a> */}
+							<a className="cart_quantity_down" href=""> - </a>
 						</div>
 					</td>
 					<td className="cart_total">
 						<p className="cart_total_price">IDR {total_price}</p>
 					</td>
 					<td className="cart_delete">
-						<a className="cart_quantity_delete" onClick={()=>{this.deleteCart(id_cart)}}><i className="fa fa-times"></i></a>
+						<a className="cart_quantity_button" style={{backgroundColor:'orange'}} onClick={()=>{this.deleteCart(id_cart)}}><i className="fa fa-times"></i></a>
 					</td>
 				</tr>
 			)
@@ -128,8 +139,8 @@ class Cart extends Component {
 						</div> */}
 							<div className="total_area" style={{marginRight: '15px'}}>
 								<ul>
-									<li>Quantity Total<span></span></li>
-									<li>Price Total<span>IDR 450,000</span></li>
+									<li>Quantity Total<span>{this.state.cartcount.totalquantity}</span></li>
+									<li>Price Total<span>IDR {this.state.cartcount.totalprice}</span></li>
 								</ul>
 									<a className="btn btn-default update" href="">Check Out</a>
 							</div>
@@ -143,7 +154,8 @@ class Cart extends Component {
 							<h2 className="title text-center">No cart</h2>
 							<div id="gmap" className="contact-map card-body">
 								<center>
-								<img src="images/home/cart.png" style={{width: '200px',height: 'auto'}}></img>	
+								<img src="images/home/cart.png" style={{width: '200px',height: 'auto'}}></img><br/>
+								<a className="btn btn-default update" href="/products">GO TO SHOP</a>
 								</center>
 							</div>		    				    				
 						</div>	

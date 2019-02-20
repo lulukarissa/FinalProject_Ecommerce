@@ -41,9 +41,9 @@ class App extends Component {
         <div>
             <Route exact path='/' render={(props) => <Home {...props} username={this.state.username} />}/>
             <Route path='/home' render={(props) => <Home {...props} username={this.state.username} />}/>
-            <Route path='/products' component={Products} />
-            <Route path='/artist/' component={Artist} />
-            <Route path='/category/' component={Category} />
+            <Route path='/products' render={(props) => <Products {...props} username={this.state.username} />}/>
+            <Route path='/artist/' render={(props) => <Artist {...props} username={this.state.username} />}/>
+            <Route path='/category/' render={(props) => <Category {...props} username={this.state.username} />}/>
             <Route path='/product-details/' render={(props) => <ProductDetails {...props} username={this.state.username} />}/>
             <Route path='/checkout'  render={(props) => <Checkout {...props} username={this.state.username} />}/>
             <Route path='/cart'  render={(props) => <Cart {...props} username={this.state.username} />}/>
