@@ -116,8 +116,8 @@ router.post('/shipping/', (request, response) => {
 
     req.write(qs.stringify({ origin: '153',
     destination: request.body.destination,
-    weight: request.body.quantity * 400,
-    courier: request.body.courier }));
+    weight: request.body.quantity * 250,
+    courier: 'jne' }));
     req.end();
 })
 

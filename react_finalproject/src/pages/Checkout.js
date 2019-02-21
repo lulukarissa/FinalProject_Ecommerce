@@ -13,7 +13,8 @@ class Cart extends Component {
 		last_name: '',
 		telephone: '',
 		address: '',
-		shipping: []
+		shipping: [],
+		shippingcost: ''
 	}
 
 	getCart = () => {
@@ -58,36 +59,6 @@ class Cart extends Component {
 	.catch()
 	}
 
-	deleteCart = (id_cart, id_product, quantitycart, stock) =>{
-		swal({
-			title: "Are you sure?",
-			text: "You will remove this product from your cart",
-			icon: "warning",
-			buttons: true,
-			dangerMode: true,
-		})
-		.then((willDelete) => {
-			if (willDelete) {
-				axios.delete(`http://localhost:3210/cartdelete/${id_cart}`)
-				.then((x)=>{
-					console.log(x)
-					this.getCart();
-					this.getCount()
-				})
-				swal("Successfully removed product from cart!", {
-					icon: "success",
-				});
-			} else {
-				swal("This product is still on your cart");
-			}
-		})
-
-
-		axios.put(`http://localhost:3210/productquantity/${id_product}`,{
-			quantity: stock + quantitycart
-		})
-	}
-
 	getShipping = ()=>{
 		var url = 'http://localhost:3210/shipping'
 
@@ -96,8 +67,9 @@ class Cart extends Component {
 			quantity: this.state.cartcount.totalquantity
 		}).then((x)=>{
 			this.setState({
-				shipping: x.rajaongkir.results
+				shipping: x.data.rajaongkir.results[0].costs
 			})
+			console.log(x.data.rajaongkir.results[0].costs)
 		}).catch((x)=>{
 			console.log(x)
 		})
@@ -138,7 +110,12 @@ class Cart extends Component {
 		})
 
 		var shipping = this.state.shipping.map((val,i)=>{
-			var service = val.costs.service
+			var service = val.service
+
+			return(
+				<option key={i} value={i}>{service}</option>
+			)
+
 		})
 
     return (
@@ -147,15 +124,14 @@ class Cart extends Component {
 					<div className="container">
 						<div className="breadcrumbs">
 							<ol className="breadcrumb">
-							<li><a href="/">Home</a></li>
-							<li className="active">Shopping Cart</li>
+							<li><a href="/cart"><i className="fa fa-shopping-cart"></i>Cart</a></li>
+							<li className="active">Checkout</li>
 							</ol>
 						</div>
 					<div>
         </div>
-					{
-						cart.length > 0
-						? <div>
+				
+					<div>
 						<div className="review-payment">
 							<h2>Review & Payment</h2>
 						</div>
@@ -188,12 +164,14 @@ class Cart extends Component {
 											</tr>
 											<tr>
 											<td>
-												<button type="button" className="btn btn-default update" onClick={()=>{window.location.href=`/editprofile/${this.props.username}`}}>
+												<button type="button" className="btn btn-default"
+												onClick={()=>{window.location.href=`/editprofile/${this.props.username}`}}>
 												Edit Address
 												</button>
 												</td>	
 											</tr>
 											<br/>
+											<div>
 											<tr>
 												<td>
 													Delivery Service:
@@ -201,139 +179,70 @@ class Cart extends Component {
 											</tr>
 											<tr>
 												<td>
-													<select>
-														<option>tes</option>
+													<select onClick={this.getShipping} onChange={(e)=>{
+														var index = e.target.value
+														this.setState({
+															shippingcost: this.state.shipping[index].cost[0].value
+														})
+													}}>
+													<option hidden selected>Choose</option>
+														{shipping}
 													</select>
 												</td>								
 											</tr>
+											</div>
 										</table>
 									</td>
 									<td colspan="2">
 										<table className="table table-condensed total-result">
 											<tr>
 												<td>Cart Sub Total</td>
-												<td>IDR 1,305,000</td>
-											</tr>
-											<tr>
-												<td>Exo Tax</td>
-												<td>IDR 25,000</td>
+												<td>IDR<p style={{float: 'right', marginRight:'20px'}}>{this.state.cartcount.totalprice}</p></td>
 											</tr>
 											<tr className="shipping-cost">
 												<td>Shipping Cost</td>
-												<td>Free</td>										
+												{
+													this.state.shippingcost
+													? <td>IDR<p style={{float: 'right', marginRight:'20px'}}>{this.state.shippingcost}</p></td>	
+													: <td>IDR<p style={{float: 'right', marginRight:'20px'}}>-</p></td>
+												}									
 											</tr>
 											<tr>
 												<td>Total</td>
-												<td><span>IDR 1,330,000</span></td>
+												{
+													this.state.shippingcost
+													? <td><span>IDR<p style={{float: 'right', marginRight:'20px'}}>{this.state.cartcount.totalprice + this.state.shippingcost}</p></span></td>
+													: <td><span>IDR<p style={{float: 'right', marginRight:'20px'}}>-</p></span></td>
+												}		
+												
 											</tr>
+
+											{
+												this.state.shippingcost
+												? <tr>
+														<td></td>
+														<td style={{float: 'right', marginRight:'20px'}}>
+															<button type="button" className="btn btn-default update">
+																Payment
+															</button>
+														</td>	
+													</tr>
+											: <tr>
+													<td></td>
+													<td style={{float: 'right', marginRight:'20px'}}>
+														<button disabled type="button" className="btn btn-disabled update">
+															Payment
+														</button>
+													</td>	
+												</tr>
+											}
 										</table>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
-
-					<div className="shopper-informations">
-						<div className="row">
-							<div className="col-sm-3">
-								<div className="shopper-info">
-									<p>Shopper Information</p>
-									<form>
-										<input type="text" placeholder="Display Name"/>
-										<input type="text" placeholder="User Name"/>
-										<input type="password" placeholder="Password"/>
-										<input type="password" placeholder="Confirm password"/>
-									</form>
-									<a className="btn btn-primary" href="">Get Quotes</a>
-									<a className="btn btn-primary" href="">Continue</a>
-								</div>
-							</div>
-							<div className="col-sm-5 clearfix">
-								<div className="bill-to">
-									<p>Bill To</p>
-									<div className="form-one">
-										<form>
-											<input type="text" placeholder="Company Name"/>
-											<input type="text" placeholder="Email*"/>
-											<input type="text" placeholder="Title"/>
-											<input type="text" placeholder="First Name *"/>
-											<input type="text" placeholder="Middle Name"/>
-											<input type="text" placeholder="Last Name *"/>
-											<input type="text" placeholder="Address 1 *"/>
-											<input type="text" placeholder="Address 2"/>
-										</form>
-									</div>
-									<div className="form-two">
-										<form>
-											<input type="text" placeholder="Zip / Postal Code *"/>
-											<select>
-												<option>-- Country --</option>
-												<option>Indonesia</option>
-												<option>Malaysia</option>
-												<option>Singapore</option>
-												<option>Thailand</option>
-												<option>Philippines</option>
-											</select>
-											<select>
-												<option>-- State / Province / Region --</option>
-												<option>Indonesia</option>
-												<option>Malaysia</option>
-												<option>Singapore</option>
-												<option>Thailand</option>
-												<option>Philippines</option>
-											</select>
-											<input type="password" placeholder="Confirm password"/>
-											<input type="text" placeholder="Phone *"/>
-											<input type="text" placeholder="Mobile Phone"/>
-											<input type="text" placeholder="Fax"/>
-										</form>
-									</div>
-								</div>
-							</div>
-							<div className="col-sm-4">
-								<div className="order-message">
-									<p>Shipping Order</p>
-									<textarea name="message"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
-									<label><input type="checkbox"/> Shipping to bill address</label>
-								</div>	
-							</div>					
-						</div>
-					</div>
-					
-
-					<div id="do_action">
-				<div className="container">
-					<div className="row">
-						<div className="col-sm-6">
-						</div>
-						<div className="col-sm-6">
-							{/* <div className="heading">
-							<h3>What would you like to do next?</h3>
-							<p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
-						</div> */}
-							<div className="total_area" style={{marginRight: '15px'}}>
-								<ul>
-									<li>Quantity Total<span>{this.state.cartcount.totalquantity}</span></li>
-									<li>Price Total<span>IDR {this.state.cartcount.totalprice}</span></li>
-								</ul>
-									<a className="btn btn-default update" href="">Check Out</a>
-							</div>
-						</div>
-					</div>
 				</div>
-			</div>
-			</div>
-
-					: <div className="col-sm-12">    	
-							<h2 className="title text-center">No cart</h2>
-							<div id="gmap" className="contact-map card-body">
-								<center>
-								<img src="images/home/cart.png" style={{width: '200px',height: 'auto'}}></img><br/>
-								<a className="btn btn-default update" href="/products">GO TO SHOP</a>
-								</center>
-							</div>		    				    				
-						</div>	
-					}
 				</div>
 			</section> {/*/#cart_items*/}
 
