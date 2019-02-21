@@ -70,7 +70,7 @@ router.post('/cart', (req, res) => {
 router.get("/cart/:username", (req, res) => {
     var dbstat =
     `SELECT cart.id_cart, users.id, users.username,
-    products.id_product, products.product_name, products.artist, products.image, products.price,
+    products.id_product, products.product_name, products.artist, products.image, products.price, products.quantity as stock,
     cart.quantity, cart.total_price
     FROM cart
     JOIN users ON cart.username = users.username
@@ -80,6 +80,24 @@ router.get("/cart/:username", (req, res) => {
         res.send(result);
     })
 });
+
+//UPDATE quantity and total price by id_cart
+router.put('/cart/:id', (req, res)=>{
+    var data = {
+        quantity: req.body.quantity,
+        total_price: req.body.total_price
+    }
+    var dbstat = 'update cart set ? where id_cart = ?'
+        db.query(dbstat, [data, req.params.id], (error, result)=>{
+            if(error){
+                console.log(error)
+            }
+            else{
+                console.log(result)
+                res.send(result)
+            }
+        })
+})
 
 router.get('/cartcount/:username', (req,res)=>{
     var dbstat = 'select sum(quantity) as totalquantity, sum(total_price) as totalprice from cart where username = ?'

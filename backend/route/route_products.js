@@ -226,6 +226,23 @@ router.put('/product/:id', (req, res)=>{
     }
 })
 
+//UPDATE quantity by id
+router.put('/productquantity/:id', (req, res)=>{
+    var data = {
+        quantity: req.body.quantity
+    }
+    var dbstat = 'update products set ? where id_product = ?'
+        db.query(dbstat, [data, req.params.id], (error, result)=>{
+            if(error){
+                console.log(error)
+            }
+            else{
+                console.log(result)
+                res.send(result)
+            }
+        })
+})
+
 //DELETE data by id
 router.delete('/product/:id', (req, res)=>{
     var dbstat = 'delete from products where id_product = ?'

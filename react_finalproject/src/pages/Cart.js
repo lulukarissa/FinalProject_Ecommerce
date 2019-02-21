@@ -16,13 +16,9 @@ class Cart extends Component {
 				cart: x.data
 			})
 		})
-
-		
 	}
 
-	componentDidMount(){
-		this.getCart();
-
+	getCount = () => {
 		axios.get(`http://localhost:3210/cartcount/${this.props.username}`)
 			.then((x)=>{
 				this.setState({
@@ -31,7 +27,12 @@ class Cart extends Component {
 			})
 	}
 
-	deleteCart = (e) =>{
+	componentDidMount(){
+		this.getCart();
+		this.getCount()
+	}
+
+	deleteCart = (id_cart, id_product, quantitycart, stock) =>{
 		swal({
 			title: "Are you sure?",
 			text: "You will remove this product from your cart",
@@ -41,10 +42,11 @@ class Cart extends Component {
 		})
 		.then((willDelete) => {
 			if (willDelete) {
-				axios.delete(`http://localhost:3210/cartdelete/${e}`)
+				axios.delete(`http://localhost:3210/cartdelete/${id_cart}`)
 				.then((x)=>{
 					console.log(x)
 					this.getCart();
+					this.getCount()
 				})
 				swal("Successfully removed product from cart!", {
 					icon: "success",
@@ -52,6 +54,11 @@ class Cart extends Component {
 			} else {
 				swal("This product is still on your cart");
 			}
+		})
+
+
+		axios.put(`http://localhost:3210/productquantity/${id_product}`,{
+			quantity: stock + quantitycart
 		})
 	}
 
@@ -61,10 +68,11 @@ class Cart extends Component {
 			var product_name = val.product_name
 			var artist = val.artist
 			var price = val.price
-			var quantity = val.quantity
+			var quantitycart = val.quantity
 			var total_price = val.total_price
 			var id_cart = val.id_cart
 			var id_product = val.id_product
+			var stock = val.stock
 
 			return(
 				<tr>
@@ -80,16 +88,27 @@ class Cart extends Component {
 					</td>
 					<td className="cart_quantity">
 						<div className="cart_quantity_button">
-							<a className="cart_quantity_up" href=""> + </a>
-							<input className="cart_quantity_input" type="text" name="quantity" value={quantity} autocomplete="off" size="2"/>
-							<a className="cart_quantity_down" href=""> - </a>
+							{/* <a className="cart_quantity_up" href="#"> + </a> */}
+							<input className="cart_quantity_input" ref="quantity" type="number" name="quantity" defaultValue={quantitycart}
+							onChange={(e)=>{
+								axios.put(`http://localhost:3210/cart/${id_cart}`,{
+									quantity: e.target.value,
+        					total_price: e.target.value * price
+								})
+								.then((x)=>{
+									this.getCart()
+									this.getCount()
+								})
+							}}
+							size="2"/>
+							{/* <a className="cart_quantity_down" href="#"> - </a> */}
 						</div>
 					</td>
 					<td className="cart_total">
 						<p className="cart_total_price">IDR {total_price}</p>
 					</td>
 					<td className="cart_delete">
-						<a className="cart_quantity_button" style={{backgroundColor:'orange'}} onClick={()=>{this.deleteCart(id_cart)}}><i className="fa fa-times"></i></a>
+						<a className="cart_quantity_button" style={{backgroundColor:'orange'}} onClick={()=>{this.deleteCart(id_cart, id_product, quantitycart, stock)}}><i className="fa fa-times"></i></a>
 					</td>
 				</tr>
 			)

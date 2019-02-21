@@ -53,6 +53,11 @@ class Products extends Component {
 					}).catch(() => {
 							console.log("Error post");
 					})
+
+					var id = this.props.location.pathname.slice(17)
+					axios.put(`http://localhost:3210/productquantity/${id}`,{
+						quantity: this.state.products.quantity - this.refs.quantity.value
+					})
 				}
 			}
 			else{
@@ -87,7 +92,11 @@ class Products extends Component {
 												<i className="fa fa-shopping-cart"></i> Add to cart	
 											</button>
 										</span>
-										<p><b>Availability:</b> In Stock</p>
+										{
+											this.state.products.quantity > 0
+											? <p><b>Availability:</b> In Stock</p>
+											: <p><b>Availability:</b> Out of Stock</p>
+										}
 										<p><b>Condition:</b> New</p>
 										<p><b>Stock:</b> {this.state.products.quantity}</p>
 										<a href=""><img src="../images/product-details/share.png" className="share img-responsive"  alt="" /></a>
