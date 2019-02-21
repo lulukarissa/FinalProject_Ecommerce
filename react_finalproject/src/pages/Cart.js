@@ -8,6 +8,8 @@ class Cart extends Component {
 		cartcount: ''
 	}
 
+	
+
 	getCart = () => {
 		var url = `http://localhost:3210/cart/${this.props.username}`
 		axios.get(url)
@@ -89,8 +91,12 @@ class Cart extends Component {
 					<td className="cart_quantity">
 						<div className="cart_quantity_button">
 							{/* <a className="cart_quantity_up" href="#"> + </a> */}
-							<input className="cart_quantity_input" ref="quantity" type="number" name="quantity" defaultValue={quantitycart}
+							<input className="cart_quantity_input" min="1" max={stock} ref="quantity" type="number" name="quantity" defaultValue={quantitycart}
 							onChange={(e)=>{
+								if(e.target.value > stock){
+									alert('maaf!')
+								}
+								else{
 								axios.put(`http://localhost:3210/cart/${id_cart}`,{
 									quantity: e.target.value,
         					total_price: e.target.value * price
@@ -100,6 +106,7 @@ class Cart extends Component {
 									this.getCount()
 								})
 							}}
+						}
 							size="2"/>
 							{/* <a className="cart_quantity_down" href="#"> - </a> */}
 						</div>
@@ -161,7 +168,7 @@ class Cart extends Component {
 									<li>Quantity Total<span>{this.state.cartcount.totalquantity}</span></li>
 									<li>Price Total<span>IDR {this.state.cartcount.totalprice}</span></li>
 								</ul>
-									<a className="btn btn-default update" href="">Check Out</a>
+									<a className="btn btn-default update" href="/checkout">Check Out</a>
 							</div>
 						</div>
 					</div>

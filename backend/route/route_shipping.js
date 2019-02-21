@@ -83,37 +83,43 @@ router.get('/city/:provid', (request, response) => {
 })
 
 // //SHIPPING
-// var qs = require("querystring");
-// var http = require("https");
 
-// var options = {
-//   "method": "POST",
-//   "hostname": "api.rajaongkir.com",
-//   "port": null,
-//   "path": "/starter/cost",
-//   "headers": {
-//     "key": "d1b5d9d73da1b8dc2c34f3bc5638af8f",
-//     "content-type": "application/x-www-form-urlencoded"
-//   }
-// };
+router.post('/shipping/', (request, response) => {
+    var qs = require("querystring");
+    var http = require("https");
 
-// var req = http.request(options, function (res) {
-//   var chunks = [];
+    var options = {
+        "method": "POST",
+        "hostname": "api.rajaongkir.com",
+        "port": null,
+        "path": "/starter/cost",
+        "headers": {
+            "key": "d1b5d9d73da1b8dc2c34f3bc5638af8f",
+            "content-type": "application/x-www-form-urlencoded",
+            "Content-Length": 50
+        }
+    };
 
-//   res.on("data", function (chunk) {
-//     chunks.push(chunk);
-//   });
+    var req = http.request(options, function (res) {
+    var chunks = [];
 
-//   res.on("end", function () {
-//     var body = Buffer.concat(chunks);
-//     console.log(body.toString());
-//   });
-// });
+    res.on("data", function (chunk) {
+        chunks.push(chunk);
+    });
 
-// req.write(qs.stringify({ origin: '501',
-//   destination: '114',
-//   weight: 1700,
-//   courier: 'jne' }));
-// req.end();
+    res.on("end", function () {
+        var body = Buffer.concat(chunks);
+        console.log(body.toString());
+        response.send(body.toString());
+    });
+    });
+
+    req.write(qs.stringify({ origin: '153',
+    destination: request.body.destination,
+    weight: request.body.quantity * 400,
+    courier: request.body.courier }));
+    req.end();
+})
+
 
 module.exports = router

@@ -80,6 +80,10 @@ class Profile extends Component {
 					}).then(()=>{
 						window.location.href = `/profile/${this.props.username}`
 					})
+
+					localStorage.setItem('city', this.refs.city.value.split(',')[0])
+					this.props.getCity(this.refs.city.value.split(',')[0])
+					// console.log(this.refs.city.value.split(',')[0])
 				})
 				.catch((x)=>{
 					console.log('Error!')
