@@ -93,17 +93,17 @@ class Cart extends Component {
 						<a href={`/product-details/${id_product}`}><img src={`http://localhost:3210/img/${image}`} style={{width:'150px', height:'150px'}} alt=""/></a>
 					</td>
 					<td className="cart_description">
-						<h4><a href={`/product-details/${id_product}`}>{product_name}</a></h4>
-						<p>{artist}</p>
+						<h4 style={{marginLeft: "80px"}}><a href={`/product-details/${id_product}`}>{product_name}</a></h4>
+						<p style={{marginLeft: "80px"}}>{artist}</p>
 					</td>
 					<td className="cart_price">
-						<p>IDR {price}</p>
+						<p>IDR {new Intl.NumberFormat().format(price)}</p>
 					</td>
 					<td className="cart_price">
 							<p>{quantitycart}</p>
 					</td>
 					<td className="cart_total">
-						<p className="cart_total_price">IDR {total_price}</p>
+						<p className="cart_total_price">IDR {new Intl.NumberFormat().format(total_price)}</p>
 					</td>
 				</tr>
 			)
@@ -197,13 +197,13 @@ class Cart extends Component {
 										<table className="table table-condensed total-result">
 											<tr>
 												<td>Cart Sub Total</td>
-												<td>IDR<p style={{float: 'right', marginRight:'20px'}}>{this.state.cartcount.totalprice}</p></td>
+												<td>IDR<p style={{float: 'right', marginRight:'20px'}}>{new Intl.NumberFormat().format(this.state.cartcount.totalprice)}</p></td>
 											</tr>
 											<tr className="shipping-cost">
 												<td>Shipping Cost</td>
 												{
 													this.state.shippingcost
-													? <td>IDR<p style={{float: 'right', marginRight:'20px'}}>{this.state.shippingcost}</p></td>	
+													? <td>IDR<p style={{float: 'right', marginRight:'20px'}}>{new Intl.NumberFormat().format(this.state.shippingcost)}</p></td>	
 													: <td>IDR<p style={{float: 'right', marginRight:'20px'}}>-</p></td>
 												}									
 											</tr>
@@ -211,7 +211,7 @@ class Cart extends Component {
 												<td>Total</td>
 												{
 													this.state.shippingcost
-													? <td><span>IDR<p style={{float: 'right', marginRight:'20px'}}>{this.state.cartcount.totalprice + this.state.shippingcost}</p></span></td>
+													? <td><span>IDR<p style={{float: 'right', marginRight:'20px'}}>{new Intl.NumberFormat().format(this.state.cartcount.totalprice + this.state.shippingcost)}</p></span></td>
 													: <td><span>IDR<p style={{float: 'right', marginRight:'20px'}}>-</p></span></td>
 												}		
 												

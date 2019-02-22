@@ -82,11 +82,11 @@ class Cart extends Component {
 						<a href={`/product-details/${id_product}`}><img src={`http://localhost:3210/img/${image}`} style={{width:'150px', height:'150px'}} alt=""/></a>
 					</td>
 					<td className="cart_description">
-						<h4><a href={`/product-details/${id_product}`}>{product_name}</a></h4>
-						<p>{artist}</p>
+						<h4 style={{marginLeft: "40px"}}><a href={`/product-details/${id_product}`}>{product_name}</a></h4>
+						<p style={{marginLeft: "40px"}}>{artist}</p>
 					</td>
 					<td className="cart_price">
-						<p>IDR {price}</p>
+						<p>IDR {new Intl.NumberFormat().format(price)}</p>
 					</td>
 					<td className="cart_quantity">
 						<div className="cart_quantity_button">
@@ -112,10 +112,10 @@ class Cart extends Component {
 						</div>
 					</td>
 					<td className="cart_total">
-						<p className="cart_total_price">IDR {total_price}</p>
+						<p className="cart_total_price">IDR {new Intl.NumberFormat().format(total_price)}</p>
 					</td>
 					<td className="cart_delete">
-						<a className="cart_quantity_button" style={{backgroundColor:'orange'}} onClick={()=>{this.deleteCart(id_cart, id_product, quantitycart, stock)}}><i className="fa fa-times"></i></a>
+						<a className="cart_quantity_button" style={{backgroundColor:'orange', marginRight:"20px"}} onClick={()=>{this.deleteCart(id_cart, id_product, quantitycart, stock)}}><i className="fa fa-times"></i></a>
 					</td>
 				</tr>
 			)
@@ -166,7 +166,7 @@ class Cart extends Component {
 							<div className="total_area" style={{marginRight: '15px'}}>
 								<ul>
 									<li>Quantity Total<span>{this.state.cartcount.totalquantity}</span></li>
-									<li>Price Total<span>IDR {this.state.cartcount.totalprice}</span></li>
+									<li>Price Total<span>IDR {new Intl.NumberFormat().format(this.state.cartcount.totalprice)}</span></li>
 								</ul>
 									<a className="btn btn-default update" href="/checkout">Check Out</a>
 							</div>

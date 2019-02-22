@@ -76,7 +76,7 @@ class Home extends Component {
             <div className="single-products">
                 <div className="productinfo text-center">
                   <img src={`http://localhost:3210/img/${image}`} alt="" />
-                  <h2>IDR {price}</h2>
+                  <h2>IDR {new Intl.NumberFormat().format(price)}</h2>
                   <p>{product_name}</p>
                   <p><b>{artist}</b></p>
                   <a href="#" className="btn btn-default add-to-cart" onClick={(e)=>{e.preventDefault(); this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
@@ -84,7 +84,7 @@ class Home extends Component {
                 <a href={`/product-details/${id_product}`}>
                   <div className="product-overlay">
                     <div className="overlay-content">
-                      <h2>IDR {price}</h2>
+                      <h2>IDR {new Intl.NumberFormat().format(price)}</h2>
                       <p>{product_name}</p>
                       <p><b>{artist}</b></p>
                       <a href="#" className="btn btn-default add-to-cart" onClick={(e)=>{e.preventDefault(); this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
@@ -125,7 +125,7 @@ class Home extends Component {
             <div className="single-products">
               <div className="productinfo1 text-center">
                 <img src={`http://localhost:3210/img/${image}`} alt="" />
-                <h2>IDR {price}</h2>
+                <h2>IDR {new Intl.NumberFormat().format(price)}</h2>
                 <p>{product_name}</p>
                 <p><b>{artist}</b></p>
                 <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>

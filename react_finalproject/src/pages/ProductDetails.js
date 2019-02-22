@@ -85,7 +85,7 @@ class Products extends Component {
 										<p>{this.state.products.artist}</p>
 										<img src="../images/product-details/rating.png" alt="" />
 										<span>
-											<span>IDR {this.state.products.price}</span>
+											<span>IDR {new Intl.NumberFormat().format(this.state.products.price)}</span>
 											<label>Quantity:</label>
 											<input type="number" ref="quantity" min="1" max={this.state.products.quantity} defaultValue="1"/>
 											<button type="button" className="btn btn-fefault cart" onClick={this.addtocart}>

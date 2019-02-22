@@ -84,7 +84,7 @@ router.get('/city/:provid', (request, response) => {
 
 // //SHIPPING
 
-router.post('/shipping/', (request, response) => {
+router.post('/shipping', (request, response) => {
     var qs = require("querystring");
     var http = require("https");
 
@@ -116,7 +116,7 @@ router.post('/shipping/', (request, response) => {
 
     req.write(qs.stringify({ origin: '153',
     destination: request.body.destination,
-    weight: request.body.quantity * 250,
+    weight: request.body.quantity * 400,
     courier: 'jne' }));
     req.end();
 })

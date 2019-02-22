@@ -491,6 +491,21 @@ router.get('/catpricehigh/:id', (req, res)=>{
 })
 
 
+router.get('/search/:search', (req,res)=>{
+    var search = req.params.search
+    var dbstat = `select * from products where product_name like "%${search}%" or artist like "%${search}%"`
+    db.query(dbstat, (error, result)=>{
+        if(error){
+            console.log(error)
+        }
+        else{
+            console.log(result)
+            res.send(result)
+        }
+    })
+})
+
+
 
 
 

@@ -76,9 +76,9 @@ class Profile extends Component {
 					swal({
 						title: "Successfully edit profile!",
 						icon: "success",
-						button: "GO TO PROFILE",
+						button: "OK",
 					}).then(()=>{
-						window.location.href = `/profile/${this.props.username}`
+						window.history.back()
 					})
 
 					localStorage.setItem('city', this.refs.city.value.split(',')[0])

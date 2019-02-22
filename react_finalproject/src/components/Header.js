@@ -4,7 +4,8 @@ import swal from '@sweetalert/with-react'
 
 class Header extends Component {
   state = {
-    category: []
+    category: [],
+    search: ''
   }
 
   componentDidMount(){
@@ -17,6 +18,10 @@ class Header extends Component {
         })
         console.log(x.data)
     })
+  }
+
+  search = () =>{
+    window.location.href = `/search/${this.state.search}`
   }
   render() {
     var category = this.state.category.map((val, i)=>{
@@ -131,7 +136,14 @@ class Header extends Component {
                 </div>
                 <div className="col-sm-3">
                   <div className="search_box pull-right">
-                    <input type="text" placeholder="Search"/>
+                    <input type="text" placeholder="Search"
+                    onChange={(e)=>{this.setState({search: e.target.value})}}
+                    onKeyPress={(e)=>{
+                      if(e.key == 'Enter'){
+                        this.search()
+                      }
+                    }}
+                    />
                   </div>
                 </div>
               </div>
