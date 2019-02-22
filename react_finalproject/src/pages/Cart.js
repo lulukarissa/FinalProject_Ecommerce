@@ -94,7 +94,9 @@ class Cart extends Component {
 							<input className="cart_quantity_input" min="1" max={stock} ref="quantity" type="number" name="quantity" defaultValue={quantitycart}
 							onChange={(e)=>{
 								if(e.target.value > stock){
-									alert('maaf!')
+									swal({text: "Sorry, we do not have that number of items in stock",
+									icon: "warning",
+									dangerMode: true})
 								}
 								else{
 								axios.put(`http://localhost:3210/cart/${id_cart}`,{

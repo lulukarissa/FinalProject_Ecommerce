@@ -73,7 +73,7 @@ class Header extends Component {
                   <div className="main-menu pull-right">
                     <ul className="nav navbar-nav">
                       <li><a href="/wishlist"><i className="fa fa-star"></i> Wishlist</a></li>
-                      <li><a href="/checkout"><i className="fa fa-crosshairs"></i> Checkout</a></li>
+                      {/* <li><a href="/checkout"><i className="fa fa-crosshairs"></i> Checkout</a></li> */}
                       <li><a href="/cart"><i className="fa fa-shopping-cart"></i> Cart</a></li>
                       {this.props.username
                         ? <li className="dropdown"><a href="#"><i className="fa fa-user"></i> {this.props.username}<i className="fa fa-angle-down"></i></a>
@@ -118,12 +118,12 @@ class Header extends Component {
                             {category}
                           </ul>
                       </li> 
-                      <li className="dropdown"><a href="#">Shop<i className="fa fa-angle-down"></i></a>
+                      {/* <li className="dropdown"><a href="#">Shop<i className="fa fa-angle-down"></i></a>
                           <ul role="menu" className="sub-menu">
                               <li><a href="/checkout">Checkout</a></li> 
                               <li><a href="/cart">Cart</a></li>
                           </ul>
-                      </li> 
+                      </li>  */}
                       <li className="dropdown"><a href="#">Blog<i className="fa fa-angle-down"></i></a>
                           <ul role="menu" className="sub-menu">
                               <li><a href="/blog">Blog List</a></li>

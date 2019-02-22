@@ -505,6 +505,18 @@ router.get('/search/:search', (req,res)=>{
     })
 })
 
+router.get('/recommended', (req, res)=>{
+    var dbstat = ' select * from products group by category having max(quantity)'
+    db.query(dbstat, (error, result)=>{
+        if(error){
+            console.log(error)
+        }
+        else{
+            console.log(result)
+            res.send(result)
+        }
+    })
+})
 
 
 

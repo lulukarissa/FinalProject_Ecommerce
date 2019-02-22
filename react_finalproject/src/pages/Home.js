@@ -7,13 +7,12 @@ class Home extends Component {
   state = {
     products: [],
     category: [],
-    procat: []
+    procat: [],
+    recommended: []
   }
 
   componentDidMount(){
-  var link = 'http://localhost:3210/product'
-
-  axios.get(link)
+  axios.get('http://localhost:3210/product')
   .then((x)=>{
       this.setState({
           products: x.data
@@ -22,9 +21,7 @@ class Home extends Component {
   })
   .catch()
 
-  var linkcategory = 'http://localhost:3210/category'
-
-  axios.get(linkcategory)
+  axios.get('http://localhost:3210/category')
   .then((x)=>{
       this.setState({
           category: x.data
@@ -36,6 +33,15 @@ class Home extends Component {
   .then((x)=>{
       this.setState({
           procat: x.data
+      })
+      console.log(x.data)
+  })
+  .catch()
+
+  axios.get('http://localhost:3210/recommended')
+  .then((x)=>{
+      this.setState({
+          recommended: x.data
       })
       console.log(x.data)
   })
@@ -136,9 +142,57 @@ class Home extends Component {
       </div>
     )
   }
+})
 
+    var recommended1 = this.state.recommended.map((val, i)=>{
+      var id_product = val.id_product
+      var product_name = val.product_name
+      var artist = val.artist
+      var price = val.price
+      var image = val.image
 
-  })
+      if(i<3){
+      return(
+          <div className="col-sm-4">
+            <div className="product-image-wrapper">
+              <div className="single-products">
+                <div className="productinfo text-center">
+                  <img src={`http://localhost:3210/img/${image}`} alt="" />
+                  <h2>IDR {new Intl.NumberFormat().format(price)}</h2>
+                  <p>{product_name}</p>
+                  <p><b>{artist}</b></p>
+                  <a href="#" className="btn btn-default add-to-cart" onClick={(e)=>{e.preventDefault(); this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
+                </div>
+              </div>
+            </div>
+          </div>
+      )}
+    })
+
+    var recommended2 = this.state.recommended.map((val, i)=>{
+      var id_product = val.id_product
+      var product_name = val.product_name
+      var artist = val.artist
+      var price = val.price
+      var image = val.image
+
+      if(i>=3){
+      return(
+          <div className="col-sm-4">
+            <div className="product-image-wrapper">
+              <div className="single-products">
+                <div className="productinfo text-center">
+                  <img src={`http://localhost:3210/img/${image}`} alt="" />
+                  <h2>IDR {new Intl.NumberFormat().format(price)}</h2>
+                  <p>{product_name}</p>
+                  <p><b>{artist}</b></p>
+                  <a href="#" className="btn btn-default add-to-cart" onClick={(e)=>{e.preventDefault(); this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
+                </div>
+              </div>
+            </div>
+          </div>
+      )}
+    })
   
     return (
       <div>
@@ -237,92 +291,10 @@ class Home extends Component {
                   <div id="recommended-item-carousel" className="carousel slide" data-ride="carousel">
                     <div className="carousel-inner">
                       <div className="item active">	
-                        <div className="col-sm-4">
-                          <div className="product-image-wrapper">
-                            <div className="single-products">
-                              <div className="productinfo text-center">
-                                <img src="images/home/recommend1.jpg" alt="" />
-                                <h2>IDR 335,000</h2>
-                                <p>32nd Single</p>
-                                <p><b>BISH</b></p>
-                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
-                              </div>
-                              
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-sm-4">
-                          <div className="product-image-wrapper">
-                            <div className="single-products">
-                              <div className="productinfo text-center">
-                                <img src="images/home/recommend2.jpg" alt="" />
-                                <h2>IDR 435,000</h2>
-                                <p>Stand by you</p>
-                                <p><b>SKE48</b></p>
-                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
-                              </div>
-                              
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-sm-4">
-                          <div className="product-image-wrapper">
-                            <div className="single-products">
-                              <div className="productinfo text-center">
-                                <img src="images/home/recommend3.jpg" alt="" />
-                                <h2>IDR 285,000</h2>
-                                <p>Hey, Girls!</p>
-                                <p><b>TOKYO PERFORMANCE DOLL</b></p>
-                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
-                              </div>
-                              
-                            </div>
-                          </div>
-                        </div>
+                        {recommended1}
                       </div>
                       <div className="item">	
-                        <div className="col-sm-4">
-                          <div className="product-image-wrapper">
-                            <div className="single-products">
-                              <div className="productinfo text-center">
-                                <img src="images/home/recommend1.jpg" alt="" />
-                                <h2>IDR 335,000</h2>
-                                <p>32nd Single</p>
-                                <p><b>BISH</b></p>
-                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
-                              </div>
-                              
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-sm-4">
-                          <div className="product-image-wrapper">
-                            <div className="single-products">
-                              <div className="productinfo text-center">
-                                <img src="images/home/recommend2.jpg" alt="" />
-                                <h2>IDR 435,000</h2>
-                                <p>Stand by you</p>
-                                <p><b>SKE48</b></p>
-                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
-                              </div>
-                              
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-sm-4">
-                          <div className="product-image-wrapper">
-                            <div className="single-products">
-                              <div className="productinfo text-center">
-                                <img src="images/home/recommend3.jpg" alt="" />
-                                <h2>IDR 285,000</h2>
-                                <p>Hey, Girls!</p>
-                                <p><b>TOKYO PERFORMANCE DOLL</b></p>
-                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-star"></i> Add to wishlist</a>
-                              </div>
-                              
-                            </div>
-                          </div>
-                        </div>
+                        {recommended2}
                       </div>
                     </div>
                     <a className="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
