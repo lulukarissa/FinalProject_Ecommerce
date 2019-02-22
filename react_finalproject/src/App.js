@@ -20,7 +20,7 @@ import UserProfileEdit from './pages/UserProfileEdit';
 import Contact from './pages/Contact';
 import Error404 from './pages/Error404'
 
-import {Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 
 class App extends Component {
   state = {
@@ -46,7 +46,7 @@ class App extends Component {
     return (
       <div>
         <Header username={this.state.username}/>
-        <div>
+          <Switch>
             <Route exact path='/' render={(props) => <Home {...props} username={this.state.username} />}/>
             <Route path='/home' render={(props) => <Home {...props} username={this.state.username} />}/>
             <Route path='/products' render={(props) => <Products {...props} username={this.state.username} />}/>
@@ -65,10 +65,8 @@ class App extends Component {
             <Route path='/profile/' render={(props) => <UserProfile {...props} username={this.state.username} />}/>
             <Route path='/editprofile/' render={(props) => <UserProfileEdit {...props} username={this.state.username} getCity={this.getCity} />}/>
             <Route path='/contact-us' component={Contact} />
-            <Route path='/error' component={Error404} />
-
-            {/* <Route path='/admin' component={Admin} /> */}
-        </div>
+            <Route path='*' component={Error404} />
+          </Switch>
         <Footer/>
       </div>
     );

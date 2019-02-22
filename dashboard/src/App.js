@@ -11,11 +11,21 @@ import EditProduct from './components/EditProduct'
 
 
 class App extends Component {
+  state = {
+    username: localStorage.getItem('username')
+  }
+
+  getUsername = (x) => {
+    this.setState({
+      username: x
+    })
+  }
+
   render() {
     return (
       <div class="skin-black">
         <div>
-            <Route exact path='/' component={Login} />
+            <Route exact path='/' render={(props) => <Login {...props} getUsername={this.getUsername} />}/>
             <Route path='/home' component={Dashboard} />
             <Route path='/product-list' component={ProductList} />
             <Route path='/category-list' component={CategoryList} />
