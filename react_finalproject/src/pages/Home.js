@@ -29,15 +29,6 @@ class Home extends Component {
       console.log(x.data)
   })
 
-  axios.get('http://localhost:3210/productcategory')
-  .then((x)=>{
-      this.setState({
-          procat: x.data
-      })
-      console.log(x.data)
-  })
-  .catch()
-
   axios.get('http://localhost:3210/recommended')
   .then((x)=>{
       this.setState({
@@ -47,6 +38,19 @@ class Home extends Component {
   })
   .catch()
 
+  this.getProcat(1)
+
+  }
+
+  getProcat = (e) =>{
+    axios.get(`http://localhost:3210/category/${e}`)
+    .then((x)=>{
+        this.setState({
+            procat: x.data
+        })
+        console.log(x.data)
+    })
+    .catch()
   }
 
   addtowishlist = (e) =>{
@@ -114,10 +118,10 @@ class Home extends Component {
     var category_name = val.category_name
 
     if(i==0){
-      return <li className="active"><a href={`#${category_name}`} data-toggle="tab">{category_name}</a></li>
+      return <li className="active"><a href={`#${category_name}`} data-toggle="tab" onClick={()=>{this.getProcat(id_category)}}>{category_name}</a></li>
     }
     else{
-      return <li><a href={`#${category_name}`} data-toggle="tab">{category_name}</a></li>
+      return <li><a href={`#${category_name}`} data-toggle="tab" onClick={()=>{this.getProcat(id_category)}}>{category_name}</a></li>
     }
   })
 
@@ -131,7 +135,7 @@ class Home extends Component {
 
     if(i<4){
     return(
-      <div className="tab-pane fade active in" id={category_name}>
+      <div className="tab-pane fade active in" id="single">
         <div className="col-sm-3">
           <div className="product-image-wrapper">
             <div className="single-products">
