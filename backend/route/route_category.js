@@ -27,9 +27,9 @@ router.get('/category', (req, res)=>{
     })
 })
 
-//GET data by id
-router.get('/category/:id', (req, res)=>{
-    var dbstat = 'select * from category where id = ?'
+//GET data by id_category
+router.get('/categoryid/:id', (req, res)=>{
+    var dbstat = 'select * from category where id_category = ?'
     db.query(dbstat, req.params.id, (error, result)=>{
         if(error) throw error
         console.log(result)
@@ -53,31 +53,20 @@ router.post('/category', (req, res)=>{
 
 //UPDATE data by id
 router.put('/category/:id', (req, res)=>{
-    var dbstat = 'update category set ? where id = ?'
+    var dbstat = 'update category set ? where id_category = ?'
     var data = {
-        username: req.body.username,
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        email: req.body.email,
-        password: req.body.password
+        category_name: req.body.category_name,
     }
     db.query(dbstat, [data, req.params.id], (error, result)=>{
         if(error) throw error
         console.log(result)
-        res.send({
-            username: req.body.username,
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            email: req.body.email,
-            password: req.body.password,
-            status: `Data ${req.params.id} has been updated!`
-        })
+        res.send(result)
     })
 })
 
 //DELETE data by id
 router.delete('/category/:id', (req, res)=>{
-    var dbstat = 'delete from category where id = ?'
+    var dbstat = 'delete from category where id_category = ?'
     db.query(dbstat, req.params.id, (error, result)=>{
         if(error) throw error
         console.log(result)

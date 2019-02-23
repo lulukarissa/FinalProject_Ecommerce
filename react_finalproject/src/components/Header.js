@@ -84,7 +84,7 @@ class Header extends Component {
                                 onClick={(e)=>{
                                   e.preventDefault()
                                   localStorage.removeItem('username')
-                                  swal("You just logged out!", "Please login again to shop")
+                                  swal("You just logged out!", "Please login again to proccess the shopping cart")
                                   .then(()=>{window.location.href = '/home'});
                                   }}><i className="fa fa-lock"></i>  Logout</a></li> 
                             </ul>

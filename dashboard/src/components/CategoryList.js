@@ -2,24 +2,55 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import Header from './Header';
 import Sidebar from './Sidebar';
+import swal from '@sweetalert/with-react'
 
 
 class Tables extends Component {
     state = {
         category: []
     }
-    componentDidMount(){
-    var link = 'http://localhost:3210/category'
 
-    axios.get(link)
-    .then((x)=>{
-        this.setState({
-            category: x.data
+    getCategory = () =>{
+        var link = 'http://localhost:3210/category'
+
+        axios.get(link)
+        .then((x)=>{
+            this.setState({
+                category: x.data
+            })
+            console.log(x.data)
         })
-        console.log(x.data)
-    })
-    .catch()
-  }
+        .catch()
+    }
+
+    deleteData = (e) =>{
+        swal({
+			title: "Are you sure?",
+			text: "You will remove this category from the list",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+		})
+		.then((willDelete) => {
+			if (willDelete) {
+                axios.delete(`http://localhost:3210/category/${e}`)
+                .then((x)=>{
+                    console.log(x)
+                    this.getCategory()
+                })
+                .catch()
+				swal("Successfully removed category from list!", {
+					icon: "success",
+				});
+			} else {
+				swal("This category is still on the list");
+			}
+		})
+    }
+    
+    componentDidMount(){
+        this.getCategory()
+    }
 
   render() {
       
@@ -35,7 +66,7 @@ class Tables extends Component {
                     <a class="btn btn-primary" href={`/edit-category/${id_category}`}>Edit</a>
                     <span>  </span>
                     <button class="btn btn-danger"
-                    onClick={()=>{}}>Delete</button>
+                    onClick={()=>{this.deleteData(id_category)}}>Delete</button>
                 </td>
             </tr>
         )

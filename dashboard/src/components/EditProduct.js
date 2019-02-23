@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import swal from '@sweetalert/with-react'
 
 
 class EditProducts extends Component {
@@ -53,13 +54,6 @@ class EditProducts extends Component {
         var price= this.refs.price.value;
         var category= this.refs.category.value;
         var quantity= this.refs.quantity.value;
-    
-        // var id_product = e.id_product.value
-        // var product_name = e.product_name.value;
-        // var artist = e.artist.value
-        // var price = e.price.value;
-        // var category = e.category.value;
-        // var quantity = e.quantity.value;
         
         this.setState({
             // id_product : id_product,
@@ -69,8 +63,6 @@ class EditProducts extends Component {
             category: category,
             quantity: quantity,
         })
-        alert("Succesfully Edit Data")
-        // window.location.reload();
     }
     
     postData = (e) => {
@@ -89,6 +81,13 @@ class EditProducts extends Component {
         axios.put(url, addproduct)
         .then((x)=>{
             console.log(x)
+            swal({
+                title: "Succesfully edit data!",
+                icon: "success",
+                button: "OK",
+            }).then((x)=>{
+                window.location.href = '/product-list'
+            })
         })
     }
 
@@ -104,13 +103,13 @@ class EditProducts extends Component {
                 {/* Content Header (Page header) */}
                 <section class="content-header">
                     <h1>
-                        Add Products
+                        Edit Products
                         {/* <small>Preview</small> */}
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li><a href="#">Forms</a></li>
-                        <li class="active">Add Products</li>
+                        <li class="active">Edit Products</li>
                     </ol>
                 </section>
 

@@ -2,40 +2,55 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import Header from './Header';
 import Sidebar from './Sidebar';
+import swal from '@sweetalert/with-react'
 
 
 class Tables extends Component {
     state = {
         products: []
     }
-    componentDidMount(){
-    var link = 'http://localhost:3210/product'
 
-    axios.get(link)
-    .then((x)=>{
-        this.setState({
-            products: x.data
-        })
-        console.log(x.data)
-    })
-    .catch()
-  }
+    getProducts = () =>{
+        var link = 'http://localhost:3210/product'
 
-    deleteData = (e) =>{
-        var link = `http://localhost:3210/product/${e}`
-
-        axios.delete(link)
+        axios.get(link)
         .then((x)=>{
-            console.log(x)
+            this.setState({
+                products: x.data
+            })
+            console.log(x.data)
         })
         .catch()
-
-        window.location.reload();
     }
 
-        updateData = () =>{
-            
-        }
+    componentDidMount(){
+        this.getProducts()
+    }
+
+    deleteData = (e) =>{
+        swal({
+			title: "Are you sure?",
+			text: "You will remove this product from the list",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+		})
+		.then((willDelete) => {
+			if (willDelete) {
+                axios.delete(`http://localhost:3210/product/${e}`)
+                .then((x)=>{
+                    console.log(x)
+                    this.getProducts()
+                })
+                .catch()
+				swal("Successfully removed product from list!", {
+					icon: "success",
+				});
+			} else {
+				swal("This product is still on the list");
+			}
+		})
+    }
 
   render() {
       

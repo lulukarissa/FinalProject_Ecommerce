@@ -6,9 +6,23 @@ import swal from '@sweetalert/with-react'
 
 
 class AddCategory extends Component {
+    state = {
+        category_name: ''
+    }
+
+    componentDidMount(){
+        var id_edit = this.props.location.pathname.slice(15)
+        axios.get(`http://localhost:3210/categoryid/${id_edit}`)
+        .then((x)=>{
+            this.setState({
+                category_name: x.data[0].category_name
+            })
+        })
+    }
     postData = ()=>{
-		var url = 'http://localhost:3210/category'
-		axios.post(url,{
+        var id_edit = this.props.location.pathname.slice(15)
+		var url = `http://localhost:3210/category/${id_edit}`
+		axios.put(url,{
             category_name: this.refs.category_name.value
 		})
 		.then((x)=>{
@@ -20,12 +34,11 @@ class AddCategory extends Component {
         })
 
         swal({
-            title: "Added to list!",
-            text: "You just added new category to the list",
+            title: "Successfully edit category!",
             icon: "success",
             button: "OK",
         }).then((x)=>{
-            window.location.reload()
+            window.location.href = '/category-list'
         })
 	}
 
@@ -40,13 +53,13 @@ class AddCategory extends Component {
                 {/* Content Header (Page header) */}
                 <section class="content-header">
                     <h1>
-                        Add Category
+                        Edit Category
                         {/* <small>Preview</small> */}
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li><a href="#">Forms</a></li>
-                        <li class="active">Add Category</li>
+                        <li class="active">Edit Category</li>
                     </ol>
                 </section>
 
@@ -69,7 +82,7 @@ class AddCategory extends Component {
                                         </div> */}
                                         <div class="form-group">
                                             <label for="category_name">Category Name</label>
-                                            <input type="text" class="form-control" placeholder="Category Name" ref="category_name"/>
+                                            <input type="text" class="form-control" placeholder="Category Name" ref="category_name" defaultValue={this.state.category_name}/>
                                         </div>
                                         {/* <div class="checkbox">
                                             <label>

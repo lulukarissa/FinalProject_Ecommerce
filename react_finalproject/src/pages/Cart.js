@@ -91,22 +91,35 @@ class Cart extends Component {
 					<td className="cart_quantity">
 						<div className="cart_quantity_button">
 							{/* <a className="cart_quantity_up" href="#"> + </a> */}
-							<input className="cart_quantity_input" min="1" max={stock} ref="quantity" type="number" name="quantity" defaultValue={quantitycart}
+							<input className="cart_quantity_input" min="1" max="99" ref="quantity" type="number" name="quantity" defaultValue={quantitycart}
 							onChange={(e)=>{
-								if(e.target.value > stock){
-									swal({text: "Sorry, we do not have that number of items in stock",
+								var quantitymax = parseInt(stock) + parseInt(e.target.defaultValue)
+								if(e.target.value > quantitymax){
+									swal({text: 'Sorry, we do not have that number of items in stock',
 									icon: "warning",
 									dangerMode: true})
 								}
 								else{
-								axios.put(`http://localhost:3210/cart/${id_cart}`,{
-									quantity: e.target.value,
-        					total_price: e.target.value * price
-								})
-								.then((x)=>{
-									this.getCart()
-									this.getCount()
-								})
+									axios.put(`http://localhost:3210/cart/${id_cart}`,{
+										quantity: e.target.value,
+										total_price: e.target.value * price
+									})
+									.then((x)=>{
+										this.getCart()
+										this.getCount()
+									})
+
+									if(e.target.value > e.target.defaultValue){
+										axios.put(`http://localhost:3210/productquantity/${id_product}`,{
+											quantity: parseInt(stock) - (parseInt(e.target.value) - parseInt(e.target.defaultValue))
+										})
+									}
+									else if(e.target.value < e.target.defaultValue){
+										axios.put(`http://localhost:3210/productquantity/${id_product}`,{
+											quantity: parseInt(stock) + (parseInt(e.target.defaultValue) - parseInt(e.target.value))
+										})
+									}
+
 							}}
 						}
 							size="2"/>

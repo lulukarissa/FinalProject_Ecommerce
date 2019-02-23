@@ -2,35 +2,53 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import Header from './Header';
 import Sidebar from './Sidebar';
+import swal from '@sweetalert/with-react'
 
 
 class Tables extends Component {
     state = {
         users: []
     }
-    componentDidMount(){
-    var link = 'http://localhost:3210/users'
 
-    axios.get(link)
-    .then((x)=>{
-        this.setState({
-            users: x.data
+    getUsers = () =>{
+        var link = 'http://localhost:3210/users'
+        axios.get(link)
+        .then((x)=>{
+            this.setState({
+                users: x.data
+            })
+            console.log(x.data)
         })
-        console.log(x.data)
-    })
-    .catch()
-  }
+        .catch()
+    }
+
+    componentDidMount(){
+        this.getUsers()
+    }
 
   deleteData = (e) =>{
-    var link = `http://localhost:3210/users/${e}`
-
-    axios.delete(link)
-    .then((x)=>{
-        console.log(x)
+    swal({
+        title: "Are you sure?",
+        text: "You will remove this member from the list",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
     })
-    .catch()
-
-    window.location.reload();
+    .then((willDelete) => {
+        if (willDelete) {
+            axios.delete(`http://localhost:3210/users/${e}`)
+            .then((x)=>{
+                console.log(x)
+                this.getUsers()
+            })
+            .catch()
+            swal("Successfully removed member from list!", {
+                icon: "success",
+            });
+        } else {
+            swal("This member is still on the list");
+        }
+    })
 }
 
   render() {
@@ -52,10 +70,8 @@ class Tables extends Component {
                 <td>{email}</td>
                 <td>{password}</td>
                 <td class="text-center">
-                    <a class="btn btn-primary" href={`/edit-member/${id}`}>Edit</a>
-                    <span>  </span>
                     <button class="btn btn-danger"
-                    onClick={()=>{}}>Delete</button>
+                    onClick={()=>{this.deleteData(id)}}>Delete</button>
                 </td>
             </tr>
         )

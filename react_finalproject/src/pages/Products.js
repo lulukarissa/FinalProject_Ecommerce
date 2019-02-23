@@ -105,22 +105,27 @@ class Shop extends Component {
         })
       }
     
-    addtowishlist = (e) =>{
-        axios.post('http://localhost:3210/wishlist', {
+      addtowishlist = (e) =>{
+        if(this.props.username){
+          axios.post('http://localhost:3210/wishlist', {
             username: this.props.username,
             id_product: e
-        }).then((x) => {
-            console.log(x);
-            swal({
+          }).then((x) => {
+              console.log(x);
+              swal({
                 title: "Added to wishlist!",
                 text: "You just successfully added this product to your wishlist",
                 icon: "success",
                 button: "OK",
-            })
-        }).catch(() => {
-            console.log("Error post");
-        })
-    }
+              })
+          }).catch(() => {
+              console.log("Error post");
+          })
+        }
+        else{
+          swal('Please login first to add to wishlist!')
+        } 
+      }
 
   render() {
     var { products, currentPage, productsPerPage } = this.state;

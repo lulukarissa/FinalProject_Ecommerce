@@ -8,6 +8,7 @@ import MemberList from './components/MemberList'
 import AddProducts from './components/AddProducts'
 import AddCategory from './components/AddCategory'
 import EditProduct from './components/EditProduct'
+import EditCategory from './components/EditCategory'
 
 
 class App extends Component {
@@ -33,6 +34,7 @@ class App extends Component {
             <Route path='/add-products' component={AddProducts} />
             <Route path='/add-category' component={AddCategory} />
             <Route path='/edit-product/' component={EditProduct} />
+            <Route path='/edit-category/' component={EditCategory} />
         </div>   
       </div>
     );

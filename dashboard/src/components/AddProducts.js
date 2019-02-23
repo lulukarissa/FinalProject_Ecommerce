@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import swal from '@sweetalert/with-react'
 
 
 class Form extends Component {
@@ -27,31 +28,28 @@ class Form extends Component {
       }
     
     data = (e) => {
-        window.location.reload();
-
         var product_name = this.refs.product_name.value;
         var artist= this.refs.artist.value;
         var price= this.refs.price.value;
         var category= this.refs.category.value;
         var quantity= this.refs.quantity.value;
-    
-        // var id_product = e.id_product.value
-        // var product_name = e.product_name.value;
-        // var artist = e.artist.value
-        // var price = e.price.value;
-        // var category = e.category.value;
-        // var quantity = e.quantity.value;
         
         this.setState({
-            // id_product : id_product,
             product_name: product_name,
             artist: artist,
             price: price,
             category: category,
             quantity: quantity,
         })
-        alert("Succesfully Input Data")
-        window.location.reload();
+
+        swal({
+            title: "Added to list!",
+            text: "You just added this product to the product list",
+            icon: "success",
+            button: "OK",
+        }).then((x)=>{
+            window.location.reload()
+        })
     }
     
     postData = (e) => {
@@ -68,12 +66,12 @@ class Form extends Component {
         var url = 'http://localhost:3210/product'
 
         axios.post(url, addproduct)
-        // .then((x)=>{
-        //     console.log(x)
-        // })
-        // .catch((x)=>{
-        //     console.log(x)
-        // })
+        .then((x)=>{
+            console.log(x);
+        })
+        .catch((x)=>{
+            console.log(x)
+        })
     }
 
     
