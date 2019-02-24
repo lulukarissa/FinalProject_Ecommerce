@@ -9,6 +9,7 @@ import AddProducts from './components/AddProducts'
 import AddCategory from './components/AddCategory'
 import EditProduct from './components/EditProduct'
 import EditCategory from './components/EditCategory'
+import PaymentConfirmation from './components/PaymentConfirmation'
 
 
 class App extends Component {
@@ -35,6 +36,7 @@ class App extends Component {
             <Route path='/add-category' component={AddCategory} />
             <Route path='/edit-product/' component={EditProduct} />
             <Route path='/edit-category/' component={EditCategory} />
+            <Route path='/payment-confirmation' component={PaymentConfirmation} />
         </div>   
       </div>
     );

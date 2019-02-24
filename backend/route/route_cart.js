@@ -23,8 +23,8 @@ router.post('/cart', (req, res) => {
     var username = req.body.username
     var id_product = req.body.id_product
 
-    var dbstat = `SELECT * FROM cart where id_product = ? and username = ?`;
-    db.query(dbstat, [id_product, username], (error, result) => {
+    var dbstat = `SELECT * FROM cart where id_product = ? and username = ? and order_status = ?`;
+    db.query(dbstat, [id_product, username, 'NotCheckedOut'], (error, result) => {
         if (result.length > 0) {
             var quantityupdate = result[0].quantity + parseInt(req.body.quantity)
             var total_priceupdate = result[0].total_price + parseInt(req.body.total_price)
@@ -35,8 +35,8 @@ router.post('/cart', (req, res) => {
                 quantity: quantityupdate,
                 total_price: total_priceupdate
             }
-            let dbstat = `UPDATE cart SET ? where id_product = ? and username = ?`;
-            db.query(dbstat, [dataupdate, id_product, username], (err, result) => {
+            let dbstat = `UPDATE cart SET ? where id_product = ? and username = ? and order_status = ?`;
+            db.query(dbstat, [dataupdate, id_product, username, 'NotCheckedOut'], (err, result) => {
                 if (err) {
                     console.log(err)
                 }
@@ -69,14 +69,12 @@ router.post('/cart', (req, res) => {
 
 router.get("/cart/:username", (req, res) => {
     var dbstat =
-    `SELECT cart.id_cart, users.id, users.username,
-    products.id_product, products.product_name, products.artist, products.image, products.price, products.quantity as stock,
-    cart.quantity, cart.total_price
+    `SELECT cart.id_cart, cart.quantity, cart.total_price, cart.order_status,
+    products.id_product, products.product_name, products.artist, products.image, products.price, products.quantity as stock
     FROM cart
-    JOIN users ON cart.username = users.username
     JOIN products ON cart.id_product = products.id_product
-    WHERE cart.username = ?`;
-    db.query(dbstat, req.params.username, (err, result) => {
+    WHERE cart.username = ? and cart.order_status = ?`;
+    db.query(dbstat, [req.params.username, 'NotCheckedOut'], (err, result) => {
         res.send(result);
     })
 });
@@ -99,9 +97,26 @@ router.put('/cart/:id', (req, res)=>{
         })
 })
 
+//UPDATE order_status from notcheckedout to order_id
+router.put('/cartstatus/:id', (req, res)=>{
+    var data = {
+        order_status: req.body.order_status
+    }
+    var dbstat = 'update cart set ? where id_cart = ?'
+        db.query(dbstat, [data, req.params.id], (error, result)=>{
+            if(error){
+                console.log(error)
+            }
+            else{
+                console.log(result)
+                res.send(result)
+            }
+        })
+})
+
 router.get('/cartcount/:username', (req,res)=>{
-    var dbstat = 'select sum(quantity) as totalquantity, sum(total_price) as totalprice from cart where username = ?'
-    db.query(dbstat, req.params.username, (err, result) => {
+    var dbstat = 'select sum(quantity) as totalquantity, sum(total_price) as totalprice from cart where username = ? and order_status = ?'
+    db.query(dbstat, [req.params.username, 'NotCheckedOut'], (err, result) => {
         res.send(result);
     })
 })

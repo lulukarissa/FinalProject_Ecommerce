@@ -183,7 +183,7 @@ class Cart extends Component {
 									<li>Quantity Total<span>{this.state.cartcount.totalquantity}</span></li>
 									<li>Price Total<span>IDR {new Intl.NumberFormat().format(this.state.cartcount.totalprice)}</span></li>
 								</ul>
-									<a className="btn btn-default update" href="/checkout">Check Out</a>
+									<a className="btn btn-default update" href="/cart/checkout">Check Out</a>
 							</div>
 						</div>
 					</div>

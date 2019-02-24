@@ -41,11 +41,12 @@ class Cart extends Component {
 		console.log(this.state.cartcount.totalquantity)
 		this.getCart();
 		this.getCount()
+		this.getShipping()
 
 		var link = `http://localhost:3210/users/${this.props.username}`
 
-	axios.get(link)
-	.then((x)=>{
+		axios.get(link)
+		.then((x)=>{
 			this.setState({
 				username: x.data[0].username,
 				email: x.data[0].email,
@@ -54,7 +55,6 @@ class Cart extends Component {
 				telephone: x.data[0].telephone,
 				address: x.data[0].address,
 			})
-			// console.log(x.data)
 	})
 	.catch()
 	}
@@ -73,6 +73,31 @@ class Cart extends Component {
 		}).catch((x)=>{
 			console.log(x)
 		})
+	}
+
+	order = () =>{
+		for (var i = 0; i < this.state.cart.length; i++) {
+			// console.log(this.state.cart[i].id_cart)
+			var order = new Date
+			var year = order.getFullYear()
+			var month = order.getMonth()
+			var date = order.getDate()
+			var hours = order.getHours()
+			var minutes = order.getMinutes()
+			var seconds = order.getSeconds()
+			var miliseconds = order.getMilliseconds()
+			var neworder = `${year}${month}${date}${hours}${minutes}${seconds}${miliseconds}`
+
+			axios.put(`http://localhost:3210/cartstatus/${this.state.cart[i].id_cart}`, {
+					order_status: neworder
+			})
+		}
+
+		axios.post('http://localhost:3210/order', {
+				id_order: neworder,
+				totalamount: this.state.cartcount.totalprice + this.state.shippingcost
+		})
+		window.location.href = `/payment_notif/${neworder}`
 	}
 
   render() {
@@ -131,7 +156,9 @@ class Cart extends Component {
 					<div>
         </div>
 				
-					<div>
+					{
+						cart.length > 0
+						? <div>
 						<div className="review-payment">
 							<h2>Review & Payment</h2>
 						</div>
@@ -222,8 +249,9 @@ class Cart extends Component {
 												? <tr>
 														<td></td>
 														<td style={{float: 'right', marginRight:'20px'}}>
-															<button type="button" className="btn btn-default update">
-																Payment
+															<button type="button" className="btn btn-default update"
+															onClick={()=>{this.order()}}>
+																Order
 															</button>
 														</td>	
 													</tr>
@@ -231,7 +259,7 @@ class Cart extends Component {
 													<td></td>
 													<td style={{float: 'right', marginRight:'20px'}}>
 														<button disabled type="button" className="btn btn-disabled update">
-															Payment
+															Order
 														</button>
 													</td>	
 												</tr>
@@ -243,6 +271,17 @@ class Cart extends Component {
 						</table>
 					</div>
 				</div>
+
+				: <div className="col-sm-12">    	
+						<h2 className="title text-center">Nothing to checkout</h2>
+						<div id="gmap" className="contact-map card-body">
+							<center>
+							<img src="images/home/cart.png" style={{width: '200px',height: 'auto'}}></img><br/>
+							<a className="btn btn-default update" href="/products">GO TO SHOP</a>
+							</center>
+						</div>		    				    				
+					</div>	
+					}
 				</div>
 			</section> {/*/#cart_items*/}
 

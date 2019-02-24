@@ -11,6 +11,8 @@ import ProductDetails from './pages/ProductDetails';
 import Checkout from './pages/Checkout';
 import Cart from './pages/Cart';
 import Wishlist from './pages/Wishlist';
+import Order from './pages/Order'
+import PaymentNotif from './pages/PaymentNotif'
 import Blog from './pages/Blog';
 import Blogsingle from './pages/Blogsingle';
 import Login from './pages/Login';
@@ -25,7 +27,8 @@ import {Route, Switch} from 'react-router-dom';
 class App extends Component {
   state = {
     username: localStorage.getItem('username'),
-    city: localStorage.getItem('city')
+    city: localStorage.getItem('city'),
+    total: ''
   }
 
 
@@ -38,6 +41,12 @@ class App extends Component {
   getCity = (x) => {
     this.setState({
       city: x
+    })
+  }
+
+  getTotal = (x) =>{
+    this.setState({
+      total: x
     })
   }
   
@@ -54,12 +63,13 @@ class App extends Component {
             <Route path='/artist/' render={(props) => <Artist {...props} username={this.state.username} />}/>
             <Route path='/category/' render={(props) => <Category {...props} username={this.state.username} />}/>
             <Route path='/product-details/' render={(props) => <ProductDetails {...props} username={this.state.username} />}/>
-            <Route path='/checkout'  render={(props) => <Checkout {...props} username={this.state.username} city={this.state.city} />}/>
+            <Route path='/cart/checkout'  render={(props) => <Checkout {...props} username={this.state.username} city={this.state.city} getTotal={this.getTotal} />}/>
             <Route path='/cart'  render={(props) => <Cart {...props} username={this.state.username} />}/>
             <Route path='/wishlist'  render={(props) => <Wishlist {...props} username={this.state.username} />}/>
+            <Route path='/order'  render={(props) => <Order {...props} username={this.state.username} />}/>
+            <Route path='/payment_notif/'  render={(props) => <PaymentNotif {...props} username={this.state.username} />}/>
             <Route path='/blog' component={Blog} />
             <Route path='/blog-single' component={Blogsingle} />
-            {/* <Route path='/login' component={Login} /> */}
             <Route path='/login' render={(props) => <Login {...props} getUsername={this.getUsername} />}/>
             <Route path='/register' render={(props) => <Register {...props} getUsername={this.getUsername} />}/>
             <Route path='/profile/' render={(props) => <UserProfile {...props} username={this.state.username} />}/>

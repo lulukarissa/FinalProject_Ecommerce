@@ -4,6 +4,7 @@ var route_login = require('./route/route_login')
 var route_loginadmin = require('./route/route_loginadmin')
 var route_products = require('./route/route_products')
 var route_cart = require('./route/route_cart')
+var route_order = require('./route/route_order')
 var route_wishlist = require('./route/route_wishlist')
 var route_category = require('./route/route_category')
 var route_shipping = require('./route/route_shipping')
@@ -12,6 +13,7 @@ var cors = require('cors')
 var server = express();
 server.use(route_products);
 server.use(route_cart);
+server.use(route_order);
 server.use(route_wishlist);
 server.use(route_category);
 server.use(route_shipping);

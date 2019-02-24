@@ -61,9 +61,12 @@ class Sidebar extends Component {
                     
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-folder"></i> <span>Examples</span>
+                            <i class="fa fa-folder"></i> <span>Confirmation</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/payment-confirmation"><i class="fa fa-angle-double-right"></i>Payment</a></li>
+                        </ul>
                     </li>
                 </ul>
             </section>
