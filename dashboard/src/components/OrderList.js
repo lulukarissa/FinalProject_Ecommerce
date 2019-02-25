@@ -43,7 +43,7 @@ class Tables extends Component {
         return(
             <tr key={i}>
                 <td class="text-center">{val.no}</td>
-                <td>{val.id_order}</td>
+                <td><a href={`/order-items/${val.id_order}`}>{val.id_order}</a></td>
                 <td>{val.username}</td>
                 <td>IDR {new Intl.NumberFormat().format(val.totalamount)}</td>
                 <td>{val.address}</td>
