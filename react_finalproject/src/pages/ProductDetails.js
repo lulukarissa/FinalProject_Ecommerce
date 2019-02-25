@@ -48,7 +48,12 @@ class Products extends Component {
 								icon: "success",
 								button: "VIEW CART",
 							}).then((x)=>{
-								window.location.href = '/cart'
+								if(x){
+									window.location.href = '/cart'
+								}
+								else{
+									window.location.reload()
+								}
 							})
 					}).catch(() => {
 							console.log("Error post");

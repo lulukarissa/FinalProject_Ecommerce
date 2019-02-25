@@ -85,8 +85,8 @@ class Cart extends Component {
 			var hours = order.getHours()
 			var minutes = order.getMinutes()
 			var seconds = order.getSeconds()
-			var miliseconds = order.getMilliseconds()
-			var neworder = `${year}${month}${date}${hours}${minutes}${seconds}${miliseconds}`
+			// var miliseconds = order.getMilliseconds()
+			var neworder = `${year}${month}${date}${hours}${minutes}${seconds}`
 
 			axios.post('http://localhost:3210/orderitems', {
 					id_order: neworder,
@@ -107,8 +107,11 @@ class Cart extends Component {
 		axios.post('http://localhost:3210/order', {
 				id_order: neworder,
 				username: this.props.username,
+				subtotal: this.state.cartcount.totalprice,
+				shippingcost: this.state.shippingcost,
 				totalamount: this.state.cartcount.totalprice + this.state.shippingcost,
-				address: this.state.address
+				address: this.state.address,
+				telephone: this.state.telephone
 		})
 		.then((x)=>{
 			console.log(x)

@@ -24,8 +24,11 @@ router.post('/order', (req, res) => {
     var datapost = {
         id_order: req.body.id_order,
         username: req.body.username,
+        subtotal: req.body.subtotal,
+        shippingcost: req.body.shippingcost,
         totalamount: req.body.totalamount,
-        address: req.body.address
+        address: req.body.address,
+        telephone: req.body.telephone
     }
     let dbstat = 'insert into orders set ?';
     db.query(dbstat, datapost, (err, result) => {
@@ -71,7 +74,41 @@ router.put('/orderpayment/:id', (req, res) => {
         }
         else {
             console.log(result);
-            res.send('Added to order!');
+            res.send(result);
+        }
+    })
+})
+
+//update shipment status by order id
+router.put('/ordershipment/:id', (req, res) => {
+    var datapost = {
+        shipment: req.body.shipment
+    }
+    let dbstat = 'update orders set ? where id_order = ?';
+    db.query(dbstat, [datapost, req.params.id], (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(result);
+            res.send(result);
+        }
+    })
+})
+
+//update complete status by order id
+router.put('/ordercomplete/:id', (req, res) => {
+    var datapost = {
+        status: req.body.status
+    }
+    let dbstat = 'update orders set ? where id_order = ?';
+    db.query(dbstat, [datapost, req.params.id], (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(result);
+            res.send(result);
         }
     })
 })
@@ -160,6 +197,20 @@ router.delete('/confirmpayment/:id', (req, res) => {
 })
 
 //GET all orders
+router.get('/orders', (req, res) => {
+    let dbstat = `SELECT * FROM orders`;
+    db.query(dbstat, (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(result);
+            res.send(result);
+        }
+    })
+})
+
+//GET all order by username
 router.get('/orders/:username', (req, res) => {
     let dbstat = `SELECT * FROM orders WHERE orders.username = ?`;
     db.query(dbstat, [req.params.username], (err, result) => {

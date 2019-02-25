@@ -142,8 +142,8 @@ class Cart extends Component {
 				<div className="container">
 					<div className="breadcrumbs">
 						<ol className="breadcrumb">
-						<li><a href="/home">Home</a></li>
-						<li className="active">Shopping Cart</li>
+							<li><a href="/home">Home</a></li>
+							<li className="active">Shopping Cart</li>
 						</ol>
 					</div>
 

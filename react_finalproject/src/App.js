@@ -13,6 +13,7 @@ import Cart from './pages/Cart';
 import Wishlist from './pages/Wishlist';
 import Order from './pages/Order'
 import PaymentNotif from './pages/PaymentNotif'
+import Invoice from './pages/Invoice'
 import Blog from './pages/Blog';
 import Blogsingle from './pages/Blogsingle';
 import Login from './pages/Login';
@@ -68,6 +69,7 @@ class App extends Component {
             <Route path='/wishlist'  render={(props) => <Wishlist {...props} username={this.state.username} />}/>
             <Route path='/order'  render={(props) => <Order {...props} username={this.state.username} />}/>
             <Route path='/payment_notif/'  render={(props) => <PaymentNotif {...props} username={this.state.username} />}/>
+            <Route path='/orders/invoice/'  render={(props) => <Invoice {...props} username={this.state.username} />}/>
             <Route path='/blog' component={Blog} />
             <Route path='/blog-single' component={Blogsingle} />
             <Route path='/login' render={(props) => <Login {...props} getUsername={this.getUsername} />}/>
