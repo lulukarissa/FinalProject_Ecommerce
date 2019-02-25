@@ -37,6 +37,23 @@ router.post('/order', (req, res) => {
     })
 })
 
+//update payment status by order id
+router.put('/orderpayment/:id', (req, res) => {
+    var datapost = {
+        payment: req.body.payment
+    }
+    let dbstat = 'update orders set ? where id_order = ?';
+    db.query(dbstat, [datapost, req.params.id], (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(result);
+            res.send('Added to order!');
+        }
+    })
+})
+
 //count the payment order by id
 router.get('/totalpayment/:id', (req,res)=>{
     var dbstat = 'select totalamount from orders where id_order = ?'
@@ -47,21 +64,47 @@ router.get('/totalpayment/:id', (req,res)=>{
 
 //POST payment confirmation
 router.post('/confirmpayment', (req, res) => {
-    var datapost = {
-        transaction_date: req.body.transaction_date,
-        sender_name: req.body.sender_name,
-        amount: req.body.amount,
-        payment_to: req.body.payment_to,
-        id_order: req.body.id_order
-    }
-    let dbstat = 'insert into confirmpayment set ?';
-    db.query(dbstat, datapost, (err, result) => {
-        if (err) {
-            console.log(err)
+    var id_order = req.body.id_order
+    
+    var dbstat = 'select * from confirmpayment where id_order = ?'
+    db.query(dbstat, id_order, (err, result)=>{
+        if(result.length > 0){
+            var dataupdate = {
+                transaction_date: req.body.transaction_date,
+                sender_name: req.body.sender_name,
+                amount: req.body.amount,
+                payment_to: req.body.payment_to,
+                id_order: id_order
+            }
+            let dbstat = 'update confirmpayment set ? where id_order = ?';
+            db.query(dbstat, [dataupdate, id_order], (err, result) => {
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log(result);
+                    res.send(result);
+                }
+            })
         }
-        else {
-            console.log(result);
-            res.send(result);
+        else{
+            var datapost = {
+                transaction_date: req.body.transaction_date,
+                sender_name: req.body.sender_name,
+                amount: req.body.amount,
+                payment_to: req.body.payment_to,
+                id_order: id_order
+            }
+            let dbstat = 'insert into confirmpayment set ?';
+            db.query(dbstat, datapost, (err, result) => {
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log(result);
+                    res.send(result);
+                }
+            })
         }
     })
 })
@@ -79,5 +122,38 @@ router.get('/confirmpayment', (req, res) => {
         }
     })
 })
+
+//DELETE confirmpayment by id_order
+router.delete('/confirmpayment/:id', (req, res) => {
+    let dbstat = 'delete from confirmpayment where id_order = ?';
+    db.query(dbstat, req.params.id, (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(result);
+            res.send(result);
+        }
+    })
+})
+
+//GET all orders
+router.get('/orders/:username', (req, res) => {
+    let dbstat = `SELECT orders.id_order, cart.id_product,
+    orders.totalamount, orders.payment, orders.shipment, orders.status
+    FROM cart
+    JOIN orders ON cart.order_status = orders.id_order
+    WHERE cart.username = ? and cart.order_status != ? `;
+    db.query(dbstat, [req.params.username, 'NotCheckedYet'], (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(result);
+            res.send(result);
+        }
+    })
+})
+
 
 module.exports = router

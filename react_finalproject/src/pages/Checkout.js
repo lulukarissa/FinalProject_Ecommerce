@@ -97,7 +97,16 @@ class Cart extends Component {
 				id_order: neworder,
 				totalamount: this.state.cartcount.totalprice + this.state.shippingcost
 		})
-		window.location.href = `/payment_notif/${neworder}`
+		.then(()=>{
+			swal({
+				title: "Successfully ordered!",
+				text: "You have to choose the payment for your orders",
+				icon: "success",
+				button: "OK",
+			}).then(()=>{
+				window.location.href = `/payment_notif/${neworder}`
+			})
+		})
 	}
 
   render() {

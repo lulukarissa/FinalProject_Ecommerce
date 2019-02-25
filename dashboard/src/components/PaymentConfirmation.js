@@ -23,6 +23,23 @@ class Tables extends Component {
         .catch()
     }
 
+    postConfirmation = (e) =>{
+        axios.put(`http://localhost:3210/orderpayment/${e}`,{
+            payment: 'Paid'
+        })
+
+        axios.delete(`http://localhost:3210/confirmpayment/${e}`)
+        .then((x)=>{
+            swal({
+                title: "Confirmed!",
+                icon: "success",
+                button: "OK",
+            }).then(()=>{
+                this.getPayment()
+            })
+        })
+    }
+
     componentDidMount(){
         this.getPayment()
     }
@@ -30,7 +47,6 @@ class Tables extends Component {
   render() {
       
     var payment = this.state.payment.map((val, i)=>{
-
         return(
             <tr key={i}>
                 <td class="text-center">{val.no}</td>
@@ -40,7 +56,7 @@ class Tables extends Component {
                 <td class="text-center">{val.payment_to}</td>
                 <td class="text-center">{val.id_order}</td>
                 <td class="text-center">
-                    <button class="btn btn-info">Confirm</button>
+                    <button class="btn btn-info" onClick={()=>{this.postConfirmation(val.id_order)}}>Confirm</button>
                 </td>
             </tr>
         )
@@ -72,24 +88,27 @@ class Tables extends Component {
                                 <div class="box-header">
                                     <h3 class="box-title">Payment Confirmation</h3>                                    
                                 </div>{/* /.box-header */}
-                                <div class="box-body table-responsive">
-                                    <table id="example2" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">No</th>
-                                                <th class="text-center">Transaction Date</th>
-                                                <th class="text-center">Sender Name</th>
-                                                <th class="text-center">Amount Transferred</th>
-                                                <th class="text-center">Payment To</th>
-                                                <th class="text-center">Order ID</th>
-                                                <th class="text-center">Settings</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {payment}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                { payment.length > 0
+                                    ? <div class="box-body table-responsive">
+                                        <table id="example2" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">No</th>
+                                                    <th class="text-center">Transaction Date</th>
+                                                    <th class="text-center">Sender Name</th>
+                                                    <th class="text-center">Amount Transferred</th>
+                                                    <th class="text-center">Payment To</th>
+                                                    <th class="text-center">Order ID</th>
+                                                    <th class="text-center">Settings</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {payment}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                : <h4 style={{textAlign: 'center'}}>--No Payment Transaction--<br/><br/></h4>
+                                }
                             </div>{/* /.box */}
                         </div>
                     </div>
