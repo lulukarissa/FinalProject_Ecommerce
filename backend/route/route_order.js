@@ -19,11 +19,13 @@ db.connect(()=>{
     console.log('You are now connected...')
 })
 
-//POST the order id
+//POST the order
 router.post('/order', (req, res) => {
     var datapost = {
         id_order: req.body.id_order,
-        totalamount: req.body.totalamount
+        username: req.body.username,
+        totalamount: req.body.totalamount,
+        address: req.body.address
     }
     let dbstat = 'insert into orders set ?';
     db.query(dbstat, datapost, (err, result) => {
@@ -32,7 +34,27 @@ router.post('/order', (req, res) => {
         }
         else {
             console.log(result);
-            res.send('Added to order!');
+            res.send(result);
+        }
+    })
+})
+
+//POST the order_items
+router.post('/orderitems', (req, res) => {
+    var datapost = {
+        id_order: req.body.id_order,
+        id_product: req.body.id_product,
+        quantity: req.body.quantity,
+        total_price: req.body.total_price
+    }
+    let dbstat = 'insert into order_items set ?';
+    db.query(dbstat, datapost, (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(result);
+            res.send(result);
         }
     })
 })
@@ -139,12 +161,26 @@ router.delete('/confirmpayment/:id', (req, res) => {
 
 //GET all orders
 router.get('/orders/:username', (req, res) => {
-    let dbstat = `SELECT orders.id_order, cart.id_product,
-    orders.totalamount, orders.payment, orders.shipment, orders.status
-    FROM cart
-    JOIN orders ON cart.order_status = orders.id_order
-    WHERE cart.username = ? and cart.order_status != ? `;
-    db.query(dbstat, [req.params.username, 'NotCheckedYet'], (err, result) => {
+    let dbstat = `SELECT * FROM orders WHERE orders.username = ?`;
+    db.query(dbstat, [req.params.username], (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(result);
+            res.send(result);
+        }
+    })
+})
+
+//GET orderitems by id_order
+router.get('/orderitems/:id', (req, res) => {
+    let dbstat = `SELECT order_items.id_order, order_items.id_product, order_items.quantity, order_items.total_price,
+    products.product_name, products.artist, products.image, products.price
+    FROM order_items
+    JOIN products ON order_items.id_product = products.id_product
+    WHERE order_items.id_order = ?`;
+    db.query(dbstat, [req.params.id], (err, result) => {
         if (err) {
             console.log(err)
         }

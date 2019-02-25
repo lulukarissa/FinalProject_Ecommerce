@@ -88,16 +88,30 @@ class Cart extends Component {
 			var miliseconds = order.getMilliseconds()
 			var neworder = `${year}${month}${date}${hours}${minutes}${seconds}${miliseconds}`
 
-			axios.put(`http://localhost:3210/cartstatus/${this.state.cart[i].id_cart}`, {
-					order_status: neworder
+			axios.post('http://localhost:3210/orderitems', {
+					id_order: neworder,
+					id_product: this.state.cart[i].id_product,
+					quantity: this.state.cart[i].quantity,
+					total_price: this.state.cart[i].total_price
+			})
+			.then((x)=>{
+				console.log(x)
+			})
+
+			axios.delete(`http://localhost:3210/cartdelete/${this.state.cart[i].id_cart}`)
+			.then((x)=>{
+				console.log(x)
 			})
 		}
 
 		axios.post('http://localhost:3210/order', {
 				id_order: neworder,
-				totalamount: this.state.cartcount.totalprice + this.state.shippingcost
+				username: this.props.username,
+				totalamount: this.state.cartcount.totalprice + this.state.shippingcost,
+				address: this.state.address
 		})
-		.then(()=>{
+		.then((x)=>{
+			console.log(x)
 			swal({
 				title: "Successfully ordered!",
 				text: "You have to choose the payment for your orders",
