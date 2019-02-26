@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import {withRouter} from 'react-router-dom';
 
 class Footer extends Component {
   render() {
+    if (this.props.location.pathname.slice(0,9) === '/invoice/') {
+      return null
+    }
     return (
     <div>
         <footer id="footer">{/*Footer*/}
@@ -164,4 +168,4 @@ class Footer extends Component {
   }
 }
 
-export default Footer;
+export default withRouter(Footer);

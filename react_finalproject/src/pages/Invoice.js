@@ -59,15 +59,22 @@ class Tables extends Component {
     return (
         <div>
         <section className="cart_items">
-        <div className="container">            
+        <div className="container">
+        <div style={{width:'70rem', marginLeft:'200px'}}>            
             <section class="content-header">
-            <div></div>
-                    <h2>
-                        Invoice
-                    </h2>
-                    <h4>
-                        ID: {this.props.location.pathname.slice(9)}
-                    </h4><br/>
+            <div className="row" >
+                <div className="col-sm-6">
+                  <div className="logo pull-left" style={{marginTop:'20px'}}>
+                    <a href="/"><img src="../images/home/logo.jpg" alt="" /></a>
+                  </div>
+                </div>
+                <div className="col-sm-6">
+                    <div className="logo pull-right">
+                        <h2>Invoice</h2>
+                        <h4 style={{color:'orange'}}>ID: {this.props.location.pathname.slice(9)}</h4>
+                    </div>
+                </div>
+            </div><br/><br/>
                     <h4>
                         <b>Delivery Address:</b>
                     </h4>
@@ -103,12 +110,12 @@ class Tables extends Component {
                                                     <td colspan="3">
                                                     <span style={{float:'right'}}>Subtotal:</span><br/>
                                                     <span style={{float:'right'}}>Shipping Cost:</span><br/>
-                                                    <span style={{float:'right'}}>Total Price:</span><br/>
+                                                    <b><span style={{float:'right', color:'orange'}}>Total Price:</span></b><br/>
                                                     </td>
                                                     <td colspan="1">
                                                     IDR<span style={{float:'right'}}>{new Intl.NumberFormat().format(this.state.orderdetails.subtotal)}</span><br/>
                                                     IDR<span style={{float:'right'}}>{new Intl.NumberFormat().format(this.state.orderdetails.shippingcost)}</span><br/>
-                                                    IDR<span style={{float:'right'}}>{new Intl.NumberFormat().format(this.state.orderdetails.totalamount)}</span><br/>
+                                                    <b><span style={{color:'orange'}}>IDR</span><span style={{float:'right', color:'orange'}}>{new Intl.NumberFormat().format(this.state.orderdetails.totalamount)}</span></b><br/>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -121,6 +128,7 @@ class Tables extends Component {
                     </div>
 
                 </section>{/* /.content */}
+                </div>
             </div>{/* /.right-side */}
         </section>{/* ./wrapper */}
     </div>

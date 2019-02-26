@@ -43,7 +43,7 @@ class Tables extends Component {
             <tr key={i}>
                 <td>{val.product_name}</td>
                 <td>{val.artist}</td>
-                <td class="text-center"><a href={`http://localhost:3210/img/${val.image}`} target="__blank">{val.image}</a></td>
+                <td class="text-center"><a href={`http://localhost:3210/img/${val.image}`} target="_blank">{val.image}</a></td>
                 <td>IDR <span style={{float:'right'}}>{new Intl.NumberFormat().format(val.price)}</span></td>
                 <td class="text-center">{val.quantity}</td>
                 <td>IDR <span style={{float:'right'}}>{new Intl.NumberFormat().format(val.total_price)}</span></td>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import swal from '@sweetalert/with-react'
+import {withRouter} from 'react-router-dom';
 
 class Header extends Component {
   state = {
@@ -32,6 +33,10 @@ class Header extends Component {
         <li key={i}><a href={`/category/${id_category}`}>{category_name}</a></li> 
       )
     })
+
+    if (this.props.location.pathname.slice(0,9) === '/invoice/') {
+      return null
+    }
     return (
       <div>
         <header id="header">{/*header*/}
@@ -155,4 +160,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default withRouter(Header);

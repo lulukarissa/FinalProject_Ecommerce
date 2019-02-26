@@ -4,8 +4,7 @@ import swal from '@sweetalert/with-react';
 
 class Cart extends Component {
 	state = {
-		orderlist: [],
-		orderitems: []
+		orderlist: []
 	}
 
 	getOrderList = () =>{
@@ -16,63 +15,30 @@ class Cart extends Component {
 			})
 		})
 	}
-
-	getItemOrders = (e) =>{
-		axios.get(`http://localhost:3210/orderitems/${e}`)
-			.then((x)=>{
-				this.setState({
-					orderitems: x.data
-				})
-				console.log(x.data)
-			})
-	}
 	
 	componentDidMount(){
 		this.getOrderList()
 	}
 
   render() {
-		var orderitems = this.state.orderitems.map((val,i)=>{
-			return(
-				<li className="list-group-item" key={i} style={{marginRight:'20px'}}>
-				<div className="row">
-					<div className="col-sm-2">
-						<img src={`http://localhost:3210/img/${val.image}`} style={{width:'50px', height:'50px'}}/>
-					</div>
-					<div className="col-sm-10">
-						<b style={{marginLeft:'10px'}}>{val.product_name}</b><br/>
-						<small style={{marginLeft:'10px'}}>{val.artist}</small>
-					</div>
-					</div>
-				</li>
-			)
-		})
 
 		var orderlist = this.state.orderlist.map((val,i)=>{
 			var id_order = val.id_order
-			var id_product = val.id_product
-			var totalamount = val.totalamount
 			var payment = val.payment
 			var shipment = val.shipment
+			var status = val.status
 
 			return(
 				<tr key={i}>
 					<td>{id_order}</td>
-					<td>
-						{
-							orderitems.length > 0
-							? <ul>{orderitems}</ul>
-							: <a href="#" style={{color:'orange'}} onClick={(e)=>{e.preventDefault();this.getItemOrders(id_order)}}>Item List</a>
-						}
-					</td>
-					<td style={{textAlign: 'center'}}>IDR {new Intl.NumberFormat().format(totalamount)}</td>
 					{
 						payment == 'Not Yet Paid'
-						?	<td style={{textAlign: 'center'}}>{payment}<br/><a style={{color:'orange'}} href={`/payment_notif/${id_order}`}>Confirm Payment</a></td>
+						?	<td style={{textAlign: 'center'}}>{payment}<br/><a style={{color:'orange'}} href={`/payment_notif/${id_order}`} target="_blank">Confirm Payment</a></td>
 						: <td style={{textAlign: 'center'}}>{payment}</td>
 					}
 					<td style={{textAlign: 'center'}}>{shipment}</td>
-					<td style={{textAlign: 'center'}}><a href={`/invoice/${id_order}`}>View Invoice</a></td>
+					<td style={{textAlign: 'center'}}>{status}</td>
+					<td style={{textAlign: 'center'}}><a style={{color:'orange'}} href={`/invoice/${id_order}`} target="_blank">View Invoice</a></td>
 				</tr>
 			)
 		})
@@ -99,11 +65,10 @@ class Cart extends Component {
 											<thead>
 												<tr className="cart_menu">
 													<td style={{textAlign: 'center'}}>Order ID</td>
-													<td style={{textAlign: 'center'}}>Items</td>
-													<td style={{textAlign: 'center'}}>Total</td>
 													<td style={{textAlign: 'center'}}>Payment</td>
 													<td style={{textAlign: 'center'}}>Shipment</td>
-													<td style={{textAlign: 'center'}}>Remarks</td>
+													<td style={{textAlign: 'center'}}>Status</td>
+													<td style={{textAlign: 'center'}}>Order Details</td>
 												</tr>
 											</thead>
 											<tbody>
