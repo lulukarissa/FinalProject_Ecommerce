@@ -11,7 +11,6 @@ class Login extends Component {
 	
 		  var username = this.refs.username.value
 			var password =  this.refs.password.value
-			var first_name = x.data[0].first_name
 		  
 			var i;
 		  for(i = 0; i<userdata.length; i++){
@@ -25,7 +24,7 @@ class Login extends Component {
 
 					swal({
 						title: "You have successfully logged in!",
-						text: `Welcome back, ${first_name}!`,
+						text: `Welcome back, ${userdata[i].first_name}!`,
 						icon: "success",
 						button: "GO TO HOME",
 					}).then(()=>{

@@ -8,24 +8,34 @@ class Products extends Component {
 				products: '',
 				username: '',
 				quantity: '',
-				total_price: ''
+				total_price: '',
+				recommended: []
       }
       
       componentDidMount(){
-	  var id = this.props.location.pathname.slice(17)
-	  var link = `http://localhost:3210/product/${id}`
+				var id = this.props.location.pathname.slice(17)
+				var link = `http://localhost:3210/product/${id}`
 
-	  console.log(id)
-    
-      axios.get(link)
-      .then((x)=>{
-          this.setState({
-              products: x.data[0]
-          })
-          console.log(x.data[0])
-      })
-      .catch()
-		}
+				console.log(id)
+				
+					axios.get(link)
+					.then((x)=>{
+							this.setState({
+									products: x.data[0]
+							})
+							console.log(x.data[0])
+					})
+					.catch()
+
+				axios.get('http://localhost:3210/recommended')
+				.then((x)=>{
+						this.setState({
+								recommended: x.data
+						})
+						console.log(x.data)
+				})
+				.catch()
+			}
 		
 		addtocart = () =>{
 			if(this.props.username){
@@ -67,10 +77,87 @@ class Products extends Component {
 			}
 			else{
 				swal('Please login first to add to cart!')
+			}	
+		}
+		
+		addtowishlist = (e) =>{
+			if(this.props.username){
+				axios.post('http://localhost:3210/wishlist', {
+					username: this.props.username,
+					id_product: e
+				}).then((x) => {
+						console.log(x);
+						swal({
+							title: "Added to wishlist!",
+							text: "You just successfully added this product to your wishlist",
+							icon: "success",
+							button: "OK",
+						})
+				}).catch(() => {
+						console.log("Error post");
+				})
 			}
-			
-    }
+			else{
+				swal('Please login first to add to wishlist!')
+			} 
+		}
+		
   render() {
+
+		var recommended1 = this.state.recommended.map((val, i)=>{
+      var id_product = val.id_product
+      var product_name = val.product_name
+      var artist = val.artist
+      var price = val.price
+      var image = val.image
+
+      if(i<3){
+      return(
+          <div className="col-sm-4">
+            <div className="product-image-wrapper">
+              <div className="single-products">
+							<a href={`/product-details/${id_product}`}>
+                <div className="productinfo text-center">
+                  <img src={`http://localhost:3210/img/${image}`} alt="" />
+                  <h2>IDR {new Intl.NumberFormat().format(price)}</h2>
+                  <p>{product_name}</p>
+                  <p><b>{artist}</b></p>
+                  <a href="#" className="btn btn-default add-to-cart" onClick={(e)=>{e.preventDefault(); this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
+                </div>
+								</a>
+              </div>
+            </div>
+          </div>
+      )}
+    })
+
+    var recommended2 = this.state.recommended.map((val, i)=>{
+      var id_product = val.id_product
+      var product_name = val.product_name
+      var artist = val.artist
+      var price = val.price
+      var image = val.image
+
+      if(i>=3){
+      return(
+          <div className="col-sm-4">
+            <div className="product-image-wrapper">
+              <div className="single-products">
+							<a href={`/product-details/${id_product}`}>
+                <div className="productinfo text-center">
+                  <img src={`http://localhost:3210/img/${image}`} alt="" />
+                  <h2>IDR {new Intl.NumberFormat().format(price)}</h2>
+                  <p>{product_name}</p>
+                  <p><b>{artist}</b></p>
+                  <a href="#" className="btn btn-default add-to-cart" onClick={(e)=>{e.preventDefault(); this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
+                </div>
+								</a>
+              </div>
+            </div>
+          </div>
+      )}
+		})
+		
     return (
         <div>
             <section>
@@ -317,86 +404,10 @@ class Products extends Component {
 								<div id="recommended-item-carousel" className="carousel slide" data-ride="carousel">
 									<div className="carousel-inner">
 										<div className="item active">	
-											<div className="col-sm-4">
-												<div className="product-image-wrapper">
-													<div className="single-products">
-														<div className="productinfo text-center">
-															<img src="../images/home/recommend1.jpg" alt="" />
-															<h2>IDR 435,000</h2>
-															<p>Title</p>
-															<p><b>Artist</b></p>
-															<button type="button" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</button>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div className="col-sm-4">
-												<div className="product-image-wrapper">
-													<div className="single-products">
-														<div className="productinfo text-center">
-															<img src="../images/home/recommend2.jpg" alt="" />
-															<h2>IDR 435,000</h2>
-															<p>Title</p>
-															<p><b>Artist</b></p>
-															<button type="button" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</button>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div className="col-sm-4">
-												<div className="product-image-wrapper">
-													<div className="single-products">
-														<div className="productinfo text-center">
-															<img src="../images/home/recommend3.jpg" alt="" />
-															<h2>IDR 435,000</h2>
-															<p>Title</p>
-															<p><b>Artist</b></p>
-															<button type="button" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</button>
-														</div>
-													</div>
-												</div>
-											</div>
+											{recommended1}
 										</div>
 										<div className="item">	
-											<div className="col-sm-4">
-												<div className="product-image-wrapper">
-													<div className="single-products">
-														<div className="productinfo text-center">
-															<img src="../images/home/recommend1.jpg" alt="" />
-															<h2>IDR 435,000</h2>
-															<p>Title</p>
-															<p><b>Artist</b></p>
-															<button type="button" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</button>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div className="col-sm-4">
-												<div className="product-image-wrapper">
-													<div className="single-products">
-														<div className="productinfo text-center">
-															<img src="../images/home/recommend2.jpg" alt="" />
-															<h2>IDR 435,000</h2>
-															<p>Title</p>
-															<p><b>Artist</b></p>
-															<button type="button" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</button>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div className="col-sm-4">
-												<div className="product-image-wrapper">
-													<div className="single-products">
-														<div className="productinfo text-center">
-															<img src="../images/home/recommend3.jpg" alt="" />
-															<h2>IDR 435,000</h2>
-															<p>Title</p>
-															<p><b>Artist</b></p>
-															<button type="button" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart"></i>Add to cart</button>
-														</div>
-													</div>
-												</div>
-											</div>
+											{recommended2}
 										</div>
 									</div>
 									<a className="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">

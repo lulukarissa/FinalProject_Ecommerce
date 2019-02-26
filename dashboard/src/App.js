@@ -16,7 +16,7 @@ import PaymentConfirmation from './components/PaymentConfirmation'
 
 class App extends Component {
   state = {
-    username: localStorage.getItem('username')
+    username: localStorage.getItem('usernameadmin')
   }
 
   getUsername = (x) => {

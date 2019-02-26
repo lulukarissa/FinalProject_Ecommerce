@@ -23,11 +23,11 @@ var sender = nodemailer.createTransport({
 
 router.post('/mail', (req,res)=>{
     var myletter = {
-        from: 'GET-Myu Store',
+        from: 'GET-Myu Store <info@getmyu.com>',
         to: req.body.email,
         subject: 'Order Confirmation',
         text: `Dear ${req.body.first_name} ${req.body.last_name}
-        
+
         Thank you for shopping with us.
         Your order is currently awaiting payment via bank transfer.
         View Invoice: http://localhost:3000/invoice/${req.body.id_order}

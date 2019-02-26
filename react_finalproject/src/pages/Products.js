@@ -12,6 +12,7 @@ class Shop extends Component {
           productsPerPage: 9
         }
         this.handleClick = this.handleClick.bind(this);
+        this.handleClickNext = this.handleClickNext.bind(this);
       }
       
       componentDidMount(){
@@ -102,6 +103,13 @@ class Shop extends Component {
         e.preventDefault()
         this.setState({
           currentPage: Number(e.target.id)
+        })
+      }
+
+      handleClickNext(e) {
+        e.preventDefault()
+        this.setState({
+          currentPage: Number(this.state.currentPage+1)
         })
       }
     
@@ -226,7 +234,7 @@ class Shop extends Component {
                                 <div className="col-sm-6" >
                                     <ul className="pagination" style={{float: 'right'}}>
                                     {renderPageNumbers}
-                                    <li><a href="">&raquo;</a></li>
+                                    <li><a href="" onClick={this.handleClickNext} data-toggle="tab">&raquo;</a></li>
                                     </ul>
                                 </div>
                                 <br/>

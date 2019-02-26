@@ -27,14 +27,30 @@ class Tables extends Component {
         axios.put(`http://localhost:3210/ordershipment/${e}`,{
             shipment: 'Shipped'
         })
-        .then(()=>{this.getOrderList()})
+        .then(()=>{
+            swal({
+                title: "This order has been shipped!",
+                icon: "success",
+                button: "OK",
+            }).then(()=>{
+                this.getOrderList()
+            })
+        })
     }
 
     changeStatus = (e) =>{
         axios.put(`http://localhost:3210/ordercomplete/${e}`,{
             status: 'Completed'
         })
-        .then(()=>{this.getOrderList()})
+        .then(()=>{
+            swal({
+                title: "Completed!",
+                icon: "success",
+                button: "OK",
+            }).then(()=>{
+                this.getOrderList()
+            })
+        })
     }
 
   render() {

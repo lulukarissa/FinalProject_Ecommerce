@@ -2579,8 +2579,8 @@ Component: timeline
 */
 /* skin-black navbar */
 .skin-black .navbar {
-  background-color: #ffffff;
-  border-bottom: 1px solid #eee;
+  background-color: #333333;
+  border-bottom: 1px solid #333333;
 }
 .skin-black .navbar .nav a {
   color: #333333;

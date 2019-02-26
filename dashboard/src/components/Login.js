@@ -20,7 +20,7 @@ class Login extends Component {
 				  username: e.username.value,
 				  password: e.password.value
 				}).then(() => {
-					localStorage.setItem('username', username)
+					localStorage.setItem('usernameadmin', username)
 					this.props.getUsername(username)
 
 					swal({

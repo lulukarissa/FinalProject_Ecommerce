@@ -198,7 +198,7 @@ router.delete('/confirmpayment/:id', (req, res) => {
 
 //GET all orders
 router.get('/orders', (req, res) => {
-    let dbstat = `SELECT * FROM orders`;
+    let dbstat = `SELECT * FROM orders order by no desc`;
     db.query(dbstat, (err, result) => {
         if (err) {
             console.log(err)
@@ -212,7 +212,7 @@ router.get('/orders', (req, res) => {
 
 //GET all order by username
 router.get('/orders/:username', (req, res) => {
-    let dbstat = `SELECT * FROM orders WHERE username = ?`;
+    let dbstat = `SELECT * FROM orders WHERE username = ? order by no desc`;
     db.query(dbstat, [req.params.username], (err, result) => {
         if (err) {
             console.log(err)

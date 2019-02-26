@@ -19,7 +19,7 @@ db.connect(()=>{
 
 //GET all data
 router.get('/users', (req, res)=>{
-    var dbstat = 'select * from users'
+    var dbstat = 'select * from users order by id desc'
     db.query(dbstat, (error, result)=>{
         if(error) throw error
         console.log(result)

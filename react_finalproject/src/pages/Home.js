@@ -139,6 +139,7 @@ class Home extends Component {
         <div className="col-sm-3">
           <div className="product-image-wrapper">
             <div className="single-products">
+            <a href={`/product-details/${id_product}`}>
               <div className="productinfo1 text-center">
                 <img src={`http://localhost:3210/img/${image}`} alt="" />
                 <h2>IDR {new Intl.NumberFormat().format(price)}</h2>
@@ -146,6 +147,7 @@ class Home extends Component {
                 <p><b>{artist}</b></p>
                 <a href="#" className="btn btn-default add-to-cart" onClick={(e)=>{e.preventDefault(); this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
               </div>
+              </a>
             </div>
           </div>
         </div>
@@ -166,6 +168,7 @@ class Home extends Component {
           <div className="col-sm-4">
             <div className="product-image-wrapper">
               <div className="single-products">
+              <a href={`/product-details/${id_product}`}>
                 <div className="productinfo text-center">
                   <img src={`http://localhost:3210/img/${image}`} alt="" />
                   <h2>IDR {new Intl.NumberFormat().format(price)}</h2>
@@ -173,6 +176,7 @@ class Home extends Component {
                   <p><b>{artist}</b></p>
                   <a href="#" className="btn btn-default add-to-cart" onClick={(e)=>{e.preventDefault(); this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
                 </div>
+                </a>
               </div>
             </div>
           </div>
@@ -191,6 +195,7 @@ class Home extends Component {
           <div className="col-sm-4">
             <div className="product-image-wrapper">
               <div className="single-products">
+              <a href={`/product-details/${id_product}`}>
                 <div className="productinfo text-center">
                   <img src={`http://localhost:3210/img/${image}`} alt="" />
                   <h2>IDR {new Intl.NumberFormat().format(price)}</h2>
@@ -198,6 +203,7 @@ class Home extends Component {
                   <p><b>{artist}</b></p>
                   <a href="#" className="btn btn-default add-to-cart" onClick={(e)=>{e.preventDefault(); this.addtowishlist(id_product)}}><i className="fa fa-star"></i> Add to wishlist</a>
                 </div>
+                </a>
               </div>
             </div>
           </div>
