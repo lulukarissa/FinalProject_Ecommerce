@@ -74,7 +74,7 @@ class Header extends Component {
                     <ul className="nav navbar-nav">
                       <li><a href="/wishlist"><i className="fa fa-star"></i> Wishlist</a></li>
                       <li><a href="/cart"><i className="fa fa-shopping-cart"></i> Cart</a></li>
-                      <li><a href="/order"><i className="fa fa-crosshairs"></i> Order</a></li>
+                      <li><a href="/orders"><i className="fa fa-crosshairs"></i> Order</a></li>
                       {this.props.username
                         ? <li className="dropdown"><a href="#"><i className="fa fa-user"></i> {this.props.username}<i className="fa fa-angle-down"></i></a>
                             <ul role="menu" className="sub-menu">

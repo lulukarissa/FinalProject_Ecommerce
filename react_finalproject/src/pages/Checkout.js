@@ -110,6 +110,7 @@ class Cart extends Component {
 				subtotal: this.state.cartcount.totalprice,
 				shippingcost: this.state.shippingcost,
 				totalamount: this.state.cartcount.totalprice + this.state.shippingcost,
+				fullname: `${this.state.first_name} ${this.state.last_name}`,
 				address: this.state.address,
 				telephone: this.state.telephone
 		})

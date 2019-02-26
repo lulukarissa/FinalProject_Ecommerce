@@ -33,7 +33,7 @@ class Profile extends Component {
 		}
 		else{
 			var id = this.props.location.pathname.slice(15)
-			axios.put(`http://localhost:3210/orderpayment/${id}`, {payment: 'Waiting To Confirm'})
+			axios.put(`http://localhost:3210/orderpayment/${id}`, {payment: 'Waiting To Be Confirmed'})
 			var link = 'http://localhost:3210/confirmpayment'
 			axios.post(link, {
 				transaction_date: transaction_date,

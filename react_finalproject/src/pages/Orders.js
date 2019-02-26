@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import swal from '@sweetalert/with-react'
+import swal from '@sweetalert/with-react';
 
 class Cart extends Component {
 	state = {
@@ -72,7 +72,7 @@ class Cart extends Component {
 						: <td style={{textAlign: 'center'}}>{payment}</td>
 					}
 					<td style={{textAlign: 'center'}}>{shipment}</td>
-					<td style={{textAlign: 'center'}}>View Invoice</td>
+					<td style={{textAlign: 'center'}}><a href={`/invoice/${id_order}`}>View Invoice</a></td>
 				</tr>
 			)
 		})

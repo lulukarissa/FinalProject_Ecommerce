@@ -27,6 +27,7 @@ router.post('/order', (req, res) => {
         subtotal: req.body.subtotal,
         shippingcost: req.body.shippingcost,
         totalamount: req.body.totalamount,
+        fullname: req.body.fullname,
         address: req.body.address,
         telephone: req.body.telephone
     }
@@ -212,8 +213,22 @@ router.get('/orders', (req, res) => {
 
 //GET all order by username
 router.get('/orders/:username', (req, res) => {
-    let dbstat = `SELECT * FROM orders WHERE orders.username = ?`;
+    let dbstat = `SELECT * FROM orders WHERE username = ?`;
     db.query(dbstat, [req.params.username], (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(result);
+            res.send(result);
+        }
+    })
+})
+
+//GET order details by id_order
+router.get('/ordersbyid/:id', (req, res) => {
+    let dbstat = `SELECT * FROM orders WHERE id_order = ?`;
+    db.query(dbstat, [req.params.id], (err, result) => {
         if (err) {
             console.log(err)
         }

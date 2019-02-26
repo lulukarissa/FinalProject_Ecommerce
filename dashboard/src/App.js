@@ -6,7 +6,7 @@ import ProductList from './components/ProductList'
 import CategoryList from './components/CategoryList'
 import MemberList from './components/MemberList'
 import OrderList from './components/OrderList'
-import OrderItems from './components/OrderItems'
+import OrderDetails from './components/OrderDetails'
 import AddProducts from './components/AddProducts'
 import AddCategory from './components/AddCategory'
 import EditProduct from './components/EditProduct'
@@ -35,7 +35,7 @@ class App extends Component {
             <Route path='/category-list' component={CategoryList} />
             <Route path='/member-list' component={MemberList} />
             <Route path='/order-list' component={OrderList} />
-            <Route path='/order-items/' component={OrderItems} />
+            <Route path='/order-details/' component={OrderDetails} />
             <Route path='/add-products' component={AddProducts} />
             <Route path='/add-category' component={AddCategory} />
             <Route path='/edit-product/' component={EditProduct} />

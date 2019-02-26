@@ -43,11 +43,8 @@ class Tables extends Component {
         return(
             <tr key={i}>
                 <td class="text-center">{val.no}</td>
-                <td><a href={`/order-items/${val.id_order}`}>{val.id_order}</a></td>
+                <td><a href={`/order-details/${val.id_order}`}>{val.id_order}</a></td>
                 <td>{val.username}</td>
-                <td>IDR {new Intl.NumberFormat().format(val.totalamount)}</td>
-                <td>{val.address}</td>
-                <td>{val.telephone}</td>
                 <td class="text-center">
                     {val.payment}
                 </td>
@@ -113,9 +110,6 @@ class Tables extends Component {
                                                     <th class="text-center">No</th>
                                                     <th class="text-center">Order ID</th>
                                                     <th class="text-center">Username</th>
-                                                    <th class="text-center">Total Amount</th>
-                                                    <th class="text-center">Address</th>
-                                                    <th class="text-center">Telephone</th>
                                                     <th class="text-center">Payment</th>
                                                     <th class="text-center">Shipment</th>
                                                     <th class="text-center">Status</th>

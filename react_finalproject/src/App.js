@@ -11,7 +11,7 @@ import ProductDetails from './pages/ProductDetails';
 import Checkout from './pages/Checkout';
 import Cart from './pages/Cart';
 import Wishlist from './pages/Wishlist';
-import Order from './pages/Order'
+import Orders from './pages/Orders'
 import PaymentNotif from './pages/PaymentNotif'
 import Invoice from './pages/Invoice'
 import Blog from './pages/Blog';
@@ -67,9 +67,9 @@ class App extends Component {
             <Route path='/cart/checkout'  render={(props) => <Checkout {...props} username={this.state.username} city={this.state.city} getTotal={this.getTotal} />}/>
             <Route path='/cart'  render={(props) => <Cart {...props} username={this.state.username} />}/>
             <Route path='/wishlist'  render={(props) => <Wishlist {...props} username={this.state.username} />}/>
-            <Route path='/order'  render={(props) => <Order {...props} username={this.state.username} />}/>
+            <Route path='/orders'  render={(props) => <Orders {...props} username={this.state.username} />}/>
             <Route path='/payment_notif/'  render={(props) => <PaymentNotif {...props} username={this.state.username} />}/>
-            <Route path='/orders/invoice/'  render={(props) => <Invoice {...props} username={this.state.username} />}/>
+            <Route path='/invoice/'  render={(props) => <Invoice {...props} username={this.state.username} />}/>
             <Route path='/blog' component={Blog} />
             <Route path='/blog-single' component={Blogsingle} />
             <Route path='/login' render={(props) => <Login {...props} getUsername={this.getUsername} />}/>

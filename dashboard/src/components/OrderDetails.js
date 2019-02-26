@@ -7,21 +7,33 @@ import swal from '@sweetalert/with-react'
 
 class Tables extends Component {
     state = {
-		orderitems: []
+        orderitems: [],
+        orderdetails: ''
 	}
 
 	getOrderItems = () =>{
-        var id = this.props.location.pathname.slice(13)
+        var id = this.props.location.pathname.slice(15)
 		axios.get(`http://localhost:3210/orderitems/${id}`)
 		.then((x)=>{
 			this.setState({
 				orderitems: x.data
 			})
 		})
-	}
+    }
+    
+    getOrderDetails = () =>{
+        var id = this.props.location.pathname.slice(15)
+		axios.get(`http://localhost:3210/ordersbyid/${id}`)
+		.then((x)=>{
+			this.setState({
+				orderdetails: x.data[0]
+			})
+		})
+    }
 
     componentDidMount(){
         this.getOrderItems()
+        this.getOrderDetails()
     }
 
   render() {
@@ -31,10 +43,10 @@ class Tables extends Component {
             <tr key={i}>
                 <td>{val.product_name}</td>
                 <td>{val.artist}</td>
-                <td>IDR {new Intl.NumberFormat().format(val.price)}</td>
-                <td class="text-center">{val.quantity}</td>
-                <td>IDR {new Intl.NumberFormat().format(val.total_price)}</td>
                 <td class="text-center"><a href={`http://localhost:3210/img/${val.image}`} target="__blank">{val.image}</a></td>
+                <td>IDR <span style={{float:'right'}}>{new Intl.NumberFormat().format(val.price)}</span></td>
+                <td class="text-center">{val.quantity}</td>
+                <td>IDR <span style={{float:'right'}}>{new Intl.NumberFormat().format(val.total_price)}</span></td>
             </tr>
         )
     })
@@ -48,12 +60,24 @@ class Tables extends Component {
                 {/* Content Header (Page header) */}
                 <section class="content-header">
                     <h1>
-                        Order Items
+                        Order Details
                     </h1>
+                    <h4>
+                        ID: {this.props.location.pathname.slice(15)}
+                    </h4><br/>
+
+                    <h4>
+                        <b>Delivery Address:</b>
+                    </h4>
+                    <h5>
+                    {this.state.orderdetails.fullname}<br/>
+                    {this.state.orderdetails.address}<br/>
+                    {this.state.orderdetails.telephone}<br/>
+                    </h5>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li><a href="#">Tables</a></li>
-                        <li class="active">Order Items</li>
+                        <li class="active">Order Details</li>
                     </ol>
                 </section>
 
@@ -63,7 +87,7 @@ class Tables extends Component {
                         <div class="col-xs-12">
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">ID: {this.props.location.pathname.slice(13)}</h3>                                    
+                                    <h3 class="box-title">Order Items</h3>                                    
                                 </div>{/* /.box-header */}
                                 { orderitems.length > 0
                                     ? <div class="box-body table-responsive">
@@ -72,14 +96,26 @@ class Tables extends Component {
                                                 <tr>
                                                     <th class="text-center">Product Name</th>
                                                     <th class="text-center">Artist</th>
+                                                    <th class="text-center">Image</th>
                                                     <th class="text-center">Price</th>
                                                     <th class="text-center">Quantity</th>
                                                     <th class="text-center">Total Price</th>
-                                                    <th class="text-center">Image</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {orderitems}
+                                                <tr>
+                                                    <td colspan="5">
+                                                    <span style={{float:'right'}}>Subtotal:</span><br/>
+                                                    <span style={{float:'right'}}>Shipping Cost:</span><br/>
+                                                    <span style={{float:'right'}}>Total Price:</span><br/>
+                                                    </td>
+                                                    <td colspan="1">
+                                                    IDR<span style={{float:'right'}}>{new Intl.NumberFormat().format(this.state.orderdetails.subtotal)}</span><br/>
+                                                    IDR<span style={{float:'right'}}>{new Intl.NumberFormat().format(this.state.orderdetails.shippingcost)}</span><br/>
+                                                    IDR<span style={{float:'right'}}>{new Intl.NumberFormat().format(this.state.orderdetails.totalamount)}</span><br/>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
