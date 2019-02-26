@@ -50,7 +50,7 @@ class Cart extends Component {
 						<div className="breadcrumbs">
 							<ol className="breadcrumb">
 								<li><a href="/home">Home</a></li>
-								<li className="active">Order List</li>
+								<li className="active">Order</li>
 							</ol>
 						</div>
 						{
@@ -58,7 +58,7 @@ class Cart extends Component {
 							? 
 							<div>
 								<div className="review-payment">
-									<h2>Order List</h2>
+									<h2>Order History</h2>
 								</div>
 								<div className="table-responsive cart_info">
 										<table className="table table-hover">
@@ -68,7 +68,7 @@ class Cart extends Component {
 													<td style={{textAlign: 'center'}}>Payment</td>
 													<td style={{textAlign: 'center'}}>Shipment</td>
 													<td style={{textAlign: 'center'}}>Status</td>
-													<td style={{textAlign: 'center'}}>Order Details</td>
+													<td style={{textAlign: 'center'}}>Details</td>
 												</tr>
 											</thead>
 											<tbody>
@@ -78,7 +78,7 @@ class Cart extends Component {
 									</div>
 								</div>
 						: <div className="col-sm-12">    	
-								<h2 className="title text-center">No Order List</h2>
+								<h2 className="title text-center">No Order History</h2>
 								<div id="gmap" className="contact-map card-body">
 									<center>
 									<img src="images/home/list.png" style={{width: '200px',height: 'auto'}}></img><br/>

@@ -8,6 +8,7 @@ var route_order = require('./route/route_order')
 var route_wishlist = require('./route/route_wishlist')
 var route_category = require('./route/route_category')
 var route_shipping = require('./route/route_shipping')
+var route_nodemailer = require('./route/route_nodemailer')
 var cors = require('cors')
 
 var server = express();
@@ -19,6 +20,7 @@ server.use(route_category);
 server.use(route_shipping);
 server.use(route_users);
 server.use(route_login);
+server.use(route_nodemailer);
 server.use(route_loginadmin);
 server.use(cors())
 server.use('/img', express.static('storage'))

@@ -1,6 +1,5 @@
 var router = require('express').Router()
 var mysql = require('mysql');
-var express = require('express');
 var session = require('express-session');
 var path = require('path');
 var bodyParser = require('body-parser');

@@ -33,7 +33,7 @@ class Profile extends Component {
 		}
 		else{
 			var id = this.props.location.pathname.slice(15)
-			axios.put(`http://localhost:3210/orderpayment/${id}`, {payment: 'Waiting To Be Confirmed'})
+			axios.put(`http://localhost:3210/orderpayment/${id}`, {payment: 'Waiting to be Confirmed'})
 			var link = 'http://localhost:3210/confirmpayment'
 			axios.post(link, {
 				transaction_date: transaction_date,
@@ -49,7 +49,7 @@ class Profile extends Component {
 					icon: "success",
 					button: "OK",
 				}).then(()=>{
-					window.location.href = '/order'
+					window.location.href = '/orders'
 				})
 			})
 			.catch((x)=>{
@@ -82,6 +82,7 @@ class Profile extends Component {
 										<li className="list-group-item">BNI 10559163452 a/n Getmyu Store</li>
 										<li className="list-group-item">Mandiri 1180059163452 a/n Getmyu Store</li>
 									</ul>
+									<h5><a style={{color:'orange'}} href={`/invoice/${this.props.location.pathname.slice(15)}`} target="_blank">> View Invoice</a></h5>
 							</div>{/*/login form*/}
 						</div>
 

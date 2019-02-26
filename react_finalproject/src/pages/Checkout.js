@@ -104,6 +104,16 @@ class Cart extends Component {
 			})
 		}
 
+		axios.post('http://localhost:3210/mail',{
+			email: this.state.email,
+			first_name: this.state.first_name,
+			last_name: this.state.last_name,
+			id_order: neworder
+		})
+		.then((x)=>{
+			console.log(x)
+		})
+
 		axios.post('http://localhost:3210/order', {
 				id_order: neworder,
 				username: this.props.username,
@@ -211,7 +221,7 @@ class Cart extends Component {
 												<td>{this.state.first_name} {this.state.last_name}</td>
 											</tr>
 											<tr>
-												<td>({this.state.telephone})</td>								
+												<td>{this.state.telephone}</td>								
 											</tr>
 											<tr>
 												<td>{this.state.address}</td>									

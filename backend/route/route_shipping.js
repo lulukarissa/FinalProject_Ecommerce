@@ -1,6 +1,5 @@
 var router = require('express').Router()
 var mysql = require('mysql');
-var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors')
 
