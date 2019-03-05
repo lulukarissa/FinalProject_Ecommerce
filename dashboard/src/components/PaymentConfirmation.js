@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios'
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -11,7 +12,7 @@ class Tables extends Component {
     }
 
     getPayment = () =>{
-        var link = 'http://localhost:3210/confirmpayment'
+        var link = `${API_URL}/confirmpayment`
 
         axios.get(link)
         .then((x)=>{
@@ -24,11 +25,11 @@ class Tables extends Component {
     }
 
     postConfirmation = (e) =>{
-        axios.put(`http://localhost:3210/orderpayment/${e}`,{
+        axios.put(`${API_URL}/orderpayment/${e}`,{
             payment: 'Paid'
         })
 
-        axios.delete(`http://localhost:3210/confirmpayment/${e}`)
+        axios.delete(`${API_URL}/confirmpayment/${e}`)
         .then((x)=>{
             swal({
                 title: "Confirmed!",

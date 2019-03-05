@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios'
 import swal from '@sweetalert/with-react'
 
@@ -13,7 +14,7 @@ class Shop extends Component {
     componentDidMount(){
         var search = this.props.location.pathname.slice(8)
 
-        axios.get(`http://localhost:3210/search/${search}`)
+        axios.get(`${API_URL}/search/${search}`)
         .then((x)=>{
             this.setState({
                 products: x.data
@@ -24,7 +25,7 @@ class Shop extends Component {
     }
     
     addtowishlist = (e) =>{
-        axios.post('http://localhost:3210/wishlist', {
+        axios.post(`${API_URL}/wishlist`, {
             username: this.props.username,
             id_product: e
         }).then((x) => {
@@ -53,7 +54,7 @@ class Shop extends Component {
             <div className="product-image-wrapper">
               <div className="single-products">
                   <div className="productinfo text-center">
-                    <img src={`http://localhost:3210/img/${image}`} alt="" />
+                    <img src={`${API_URL}/img/${image}`} alt="" />
                     <h2>IDR {new Intl.NumberFormat().format(price)}</h2>
                     <p>{product_name}</p>
                     <p><b>{artist}</b></p>

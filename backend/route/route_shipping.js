@@ -1,22 +1,11 @@
 var router = require('express').Router()
-var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var cors = require('cors')
 
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '12345',
-    database: 'getmyu_store',
-})
-
 router.use(bodyParser.json());
 router.use(cors());
 
-db.connect(()=>{
-    console.log('You are now connected...')
-})
 
 //GET Province
 router.get('/province', (request, response) => {

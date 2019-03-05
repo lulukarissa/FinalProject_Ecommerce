@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import Label from '../components/Label';
 // import Header from '../components/Header';
 // import Footer from '../components/Footer';

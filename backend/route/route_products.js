@@ -1,31 +1,12 @@
-var express = require('express')
-var app = express()
-
 var router = require('express').Router()
-var mysql = require('mysql')
+var db = require('../database_connection/db_connect');
 var upload = require('express-fileupload')
 var bodyParser = require('body-parser');
 var cors = require('cors')
 
-//middleware
-app.use(upload())
-app.use(cors())
-// app.use('/img', express.static('storage'))
-
 router.use(bodyParser.json())
 router.use(upload())
 router.use(cors())
-
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '12345',
-    database: 'getmyu_store',
-})
-
-db.connect(()=>{
-    console.log('Terhubung ke MySQL!')
-})
 
 //===============================================ALLPRODUCTS=====================================================
 
@@ -490,6 +471,7 @@ router.get('/catpricehigh/:id', (req, res)=>{
     })
 })
 
+//===============================================SEARCH==========================================================
 
 router.get('/search/:search', (req,res)=>{
     var search = req.params.search
@@ -504,6 +486,8 @@ router.get('/search/:search', (req,res)=>{
         }
     })
 })
+
+//===============================================RECOMMENDED=====================================================
 
 router.get('/recommended', (req, res)=>{
     var dbstat = ' select * from products group by category having max(quantity)'

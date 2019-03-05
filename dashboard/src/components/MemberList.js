@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios'
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -11,7 +12,7 @@ class Tables extends Component {
     }
 
     getUsers = () =>{
-        var link = 'http://localhost:3210/users'
+        var link = `${API_URL}/users`
         axios.get(link)
         .then((x)=>{
             this.setState({
@@ -36,7 +37,7 @@ class Tables extends Component {
     })
     .then((willDelete) => {
         if (willDelete) {
-            axios.delete(`http://localhost:3210/users/${e}`)
+            axios.delete(`${API_URL}/users/${e}`)
             .then((x)=>{
                 console.log(x)
                 this.getUsers()

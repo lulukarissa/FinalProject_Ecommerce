@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios';
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -20,7 +21,7 @@ class EditProducts extends Component {
         var id_edit = this.props.location.pathname.slice(14,16)
         // console.log(id_edit)
 
-        axios.get(`http://localhost:3210/product/${id_edit}`)
+        axios.get(`${API_URL}/product/${id_edit}`)
         .then((getData)=>{
             // console.log(getData.data)
             this.setState({
@@ -76,7 +77,7 @@ class EditProducts extends Component {
         addproduct.append('quantity', this.state.quantity);
         addproduct.append('image', this.state.image);
         
-        var url = `http://localhost:3210/product/${id_edit}`
+        var url = `${API_URL}/product/${id_edit}`
 
         axios.put(url, addproduct)
         .then((x)=>{

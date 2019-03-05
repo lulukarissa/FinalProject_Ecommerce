@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios';
 import swal from '@sweetalert/with-react'
 
@@ -7,32 +8,48 @@ class Register extends Component {
 
 	  postData = (e)=>{
 		e.preventDefault()
-		var url = 'http://localhost:3210/register'
-		axios.post(url,{
-			username: this.refs.username.value,
-			first_name: this.refs.first_name.value,
-			last_name: this.refs.last_name.value,
-			email: this.refs.email.value,
-			password: this.refs.password.value,
-		})
-		.then(()=>{
-			var username = this.refs.username.value
-			var first_name = this.refs.first_name.value
 
-			localStorage.setItem('username', username)
-			this.props.getUsername(username)
+		var url = `${API_URL}/users`;
+		axios.get(url).then((x)=>{
+			var userdata = x.data
+			
+			var i;
+		  for(i=0; i<userdata.length; i++){
+			  if (this.refs.email.value === userdata[i].email){
+					swal({text: "Email has already used!",
+					icon: "warning",
+					dangerMode: true})
+				}
+				else{
+					var url = `${API_URL}/register`
+					axios.post(url,{
+						username: this.refs.username.value,
+						first_name: this.refs.first_name.value,
+						last_name: this.refs.last_name.value,
+						email: this.refs.email.value,
+						password: this.refs.password.value,
+					})
+					.then(()=>{
+						var username = this.refs.username.value
+						var first_name = this.refs.first_name.value
 
-			swal({
-				title: "You have successfully registered!",
-				text: `Thank you for joining us, happy shopping ${first_name}!`,
-				icon: "success",
-				button: "GO TO HOME",
-			}).then(()=>{
-				window.location.href = '/home'
-			})
-		})
-		.catch((x)=>{
-			console.log('Error!')
+						localStorage.setItem('username', username)
+						this.props.getUsername(username)
+
+						swal({
+							title: "You have successfully registered!",
+							text: `Thank you for joining us, happy shopping ${first_name}!`,
+							icon: "success",
+							button: "GO TO HOME",
+						}).then(()=>{
+							window.location.href = '/home'
+						})
+					})
+					.catch((x)=>{
+						console.log('Error!')
+					})
+				}
+			}
 		})
 	}
 	

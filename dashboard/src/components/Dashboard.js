@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios'
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -9,7 +10,7 @@ class Tables extends Component {
         products: []
     }
     componentDidMount(){
-    var link = 'http://localhost:3210/product'
+    var link = `${API_URL}/product`
 
     axios.get(link)
     .then((x)=>{
@@ -22,7 +23,7 @@ class Tables extends Component {
   }
 
     deleteData = (e) =>{
-        var link = `http://localhost:3210/product/${e}`
+        var link = `${API_URL}/product/${e}`
 
         axios.delete(link)
         .then((x)=>{
@@ -56,7 +57,7 @@ class Tables extends Component {
                 <td>{price}</td>
                 <td class="text-center">{quantity}</td>
                 <td class="text-center">{category}</td>
-                <td><a href={`http://localhost:3210/img/${image}`} target="__blank">{image}</a></td>
+                <td><a href={`${API_URL}/img/${image}`} target="__blank">{image}</a></td>
                 <td class="text-center">
                     <a class="btn btn-primary" href={`/edit-product/${id_product}`}>Edit</a>
                     <span>  </span>

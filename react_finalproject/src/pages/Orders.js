@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios';
 import swal from '@sweetalert/with-react';
 
@@ -8,7 +9,7 @@ class Cart extends Component {
 	}
 
 	getOrderList = () =>{
-		axios.get(`http://localhost:3210/orders/${this.props.username}`)
+		axios.get(`${API_URL}/orders/${this.props.username}`)
 		.then((x)=>{
 			this.setState({
 				orderlist: x.data

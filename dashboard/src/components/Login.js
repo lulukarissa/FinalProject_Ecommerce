@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios';
 import swal from '@sweetalert/with-react'
 
 class Login extends Component {
 
 	login = (e) => {
-		var url = 'http://localhost:3210/verifadmin';
+		var url = `${API_URL}/verifadmin`;
 		axios.get(url).then((x)=>{
 		  var userdata = x.data
 	
@@ -16,7 +17,7 @@ class Login extends Component {
 			var i;
 		  for(i = 0; i<userdata.length; i++){
 			  if (username === userdata[i].username && password === userdata[i].password){
-				axios.post('http://localhost:3210/loginadmin', {
+				axios.post(`${API_URL}/loginadmin`, {
 				  username: e.username.value,
 				  password: e.password.value
 				}).then(() => {

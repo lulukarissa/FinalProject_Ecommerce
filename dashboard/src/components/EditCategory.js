@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios';
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -12,7 +13,7 @@ class AddCategory extends Component {
 
     componentDidMount(){
         var id_edit = this.props.location.pathname.slice(15)
-        axios.get(`http://localhost:3210/categoryid/${id_edit}`)
+        axios.get(`${API_URL}/categoryid/${id_edit}`)
         .then((x)=>{
             this.setState({
                 category_name: x.data[0].category_name
@@ -21,7 +22,7 @@ class AddCategory extends Component {
     }
     postData = ()=>{
         var id_edit = this.props.location.pathname.slice(15)
-		var url = `http://localhost:3210/category/${id_edit}`
+		var url = `${API_URL}/category/${id_edit}`
 		axios.put(url,{
             category_name: this.refs.category_name.value
 		})

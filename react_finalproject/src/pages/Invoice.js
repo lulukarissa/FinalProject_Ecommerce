@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios'
 import swal from '@sweetalert/with-react'
 
@@ -11,7 +12,7 @@ class Tables extends Component {
 
 	getOrderItems = () =>{
         var id = this.props.location.pathname.slice(9)
-		axios.get(`http://localhost:3210/orderitems/${id}`)
+		axios.get(`${API_URL}/orderitems/${id}`)
 		.then((x)=>{
 			this.setState({
 				orderitems: x.data
@@ -21,7 +22,7 @@ class Tables extends Component {
     
     getOrderDetails = () =>{
         var id = this.props.location.pathname.slice(9)
-		axios.get(`http://localhost:3210/ordersbyid/${id}`)
+		axios.get(`${API_URL}/ordersbyid/${id}`)
 		.then((x)=>{
 			this.setState({
 				orderdetails: x.data[0]
@@ -42,7 +43,7 @@ class Tables extends Component {
                 <td>
                 <div className="row">
 					<div className="col-sm-2">
-						<img src={`http://localhost:3210/img/${val.image}`} style={{width:'50px', height:'50px'}}/>
+						<img src={`${API_URL}/img/${val.image}`} style={{width:'50px', height:'50px'}}/>
 					</div>
 					<div className="col-sm-10">
 						<b style={{marginLeft:'10px'}}>{val.product_name}</b><br/>

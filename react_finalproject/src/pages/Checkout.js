@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios';
 import swal from '@sweetalert/with-react'
 
@@ -18,7 +19,7 @@ class Cart extends Component {
 	}
 
 	getCart = () => {
-		var url = `http://localhost:3210/cart/${this.props.username}`
+		var url = `${API_URL}/cart/${this.props.username}`
 		axios.get(url)
 		.then((x)=>{
 			this.setState({
@@ -28,7 +29,7 @@ class Cart extends Component {
 	}
 
 	getCount = () => {
-		axios.get(`http://localhost:3210/cartcount/${this.props.username}`)
+		axios.get(`${API_URL}/cartcount/${this.props.username}`)
 			.then((x)=>{
 				this.setState({
 					cartcount: x.data[0]
@@ -43,7 +44,7 @@ class Cart extends Component {
 		this.getCount()
 		this.getShipping()
 
-		var link = `http://localhost:3210/users/${this.props.username}`
+		var link = `${API_URL}/users/${this.props.username}`
 
 		axios.get(link)
 		.then((x)=>{
@@ -60,7 +61,7 @@ class Cart extends Component {
 	}
 
 	getShipping = ()=>{
-		var url = 'http://localhost:3210/shipping'
+		var url = `${API_URL}/shipping`
 
 		axios.post(url,{
 			destination: this.props.city,
@@ -88,7 +89,7 @@ class Cart extends Component {
 			// var miliseconds = order.getMilliseconds()
 			var neworder = `${year}${month}${date}${hours}${minutes}${seconds}`
 
-			axios.post('http://localhost:3210/orderitems', {
+			axios.post(`${API_URL}/orderitems`, {
 					id_order: neworder,
 					id_product: this.state.cart[i].id_product,
 					quantity: this.state.cart[i].quantity,
@@ -98,13 +99,13 @@ class Cart extends Component {
 				console.log(x)
 			})
 
-			axios.delete(`http://localhost:3210/cartdelete/${this.state.cart[i].id_cart}`)
+			axios.delete(`${API_URL}/cartdelete/${this.state.cart[i].id_cart}`)
 			.then((x)=>{
 				console.log(x)
 			})
 		}
 
-		axios.post('http://localhost:3210/mail',{
+		axios.post(`${API_URL}/mail`,{
 			email: this.state.email,
 			first_name: this.state.first_name,
 			last_name: this.state.last_name,
@@ -114,7 +115,7 @@ class Cart extends Component {
 			console.log(x)
 		})
 
-		axios.post('http://localhost:3210/order', {
+		axios.post(`${API_URL}/order`, {
 				id_order: neworder,
 				username: this.props.username,
 				subtotal: this.state.cartcount.totalprice,
@@ -152,7 +153,7 @@ class Cart extends Component {
 			return(
 				<tr>
 					<td className="cart_product">
-						<a href={`/product-details/${id_product}`}><img src={`http://localhost:3210/img/${image}`} style={{width:'150px', height:'150px'}} alt=""/></a>
+						<a href={`/product-details/${id_product}`}><img src={`${API_URL}/img/${image}`} style={{width:'150px', height:'150px'}} alt=""/></a>
 					</td>
 					<td className="cart_description">
 						<h4 style={{marginLeft: "80px"}}><a href={`/product-details/${id_product}`}>{product_name}</a></h4>

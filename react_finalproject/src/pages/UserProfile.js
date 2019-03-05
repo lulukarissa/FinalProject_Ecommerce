@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios';
 
 class Profile extends Component {
@@ -12,7 +13,7 @@ class Profile extends Component {
 	}
 	
 	componentDidMount(){
-	var link = `http://localhost:3210/users/${this.props.username}`
+	var link = `${API_URL}/users/${this.props.username}`
 
 	axios.get(link)
 	.then((x)=>{

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import Label from '../components/Label';
 import axios from 'axios'
 import swal from '@sweetalert/with-react'
@@ -17,7 +18,7 @@ class Shop extends Component {
       
       componentDidMount(){
 
-      axios.get('http://localhost:3210/product')
+      axios.get(`${API_URL}/product`)
       .then((x)=>{
           this.setState({
               products: x.data
@@ -29,7 +30,7 @@ class Shop extends Component {
 
     alphabeticalasc = (e)=>{
         e.preventDefault();
-        axios.get('http://localhost:3210/alphabeticalasc')
+        axios.get(`${API_URL}/alphabeticalasc`)
         .then((x)=>{
             this.setState({
                 products: x.data
@@ -41,7 +42,7 @@ class Shop extends Component {
 
     alphabeticaldesc = (e)=>{
         e.preventDefault();
-        axios.get('http://localhost:3210/alphabeticaldesc')
+        axios.get(`${API_URL}/alphabeticaldesc`)
         .then((x)=>{
             this.setState({
                 products: x.data
@@ -53,7 +54,7 @@ class Shop extends Component {
 
     dateoldest = (e)=>{
         e.preventDefault();
-        axios.get('http://localhost:3210/dateoldest')
+        axios.get(`${API_URL}/dateoldest`)
         .then((x)=>{
             this.setState({
                 products: x.data
@@ -65,7 +66,7 @@ class Shop extends Component {
 
     datenewest = (e)=>{
         e.preventDefault();
-        axios.get('http://localhost:3210/datenewest')
+        axios.get(`${API_URL}/datenewest`)
         .then((x)=>{
             this.setState({
                 products: x.data
@@ -77,7 +78,7 @@ class Shop extends Component {
 
     pricelow = (e)=>{
         e.preventDefault();
-        axios.get('http://localhost:3210/pricelow')
+        axios.get(`${API_URL}/pricelow`)
         .then((x)=>{
             this.setState({
                 products: x.data
@@ -89,7 +90,7 @@ class Shop extends Component {
 
     pricehigh = (e)=>{
         e.preventDefault();
-        axios.get('http://localhost:3210/pricehigh')
+        axios.get(`${API_URL}/pricehigh`)
         .then((x)=>{
             this.setState({
                 products: x.data
@@ -115,7 +116,7 @@ class Shop extends Component {
     
       addtowishlist = (e) =>{
         if(this.props.username){
-          axios.post('http://localhost:3210/wishlist', {
+          axios.post(`${API_URL}/wishlist`, {
             username: this.props.username,
             id_product: e
           }).then((x) => {
@@ -157,7 +158,7 @@ class Shop extends Component {
             <div className="product-image-wrapper">
               <div className="single-products">
                   <div className="productinfo text-center">
-                    <img src={`http://localhost:3210/img/${image}`} alt="" />
+                    <img src={`${API_URL}/img/${image}`} alt="" />
                     <h2>IDR {new Intl.NumberFormat().format(price)}</h2>
                     <p>{product_name}</p>
                     <p><b>{artist}</b></p>

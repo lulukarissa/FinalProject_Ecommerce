@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios'
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -11,7 +12,7 @@ class Tables extends Component {
     }
 
     getCategory = () =>{
-        var link = 'http://localhost:3210/category'
+        var link = `${API_URL}/category`
 
         axios.get(link)
         .then((x)=>{
@@ -33,7 +34,7 @@ class Tables extends Component {
 		})
 		.then((willDelete) => {
 			if (willDelete) {
-                axios.delete(`http://localhost:3210/category/${e}`)
+                axios.delete(`${API_URL}/category/${e}`)
                 .then((x)=>{
                     console.log(x)
                     this.getCategory()

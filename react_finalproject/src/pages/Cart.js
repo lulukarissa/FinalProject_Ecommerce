@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios';
 import swal from '@sweetalert/with-react'
 
@@ -11,8 +12,7 @@ class Cart extends Component {
 	
 
 	getCart = () => {
-		var url = `http://localhost:3210/cart/${this.props.username}`
-		axios.get(url)
+		axios.get(`${API_URL}/cart/${this.props.username}`)
 		.then((x)=>{
 			this.setState({
 				cart: x.data
@@ -21,7 +21,7 @@ class Cart extends Component {
 	}
 
 	getCount = () => {
-		axios.get(`http://localhost:3210/cartcount/${this.props.username}`)
+		axios.get(`${API_URL}/cartcount/${this.props.username}`)
 			.then((x)=>{
 				this.setState({
 					cartcount: x.data[0]
@@ -44,7 +44,7 @@ class Cart extends Component {
 		})
 		.then((willDelete) => {
 			if (willDelete) {
-				axios.delete(`http://localhost:3210/cartdelete/${id_cart}`)
+				axios.delete(`${API_URL}/cartdelete/${id_cart}`)
 				.then((x)=>{
 					console.log(x)
 					this.getCart();
@@ -59,7 +59,7 @@ class Cart extends Component {
 		})
 
 
-		axios.put(`http://localhost:3210/productquantity/${id_product}`,{
+		axios.put(`${API_URL}/productquantity/${id_product}`,{
 			quantity: stock + quantitycart
 		})
 	}
@@ -79,7 +79,7 @@ class Cart extends Component {
 			return(
 				<tr>
 					<td className="cart_product">
-						<a href={`/product-details/${id_product}`}><img src={`http://localhost:3210/img/${image}`} style={{width:'150px', height:'150px'}} alt=""/></a>
+						<a href={`/product-details/${id_product}`}><img src={`${API_URL}/img/${image}`} style={{width:'150px', height:'150px'}} alt=""/></a>
 					</td>
 					<td className="cart_description">
 						<h4 style={{marginLeft: "40px"}}><a href={`/product-details/${id_product}`}>{product_name}</a></h4>
@@ -100,7 +100,7 @@ class Cart extends Component {
 									dangerMode: true})
 								}
 								else{
-									axios.put(`http://localhost:3210/cart/${id_cart}`,{
+									axios.put(`${API_URL}/cart/${id_cart}`,{
 										quantity: e.target.value,
 										total_price: e.target.value * price
 									})
@@ -110,12 +110,12 @@ class Cart extends Component {
 									})
 
 									if(e.target.value > e.target.defaultValue){
-										axios.put(`http://localhost:3210/productquantity/${id_product}`,{
+										axios.put(`${API_URL}/productquantity/${id_product}`,{
 											quantity: parseInt(stock) - (parseInt(e.target.value) - parseInt(e.target.defaultValue))
 										})
 									}
 									else if(e.target.value < e.target.defaultValue){
-										axios.put(`http://localhost:3210/productquantity/${id_product}`,{
+										axios.put(`${API_URL}/productquantity/${id_product}`,{
 											quantity: parseInt(stock) + (parseInt(e.target.defaultValue) - parseInt(e.target.value))
 										})
 									}

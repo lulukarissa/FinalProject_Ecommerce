@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios';
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -7,7 +8,7 @@ import swal from '@sweetalert/with-react'
 
 class AddCategory extends Component {
     postData = ()=>{
-		var url = 'http://localhost:3210/category'
+		var url = `${API_URL}/category`
 		axios.post(url,{
             category_name: this.refs.category_name.value
 		})

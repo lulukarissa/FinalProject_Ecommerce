@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios';
 import swal from '@sweetalert/with-react'
 
@@ -16,7 +17,7 @@ class Profile extends Component {
 	
 	componentDidMount(){
 
-		axios.get(`http://localhost:3210/users/${this.props.username}`)
+		axios.get(`${API_URL}/users/${this.props.username}`)
 		.then((x)=>{
 				this.setState({
 					username: x.data[0].username,
@@ -28,7 +29,7 @@ class Profile extends Component {
 		})
 		.catch()
 
-		axios.get(`http://localhost:3210/province`)
+		axios.get(`${API_URL}/province`)
 			.then((x)=>{
 				this.setState({
 					province: x.data.rajaongkir.results
@@ -37,7 +38,7 @@ class Profile extends Component {
 	}
 
 	getCity = (e) =>{
-		axios.get(`http://localhost:3210/city/${e}`)
+		axios.get(`${API_URL}/city/${e}`)
 		.then((x)=>{
 			this.setState({
 				city: x.data.rajaongkir.results
@@ -64,7 +65,7 @@ class Profile extends Component {
 				dangerMode: true})
 			}
 			else{
-				var url = `http://localhost:3210/users/${this.props.username}`
+				var url = `${API_URL}/users/${this.props.username}`
 				axios.put(url,{
 					username: username,
 					first_name: first_name,

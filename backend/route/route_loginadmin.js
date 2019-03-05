@@ -1,31 +1,10 @@
 var router = require('express').Router()
-var mysql = require('mysql');
-var session = require('express-session');
-var path = require('path');
+var db = require('../database_connection/db_connect');
 var bodyParser = require('body-parser');
 var cors = require('cors')
 
-
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '12345',
-    database: 'getmyu_store',
-})
-
-router.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
-router.use(bodyParser.urlencoded({extended : true}));
 router.use(bodyParser.json());
 router.use(cors());
-
-db.connect(()=>{
-    console.log('You are now connected...')
-})
-
 
 router.post('/loginadmin', (req, res) => {
     var username = req.body.username;

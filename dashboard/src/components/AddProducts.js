@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios';
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -63,7 +64,7 @@ class Form extends Component {
         addproduct.append('quantity', this.state.quantity);
         addproduct.append('image', this.state.image);
         
-        var url = 'http://localhost:3210/product'
+        var url = `${API_URL}/product`
 
         axios.post(url, addproduct)
         .then((x)=>{

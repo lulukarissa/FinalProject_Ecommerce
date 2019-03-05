@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios';
 import swal from '@sweetalert/with-react'
 
@@ -8,7 +9,7 @@ class Cart extends Component {
 	}
 
 	getWishlist = () =>{
-		var url = `http://localhost:3210/wishlist/${this.props.username}`
+		var url = `${API_URL}/wishlist/${this.props.username}`
 		axios.get(url)
 		.then((x)=>{
 			this.setState({
@@ -32,7 +33,7 @@ class Cart extends Component {
 		})
 		.then((willDelete) => {
 			if (willDelete) {
-				axios.delete(`http://localhost:3210/wishlistdelete/${e}`)
+				axios.delete(`${API_URL}/wishlistdelete/${e}`)
 				.then((x)=>{
 					console.log(x)
 					this.getWishlist()
@@ -60,7 +61,7 @@ class Cart extends Component {
 			return(
 				<tr>
 					<td className="cart_product">
-						<a href=""><img src={`http://localhost:3210/img/${image}`} style={{width:'150px', height:'150px'}} alt=""/></a>
+						<a href=""><img src={`${API_URL}/img/${image}`} style={{width:'150px', height:'150px'}} alt=""/></a>
 					</td>
 					<td className="cart_description">
 						<h4><a href="">{product_name}</a></h4>

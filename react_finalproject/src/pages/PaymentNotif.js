@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios';
 import swal from '@sweetalert/with-react'
 
@@ -9,7 +10,7 @@ class Profile extends Component {
 
 	getTotalPayment = () =>{
 		var id = this.props.location.pathname.slice(15)
-		var link = `http://localhost:3210/totalpayment/${id}`
+		var link = `${API_URL}/totalpayment/${id}`
 		
 		axios.get(link)
 		.then((x)=>{
@@ -33,9 +34,8 @@ class Profile extends Component {
 		}
 		else{
 			var id = this.props.location.pathname.slice(15)
-			axios.put(`http://localhost:3210/orderpayment/${id}`, {payment: 'Waiting to be Confirmed'})
-			var link = 'http://localhost:3210/confirmpayment'
-			axios.post(link, {
+			axios.put(`${API_URL}/orderpayment/${id}`, {payment: 'Waiting to be Confirmed'})
+			axios.post(`${API_URL}/confirmpayment`, {
 				transaction_date: transaction_date,
 				sender_name: sender_name,
 				amount: amount,

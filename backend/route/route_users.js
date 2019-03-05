@@ -1,21 +1,10 @@
 var router = require('express').Router()
-var mysql = require('mysql')
+var db = require('../database_connection/db_connect');
 var bodyParser = require('body-parser');
 router.use(bodyParser.json())
 
 var cors = require('cors')
 router.use(cors())
-
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '12345',
-    database: 'getmyu_store',
-})
-
-db.connect(()=>{
-    // console.log('Connect to MySQL!')
-})
 
 //GET all data
 router.get('/users', (req, res)=>{

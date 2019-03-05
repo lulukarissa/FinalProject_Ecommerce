@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios'
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -13,7 +14,7 @@ class Tables extends Component {
 
 	getOrderItems = () =>{
         var id = this.props.location.pathname.slice(15)
-		axios.get(`http://localhost:3210/orderitems/${id}`)
+		axios.get(`${API_URL}/orderitems/${id}`)
 		.then((x)=>{
 			this.setState({
 				orderitems: x.data
@@ -23,7 +24,7 @@ class Tables extends Component {
     
     getOrderDetails = () =>{
         var id = this.props.location.pathname.slice(15)
-		axios.get(`http://localhost:3210/ordersbyid/${id}`)
+		axios.get(`${API_URL}/ordersbyid/${id}`)
 		.then((x)=>{
 			this.setState({
 				orderdetails: x.data[0]
@@ -43,7 +44,7 @@ class Tables extends Component {
             <tr key={i}>
                 <td>{val.product_name}</td>
                 <td>{val.artist}</td>
-                <td class="text-center"><a href={`http://localhost:3210/img/${val.image}`} target="_blank">{val.image}</a></td>
+                <td class="text-center"><a href={`${API_URL}/img/${val.image}`} target="_blank">{val.image}</a></td>
                 <td>IDR <span style={{float:'right'}}>{new Intl.NumberFormat().format(val.price)}</span></td>
                 <td class="text-center">{val.quantity}</td>
                 <td>IDR <span style={{float:'right'}}>{new Intl.NumberFormat().format(val.total_price)}</span></td>

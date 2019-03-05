@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import Label from '../components/Label';
 import axios from 'axios';
 import swal from '@sweetalert/with-react'
@@ -14,7 +15,7 @@ class Products extends Component {
       
       componentDidMount(){
 				var id = this.props.location.pathname.slice(17)
-				var link = `http://localhost:3210/product/${id}`
+				var link = `${API_URL}/product/${id}`
 
 				console.log(id)
 				
@@ -27,7 +28,7 @@ class Products extends Component {
 					})
 					.catch()
 
-				axios.get('http://localhost:3210/recommended')
+				axios.get(`${API_URL}/recommended`)
 				.then((x)=>{
 						this.setState({
 								recommended: x.data
@@ -44,8 +45,13 @@ class Products extends Component {
 					icon: "warning",
 					dangerMode: true})
 				}
+				else if(this.refs.quantity.value < 1){
+					swal({text: "Please input the right number!",
+					icon: "warning",
+					dangerMode: true})
+				}
 				else{
-					axios.post('http://localhost:3210/cart', {
+					axios.post(`${API_URL}/cart`, {
 							username: this.props.username,
 							id_product: this.props.location.pathname.slice(17),
 							quantity: this.refs.quantity.value,
@@ -70,7 +76,7 @@ class Products extends Component {
 					})
 
 					var id = this.props.location.pathname.slice(17)
-					axios.put(`http://localhost:3210/productquantity/${id}`,{
+					axios.put(`${API_URL}/productquantity/${id}`,{
 						quantity: this.state.products.quantity - this.refs.quantity.value
 					})
 				}
@@ -82,7 +88,7 @@ class Products extends Component {
 		
 		addtowishlist = (e) =>{
 			if(this.props.username){
-				axios.post('http://localhost:3210/wishlist', {
+				axios.post(`${API_URL}/wishlist`, {
 					username: this.props.username,
 					id_product: e
 				}).then((x) => {
@@ -118,7 +124,7 @@ class Products extends Component {
               <div className="single-products">
 							<a href={`/product-details/${id_product}`}>
                 <div className="productinfo text-center">
-                  <img src={`http://localhost:3210/img/${image}`} alt="" />
+                  <img src={`${API_URL}/img/${image}`} alt="" />
                   <h2>IDR {new Intl.NumberFormat().format(price)}</h2>
                   <p>{product_name}</p>
                   <p><b>{artist}</b></p>
@@ -145,7 +151,7 @@ class Products extends Component {
               <div className="single-products">
 							<a href={`/product-details/${id_product}`}>
                 <div className="productinfo text-center">
-                  <img src={`http://localhost:3210/img/${image}`} alt="" />
+                  <img src={`${API_URL}/img/${image}`} alt="" />
                   <h2>IDR {new Intl.NumberFormat().format(price)}</h2>
                   <p>{product_name}</p>
                   <p><b>{artist}</b></p>
@@ -168,7 +174,7 @@ class Products extends Component {
 							<div className="product-details">{/*product-details*/}
 								<div className="col-sm-6">
 									<div className="view-product">
-										<img src={`http://localhost:3210/img/${this.state.products.image}`} alt="" />
+										<img src={`${API_URL}/img/${this.state.products.image}`} alt="" />
 									</div>
 								</div>
 								<div className="col-sm-6">

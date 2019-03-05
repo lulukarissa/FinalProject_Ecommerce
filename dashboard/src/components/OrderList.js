@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL } from '../API_URL/API_URL';
 import axios from 'axios'
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -11,7 +12,7 @@ class Tables extends Component {
 	}
 
 	getOrderList = () =>{
-		axios.get(`http://localhost:3210/orders`)
+		axios.get(`${API_URL}/orders`)
 		.then((x)=>{
 			this.setState({
 				orderlist: x.data
@@ -24,7 +25,7 @@ class Tables extends Component {
     }
 
     changeShipment = (e) =>{
-        axios.put(`http://localhost:3210/ordershipment/${e}`,{
+        axios.put(`${API_URL}/ordershipment/${e}`,{
             shipment: 'Shipped'
         })
         .then(()=>{
@@ -39,7 +40,7 @@ class Tables extends Component {
     }
 
     changeStatus = (e) =>{
-        axios.put(`http://localhost:3210/ordercomplete/${e}`,{
+        axios.put(`${API_URL}/ordercomplete/${e}`,{
             status: 'Completed'
         })
         .then(()=>{

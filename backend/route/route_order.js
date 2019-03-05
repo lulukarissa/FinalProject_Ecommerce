@@ -1,22 +1,10 @@
 var router = require('express').Router()
-var mysql = require('mysql');
+var db = require('../database_connection/db_connect');
 var bodyParser = require('body-parser');
 var cors = require('cors')
 
-
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '12345',
-    database: 'getmyu_store',
-})
-
 router.use(bodyParser.json());
 router.use(cors());
-
-db.connect(()=>{
-    console.log('You are now connected...')
-})
 
 //POST the order
 router.post('/order', (req, res) => {
