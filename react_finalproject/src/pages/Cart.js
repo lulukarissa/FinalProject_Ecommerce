@@ -99,6 +99,11 @@ class Cart extends Component {
 									icon: "warning",
 									dangerMode: true})
 								}
+								else if(e.target.value < 1){
+									swal({text: 'Please input the right number!',
+									icon: "warning",
+									dangerMode: true})
+								}
 								else{
 									axios.put(`${API_URL}/cart/${id_cart}`,{
 										quantity: e.target.value,

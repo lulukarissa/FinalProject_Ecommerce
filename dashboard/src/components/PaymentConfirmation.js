@@ -41,6 +41,23 @@ class Tables extends Component {
         })
     }
 
+    postRejection = (e) =>{
+        axios.put(`${API_URL}/orderpayment/${e}`,{
+            payment: 'Not Yet Paid'
+        })
+
+        axios.delete(`${API_URL}/confirmpayment/${e}`)
+        .then((x)=>{
+            swal({
+                title: "Rejected!",
+                icon: "warning",
+				dangerMode: true
+            }).then(()=>{
+                this.getPayment()
+            })
+        })
+    }
+
     componentDidMount(){
         this.getPayment()
     }
@@ -57,7 +74,9 @@ class Tables extends Component {
                 <td class="text-center">{val.payment_to}</td>
                 <td class="text-center">{val.id_order}</td>
                 <td class="text-center">
-                    <button class="btn btn-info" onClick={()=>{this.postConfirmation(val.id_order)}}>Confirm</button>
+                    <button class="btn btn-primary" onClick={()=>{this.postConfirmation(val.id_order)}}>Confirm</button>
+                    <span>  </span>
+                    <button class="btn btn-danger" onClick={()=>{this.postRejection(val.id_order)}}>Reject</button>
                 </td>
             </tr>
         )
@@ -100,7 +119,7 @@ class Tables extends Component {
                                                     <th class="text-center">Amount Transferred</th>
                                                     <th class="text-center">Payment To</th>
                                                     <th class="text-center">Order ID</th>
-                                                    <th class="text-center">Settings</th>
+                                                    <th class="text-center">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

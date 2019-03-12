@@ -502,6 +502,41 @@ router.get('/recommended', (req, res)=>{
     })
 })
 
+//===============================================SOLD ITEMS=====================================================
+
+//GET sold items
+router.get('/sold', (req, res)=>{
+    var dbstat = `select products.id_product, products.product_name, sum(order_items.quantity) as total
+    from products
+    join order_items on products.id_product = order_items.id_product
+    join orders on orders.id_order = order_items.id_order
+    where orders.payment = 'paid'
+    group by products.product_name
+    order by total desc`
+    db.query(dbstat, (error, result)=>{
+        if(error){
+            console.log(error)
+        }
+        else{
+            console.log(result)
+            res.send(result)
+        }
+    })
+})
+
+//GET unsaleable products
+router.get('/unsaleable', (req, res)=>{
+    var dbstat = `select id_product, product_name from products where id_product not in(select id_product from order_items join orders on orders.id_order = order_items.id_order where orders.payment = 'paid')`
+    db.query(dbstat, (error, result)=>{
+        if(error){
+            console.log(error)
+        }
+        else{
+            console.log(result)
+            res.send(result)
+        }
+    })
+})
 
 
 

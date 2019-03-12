@@ -12,6 +12,8 @@ import AddCategory from './components/AddCategory'
 import EditProduct from './components/EditProduct'
 import EditCategory from './components/EditCategory'
 import PaymentConfirmation from './components/PaymentConfirmation'
+import SoldItems from './components/SoldItems'
+import Unsaleable from './components/Unsaleable'
 
 
 class App extends Component {
@@ -41,6 +43,8 @@ class App extends Component {
             <Route path='/edit-product/' component={EditProduct} />
             <Route path='/edit-category/' component={EditCategory} />
             <Route path='/payment-confirmation' component={PaymentConfirmation} />
+            <Route path='/sold-items' component={SoldItems} />
+            <Route path='/unsaleable-products' component={Unsaleable} />
         </div>   
       </div>
     );
