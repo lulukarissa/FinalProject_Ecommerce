@@ -25,6 +25,7 @@ class Cart extends Component {
 
 		var orderlist = this.state.orderlist.map((val,i)=>{
 			var id_order = val.id_order
+			var date = val.order_time.slice(0,10)
 			var payment = val.payment
 			var shipment = val.shipment
 			var status = val.status
@@ -32,6 +33,7 @@ class Cart extends Component {
 			return(
 				<tr key={i}>
 					<td>{id_order}</td>
+					<td style={{textAlign: 'center'}}>{date}</td>
 					{
 						payment == 'Not Yet Paid'
 						?	<td style={{textAlign: 'center'}}>{payment}<br/><a style={{color:'orange'}} href={`/payment_notif/${id_order}`} target="_blank">Confirm Payment</a></td>
@@ -66,6 +68,7 @@ class Cart extends Component {
 											<thead>
 												<tr className="cart_menu">
 													<td style={{textAlign: 'center'}}>Order ID</td>
+													<td style={{textAlign: 'center'}}>Date</td>
 													<td style={{textAlign: 'center'}}>Payment</td>
 													<td style={{textAlign: 'center'}}>Shipment</td>
 													<td style={{textAlign: 'center'}}>Status</td>

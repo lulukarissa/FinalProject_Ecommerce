@@ -61,6 +61,7 @@ class Tables extends Component {
             <tr key={i}>
                 <td class="text-center">{val.no}</td>
                 <td><a href={`/order-details/${val.id_order}`}>{val.id_order}</a></td>
+                <td class="text-center">{val.order_time.slice(0,10)}</td>
                 <td>{val.username}</td>
                 <td class="text-center">
                     {val.payment}
@@ -126,6 +127,7 @@ class Tables extends Component {
                                                 <tr>
                                                     <th class="text-center">No</th>
                                                     <th class="text-center">Order ID</th>
+                                                    <th class="text-center">Date</th>
                                                     <th class="text-center">Username</th>
                                                     <th class="text-center">Payment</th>
                                                     <th class="text-center">Shipment</th>
